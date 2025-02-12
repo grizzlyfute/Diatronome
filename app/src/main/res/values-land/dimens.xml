@@ -1,0 +1,6 @@
+<resources>
+  <dimen name="needle_padding_w">48dp</dimen>
+  <dimen name="needle_padding_h">32dp</dimen>
+  <integer name="flow_wrap_vertical">2</integer>
+  <integer name="flow_wrap_horizontal">1</integer>
+</resources>

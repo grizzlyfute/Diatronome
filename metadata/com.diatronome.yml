@@ -1,0 +1,63 @@
+Categories:
+  - Multimedia
+  - Science & Education
+
+AuthorName: Remy Malmartel
+# AuthorEmail:
+# AuthorWebSite:
+
+License: GPL-3.0-or-later
+
+AutoName: Diatronome
+Name: Diatronome
+
+# WebSite:
+SourceCode: https://github.com/grizzlyfute/Diatronome
+
+# IssueTracker:
+# Translation:
+# Changelog:
+
+Donate: https://www.paypal.com/paypalme/RemyMalmartel
+Liberapay: https://en.liberapay.com/grizzlyfute
+# OpenCollective:
+# Bitcoin:
+# Litecoin:
+
+Summary:
+  A tuner, a visual metronome and a ref ntoe player in the same app.
+
+Description:
+  $$$$$ TODO. 4000x80 max+html Basic
+
+  .
+
+#MaintainerNotes:
+RepoType: git
+Repo: https://github.com/grizzlyfute/Diatronome
+
+#Binaries: https://f-droid.org/repo/org.fdroid.fdroid_%c.apk
+
+Builds:
+  - versionName: '1.0.0'
+    versionCode: 100000
+    commit: v1.0.0
+    #disable: <msg>
+
+    # Where build.gradle is:
+    subdir: app
+    # submodule: false
+    # sudo:
+    #   - apt-get update
+    #   # see text below
+    #   - apt-get install -y librsvg2-bin
+    #   - update-alternatives --auto java
+    # timeout: <sec>
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: '1.0.0'
+CurrentVersionCode: 100000
+

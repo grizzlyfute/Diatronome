@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <!--
+    ||1|3|||6|8|a||
+    |0|2|4|5|7|9|b|
+    |C|D|E|F|G|A|B|
+  -->
+
+  <Button
+    android:id="@+id/playBtn0"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="C"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <tag
+      android:id="@+id/playNoteTag"
+      android:value="0" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn2"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="D"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn0"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toEndOf="@id/playBtn0"
+    app:layout_constraintTop_toTopOf="@+id/playBtn0">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="2" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn4"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="E"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn2"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toEndOf="@id/playBtn2"
+    app:layout_constraintTop_toTopOf="@+id/playBtn2">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="4" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn5"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="F"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn4"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toEndOf="@id/playBtn4"
+    app:layout_constraintTop_toTopOf="@+id/playBtn4">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="5" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn7"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="G"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn5"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toEndOf="@id/playBtn5"
+    app:layout_constraintTop_toTopOf="@+id/playBtn5">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="7" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn9"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="A"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn7"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toEndOf="@id/playBtn7"
+    app:layout_constraintTop_toTopOf="@+id/playBtn7">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="9" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn11"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_whitetouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:tag="note=11"
+    android:text="B"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_light"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn9"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHeight_percent="1"
+    app:layout_constraintStart_toEndOf="@id/playBtn9"
+    app:layout_constraintTop_toTopOf="@+id/playBtn9">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="11" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn1"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_blacktouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="C#/Db"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_dark"
+    android:textSize="12sp"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toTopOf="@id/playHzGuide"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="@+id/playBtn2"
+    app:layout_constraintStart_toStartOf="@+id/playBtn0"
+    app:layout_constraintTop_toTopOf="@+id/playBtn0">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="1" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn3"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_blacktouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="D#/Eb"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_dark"
+    android:textSize="12sp"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toTopOf="@id/playHzGuide"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="@+id/playBtn4"
+    app:layout_constraintStart_toStartOf="@+id/playBtn2"
+    app:layout_constraintTop_toTopOf="@+id/playBtn2">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="3" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn6"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_blacktouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="F#/Gb"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_dark"
+    android:textSize="12sp"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toTopOf="@id/playHzGuide"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="@+id/playBtn7"
+    app:layout_constraintStart_toStartOf="@+id/playBtn5"
+    app:layout_constraintTop_toTopOf="@+id/playBtn5">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="6" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn8"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_blacktouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="G#/Ab"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_dark"
+    android:textSize="12sp"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toTopOf="@id/playHzGuide"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="@+id/playBtn9"
+    app:layout_constraintStart_toStartOf="@+id/playBtn7"
+    app:layout_constraintTop_toTopOf="@+id/playBtn7">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="8" />
+  </Button>
+
+  <Button
+    android:id="@+id/playBtn10"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@drawable/piano_blacktouch"
+    android:gravity="bottom|center_horizontal"
+    android:paddingBottom="8dp"
+    android:text="A#/Bb"
+    android:textAllCaps="false"
+    android:textColor="@android:color/primary_text_dark"
+    android:stateListAnimator="@null"
+    app:backgroundTint="@null"
+    app:layout_constraintBottom_toTopOf="@id/playHzGuide"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="@+id/playBtn11"
+    app:layout_constraintStart_toStartOf="@+id/playBtn9"
+    app:layout_constraintTop_toTopOf="@+id/playBtn9">
+
+    <tag
+      android:id="@id/playNoteTag"
+      android:value="10" />
+  </Button>
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/playHzGuide"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="@id/playBtn0"
+    app:layout_constraintGuide_percent="0.60"
+    app:layout_constraintTop_toTopOf="@id/playBtn0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

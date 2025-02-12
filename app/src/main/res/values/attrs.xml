@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- declare attr to extern to avoid found item Attr/xxx more than one time -->
+  <attr name="min" format="integer"/>
+  <attr name="max" format="integer"/>
+
+  <declare-styleable name="NeedleView">
+    <attr name="min" value="-50"/>
+    <attr name="max" value="50"/>
+  </declare-styleable>
+
+  <declare-styleable name="ColorPreference">
+    <attr name="color_dummy" format="string" value="xxx"/>
+  </declare-styleable>
+
+  <declare-styleable name="NumberPickerPreference">
+    <attr name="min" value="0"/>
+    <attr name="max" value="1000"/>
+  </declare-styleable>
+
+  <declare-styleable name="MetronomeView">
+  </declare-styleable>
+</resources>

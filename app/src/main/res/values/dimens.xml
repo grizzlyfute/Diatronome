@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="needle_padding_w">16dp</dimen>
+  <dimen name="needle_padding_h">64dp</dimen>
+  <integer name="flow_wrap_vertical">1</integer>
+  <integer name="flow_wrap_horizontal">2</integer>
+</resources>

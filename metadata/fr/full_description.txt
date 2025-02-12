@@ -1,0 +1,45 @@
+<b><u>A propos</u></b>
+<i>Diatronome</i> est une application 3 en 1 qui fournit un <b>accordeur</b>, un <b>métronome visuel</b> et un <b>synthétiseur</b>.
+<i>Diatronome</i> est une contraction des mots diapasons et métronome.
+
+<b><u>Accordeur</u></b>
+<ul>
+	<li>Note de référence <i>La4</i> entre 430 Hz à 450 Hz. (Appuyer en bas à droite pour ajuster la calibration).</li>
+	<li>Transposition en toutes les tonalités. (Appuyer en bas à gauche pour définir la transposition).</li>
+	<li>Table à tempéraments multiples.</li>
+	<li>Plusieurs algorithmes de détection de fréquence.</li>
+	<li>Sensibilité ajustable.</li>
+</ul>
+
+<b><u>Métronome visuel</u></b>
+</ul>
+	<li>Tempo de 10 à 320 battements par minute.</li>
+	<li>Indicateur visuel pour une meilleur précision.</li>
+	<li>Ajustement des <i>accents/normal/sous-divisions/off</i> par appuie sur le diagramme.</li>
+	<li>Signatures de temps ajustables, avec gestions des mesures irrégulières.</li>
+	<li>Appuyer au centre pour capture un tempo.</li>
+	<li>Appuyer sur le tempo pour une saisie plus précise.</li>
+	<li>Tonalité du métronome ajustable dans les paramètres.</li>
+</ul>
+
+<b><u>Synthétiseur</u></b>
+<ul>
+	<li>8 octaves utilisables.</li>
+	<li>Joue la note en continu.</li>
+	<li>Différentes formes d'ondes possibles.</li>
+</ul>
+
+<b><u>Autre fonctionnalités</u></b>
+<ul>
+	<li>Choix des couleurs du thème.</li>
+	<li>Option pour garder l'écran allumer.</li>
+	<li>Lecture en arrière plan du métronome.</li>
+	<li>Choix des dièses ou bémols et du nom des notes.</li>
+	<li>Thème sombre et clair disponibles.</li>
+</ul>
+
+<b><u>Permissions</u></b>
+<ul>
+	<li>Capture de l'audio (pour l'accordeur).</li>
+	<li>Lecture de media (métronome et synthétiseur).</li>
+</ul>

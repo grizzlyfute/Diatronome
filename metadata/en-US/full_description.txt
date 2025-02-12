@@ -1,0 +1,45 @@
+<b><u>About</u></b>
+<i>Diatronome</i> is a 3-in-1 android application. It provide a <b>tuner</b>, a <b>visual-metronome</b>, and a <b>note player</b>.
+Diatronome is a contraction of the word <i>diapason</i>, meaning <i>tuning fork</i> in french and <i>metronome</i>.
+
+<b><u>Tuner</u></b>
+<ul>
+	<li>Note reference pitch from 430 Hz to 450 Hz. (Tap to bottom-right corner to adjust calibration).</li>
+	<li>Transposition support. (Tap to bottom-left corner to set transposition).</li>
+	<li>Multiple temperament table.</li>
+	<li>Several pitch-detection algorithm available.</li>
+	<li>Adjustable sensitivity</li>
+</ul>
+
+<b><u>Visual metronome</u></b>
+</ul>
+	<li>Tempo from 10 to 320 beats per minute.</li>
+	<li>Visual indicator for better timing precision.</li>
+	<li>Set <i>accent / normal / sub-division / off</i> beat by taping on a pie part.</li>
+	<li>Adjustable table signature, including irregular measure.</li>
+	<li>Tap on center to adjust tempo.</li>
+	<li>Tap on tempo to open a keyboard for manual input.</li>
+	<li>Change metronome's tonality in settings.</li>
+</ul>
+
+<b><u>Note player</u></b>
+<ul>
+	<li>8 octaves range.</li>
+	<li>Continuous playback mode.</li>
+	<li>Different waveforms available.</li>
+</ul>
+
+<b><u>Other application feature</u></b>
+<ul>
+	<li>Customization color themes.</li>
+	<li>Option to keep the screen on.</li>
+	<li>Metronome can play in the background.</li>
+	<li>Changing sharp / flat and note name mode.</li>
+	<li>Dark and light themes available.</li>
+</ul>
+
+<b><u>Required permissions</u></b>
+<ul>
+	<li>Audio record (for tuner function).</li>
+	<li>Media playback (for metronome and note playing).</li>
+</ul>

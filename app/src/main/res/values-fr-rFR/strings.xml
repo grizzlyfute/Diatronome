@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="about_content"><![CDATA[
+    <b><i>Diatronome</i></b> propose un <i>accordeur</i>, un <i>métronome visuel</i> et un <i>synthétiseur</i>.
+    Cette application est libre de source, respectant la vie privée et sans publicité.<br/>
+    <b>Licence: </b>%1$s<br/>
+    <b>Sources: </b><a href="%2$s">%2$s</a><br/>
+    <b>Soutenir: </b><a href="$3$s">$3$s</a><br/>
+  ]]></string>
+  <string name="common_yes">Oui</string>
+  <string name="common_no">Non</string>
+  <string name="action_settings">Paramètres</string>
+  <string name="action_tuner">Tuner</string>
+  <string name="action_play">Jouer</string>
+  <string name="action_metronome">Métronome</string>
+  <string name="action_about">À propos</string>
+  <string name="metronome_bpm">BPM</string>
+  <string name="metronome_timesignature">Signature de temps</string>
+  <string name="metronome_division">Temps</string>
+  <string name="metronome_subdivision">SousDivision</string>
+  <string name="metronome_notificationtitle">Son du métronome</string>
+  <string name="preference_title_system">Système</string>
+  <string name="preference_theme">Thème</string>
+  <string name="preference_screen_on">Garder l\'écran allumé</string>
+  <string name="preference_color">Couleur de l\'application</string>
+  <string name="preference_homescreen">Écran d\'accueil</string>
+  <string name="preference_title_app">Préférences d\'application</string>
+  <string name="preference_pitch">Calibration pour le La4</string>
+  <string name="preference_note_name">Nom des notes</string>
+  <string name="preference_use_sharp_flat">Dièses au lieu de bémols</string>
+  <string name="preference_transposition">Transposition</string>
+  <string name="preference_temperament">Tempérament</string>
+  <string name="preference_waveform">Forme d\'onde</string>
+  <string name="preference_metronome_pitch_main">Tonalité principale du métronome</string>
+  <string name="preference_metronome_pitch_accent">Tonalité d\'accent du métronome</string>
+  <string name="preference_metronome_pitch_subdivision">Tonalité de sous-divisions du métronome</string>
+  <string name="preference_metronome_bidirectionalneedle">Aiguille bi-directionnelle</string>
+  <string name="preference_advanced">Avancé</string>
+  <string name="preference_threshold">Seuil de microphone</string>
+  <string name="preference_algorithm">Algorithme</string>
+
+  <string-array name="array_notes_name">
+    <item>Solfège (Do-Ré-Mi)</item>
+    <item>International (A B C)</item>
+  </string-array>
+
+  <string-array name="array_notes_name_solfege">
+    <item>Do</item>
+    <item>Ré</item>
+    <item>Mi</item>
+    <item>Fa</item>
+    <item>Sol</item>
+    <item>La</item>
+    <item>Si</item>
+  </string-array>
+
+  <string-array name="array_theme">
+    <item>Suivre le système</item>
+    <item>Clair</item>
+    <item>Sombre</item>
+  </string-array>
+
+  <string-array name="array_homescreen">
+    <item>Tuner</item>
+    <item>Métronome</item>
+    <item>Piano</item>
+  </string-array>
+
+  <string-array name="array_transposition">
+    <item>Ut</item>
+    <item>Do&#x266F;</item>
+    <item>Ré</item>
+    <item>Mi&#x266D;</item>
+    <item>Mi</item>
+    <item>Fa</item>
+    <item>Fa&#x266F;</item>
+    <item>Sol</item>
+    <item>La&#x266D;</item>
+    <item>La</item>
+    <item>Si&#x266D;</item>
+    <item>Si</item>
+  </string-array>
+
+  <string-array name="array_temperament">
+    <item>Tempérament égal - 12 EDO</item>
+    <item>Pythagorien - ~53 EDO</item>
+    <item>Zarlino/Helmholtz - ~41 EDO</item>
+    <item>Mésotonique 1/4 comma - 31 EDO</item>
+    <item>Mésotonique 1/5 comma - 43 EDO</item>
+    <item>Mésotonique 1/3 comma - 19 EDO</item>
+    <item>Chromatique - 108 EDO</item>
+    <item>15 EDO, 15 TET</item>
+    <item>17 EDO, 17 TET</item>
+  </string-array>
+
+  <string-array name="array_waveform">
+    <item>Sinus</item>
+    <item>Triangle</item>
+    <item>Carrée</item>
+    <item>Dents de scie</item>
+  </string-array>
+</resources>

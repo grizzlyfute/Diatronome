@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fragmentPlayNote"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".Fragment.PlaynoteFragment">
+
+  <include
+    android:id="@+id/playLayPiano"
+    layout="@layout/uc_piano"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="48dp"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintBottom_toTopOf="@+id/playTxtCurrentFreq"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0"
+    app:layout_constraintVertical_chainStyle="spread"
+    app:layout_constraintWidth_percent="0.9" />
+
+  <TextView
+    android:id="@+id/playTxtCurrentFreq"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="--"
+    app:layout_constraintBottom_toTopOf="@id/playOctaves"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/playNoteHzGuide" />
+
+  <LinearLayout
+    android:id="@+id/playOctaves"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/playTxtCurrentFreq"
+    app:layout_constraintWidth_percent="0.9">
+
+    <Button
+      android:id="@+id/playBtnOctave0"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="0">
+
+      <tag
+        android:id="@+id/playOctaveTag"
+        android:value="0" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="1">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="1" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="2">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="2" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="3">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="3" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="4">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="4" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="5">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="5" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave6"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="6">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="6" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave7"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="7">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="7" />
+    </Button>
+
+    <Button
+      android:id="@+id/playBtnOctave8"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="8">
+
+      <tag
+        android:id="@id/playOctaveTag"
+        android:value="8" />
+    </Button>
+  </LinearLayout>
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/playNoteHzGuide"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.6" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

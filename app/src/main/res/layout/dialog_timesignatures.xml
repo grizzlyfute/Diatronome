@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <androidx.constraintlayout.helper.widget.Flow
+    android:id="@+id/flowTimeDivisions"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    app:constraint_referenced_ids="numTimeDivisions,numTimeSubDivisions"
+    app:flow_horizontalAlign="center"
+    app:flow_horizontalBias="0.50"
+    app:flow_horizontalStyle="spread"
+    app:flow_maxElementsWrap="@integer/flow_wrap_vertical"
+    app:flow_verticalStyle="packed"
+    app:flow_wrapMode="chain"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.02"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/txtTimeDivisions"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:text="@string/metronome_division"
+    app:layout_constraintBottom_toBottomOf="@id/numTimeDivisions"
+    app:layout_constraintEnd_toStartOf="@id/numTimeDivisions"
+    app:layout_constraintTop_toTopOf="@id/numTimeDivisions" />
+
+  <Spinner
+    android:id="@+id/numTimeDivisions"
+    layout="@layout/uc_number_picker"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:dropDownWidth="wrap_content"
+    android:gravity="right"
+    android:spinnerMode="dropdown"
+    app:layout_constraintWidth_max="100dp" />
+
+  <TextView
+    android:id="@+id/txtTimeSubDivisions"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:text="@string/metronome_subdivision"
+    app:layout_constraintBottom_toBottomOf="@id/numTimeSubDivisions"
+    app:layout_constraintEnd_toStartOf="@id/numTimeSubDivisions"
+    app:layout_constraintTop_toTopOf="@id/numTimeSubDivisions" />
+
+  <Spinner
+    android:id="@+id/numTimeSubDivisions"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:dropDownWidth="wrap_content"
+    android:gravity="right"
+    android:spinnerMode="dropdown"
+    app:layout_constraintWidth_max="100dp" />
+
+  <TableLayout
+    android:id="@+id/tlpTimeSignatures"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginRight="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/numTimeSubDivisions">
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <Button
+        android:id="@+id/btnTime_1_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="1:1"
+        android:text="1:1" />
+
+      <Button
+        android:id="@+id/btnTime_2_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="2:4"
+        android:text="2:4" />
+
+      <Button
+        android:id="@+id/btnTime_3_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="3:4"
+        android:text="3:4" />
+
+      <Button
+        android:id="@+id/btnTime_4_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="4:4"
+        android:text="4:4" />
+
+      <Button
+        android:id="@+id/btnTime_5_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="5:4"
+        android:text="5:4" />
+
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <Button
+        android:id="@+id/btnTime_4_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="4:8"
+        android:text="4:8" />
+
+      <Button
+        android:id="@+id/btnTime_6_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="6:8"
+        android:text="6:8" />
+
+      <Button
+        android:id="@+id/btnTime_9_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="9:8"
+        android:text="9:8" />
+
+      <Button
+        android:id="@+id/btnTime_12_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="12:8"
+        android:text="12:8" />
+
+      <Button
+        android:id="@+id/btnTime_15_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="15:8"
+        android:text="15:8" />
+
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <Button
+        android:id="@+id/btnTime_8_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="8:8"
+        android:text="8:8" />
+
+      <Button
+        android:id="@+id/btnTime_8_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="8:16"
+        android:text="8:16" />
+
+      <Button
+        android:id="@+id/btnTime_12_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="12:16"
+        android:text="12:16" />
+
+      <Button
+        android:id="@+id/btnTime_16_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="16:16"
+        android:text="16:16" />
+
+      <Button
+        android:id="@+id/btnTime_20_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="20:16"
+        android:text="20:16" />
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <Button
+        android:id="@+id/btnTime_8_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="8:1"
+        android:text="8::8" />
+
+      <Button
+        android:id="@+id/btnTime_5_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="5:8"
+        android:text="5:8" />
+
+      <Button
+        android:id="@+id/btnTime_7_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="7:8"
+        android:text="7:8" />
+
+      <Button
+        android:id="@+id/btnTime_9_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="9:16"
+        android:text="9:16" />
+
+      <Button
+        android:id="@+id/btnTime_17_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:tag="17:16"
+        android:text="17:16" />
+
+    </TableRow>
+
+  </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

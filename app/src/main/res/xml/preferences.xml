@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <!-- see https://fonts.google.com/icons for drawable -->
+  <PreferenceCategory
+    app:key="setting_system"
+    app:title="@string/preference_title_system">
+    <ListPreference
+      android:title="@string/preference_theme"
+      android:key="setting_theme"
+      android:icon="@drawable/icon_darkmode"
+      android:dialogIcon="@drawable/icon_darkmode"
+      android:entries="@array/array_theme"
+      android:entryValues="@array/array_theme_data"
+      android:defaultValue="MODE_NIGHT_UNSPECIFIED" />
+    <SwitchPreference
+      android:title="@string/preference_screen_on"
+      android:key="setting_screen_on"
+      android:icon="@drawable/icon_screenon"
+      android:defaultValue="true"/>
+    <com.tuner.diatronome.Ui.ColorChooserPreference
+      android:defaultValue="@color/color_primary_08"
+      android:inputType="numberDecimal"
+      android:dialogIcon="@drawable/icon_color"
+      android:dialogMessage=""
+      android:dialogTitle="@string/preference_color"
+      android:icon="@drawable/icon_color"
+      android:key="setting_color"
+      android:negativeButtonText="@android:string/cancel"
+      android:positiveButtonText="@android:string/ok"
+      android:title="@string/preference_color" />
+    <ListPreference
+      android:title="@string/preference_homescreen"
+      android:key="setting_home_screen"
+      android:icon="@android:drawable/ic_menu_gallery"
+      android:dialogIcon="@android:drawable/ic_menu_gallery"
+      android:entries="@array/array_homescreen"
+      android:entryValues="@array/array_homescreen_data"
+      android:defaultValue="HOME_SCREEN_TUNER" />
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="setting_app"
+    android:title="@string/preference_title_app">
+    <com.tuner.diatronome.Ui.NumberPickerPreference
+      android:inputType="numberDecimal"
+      android:maxLength="5"
+      android:summary="440 Hz"
+      android:defaultValue="440"
+      android:icon="@drawable/icon_pitch"
+      android:key="setting_pitch_ref"
+      android:title="@string/preference_pitch"
+      android:dialogIcon="@drawable/icon_pitch"
+      android:dialogMessage=""
+      android:dialogTitle="@string/preference_pitch"
+      android:negativeButtonText="@android:string/cancel"
+      android:positiveButtonText="@android:string/ok"
+      app:min="430"
+      app:max="450" />
+    <ListPreference
+      android:entries="@array/array_notes_name"
+      android:entryValues="@array/array_notes_name_data"
+      android:defaultValue="1"
+      android:dialogIcon="@drawable/icon_notename"
+      android:icon="@drawable/icon_notename"
+      android:key="setting_note_name"
+      android:title="@string/preference_note_name" />
+    <SwitchPreference
+      android:defaultValue="false"
+      android:icon="@drawable/icon_sharpflat"
+      android:switchTextOff="\\u266D"
+      android:switchTextOn="\\u266F"
+      android:key="setting_use_sharp_flat"
+      android:title="@string/preference_use_sharp_flat" />
+    <ListPreference
+      android:title="@string/preference_transposition"
+      android:entries="@array/array_transposition"
+      android:entryValues="@array/array_transposition_data"
+      android:defaultValue="0"
+      android:dialogIcon="@drawable/icon_transposition"
+      android:icon="@drawable/icon_transposition"
+      android:key="setting_transposition" />
+    <ListPreference
+      android:defaultValue="12"
+      android:icon="@drawable/icon_temperament"
+      android:dialogIcon="@drawable/icon_temperament"
+      android:key="setting_temperament"
+      android:title="@string/preference_temperament"
+      android:entries="@array/array_temperament"
+      android:entryValues="@array/array_temperament_data" />
+    <ListPreference
+      android:defaultValue="SINE"
+      android:icon="@drawable/icon_waveform"
+      android:dialogIcon="@drawable/icon_waveform"
+      android:key="setting_waveform"
+      android:title="@string/preference_waveform"
+      android:entries="@array/array_waveform"
+      android:entryValues="@array/array_waveform_data" />
+
+    <SeekBarPreference
+      android:min="0"
+      android:max="6"
+      android:defaultValue="5"
+      android:icon="@drawable/icon_pitch"
+      android:key="setting_metronome_pitch_accent"
+      android:title="@string/preference_metronome_pitch_accent"
+      tools:ignore="UnusedAttribute" />
+    <SeekBarPreference
+      android:icon="@drawable/icon_pitch"
+      android:key="setting_metronome_pitch_main"
+      android:min="0"
+      android:max="6"
+      android:defaultValue="4"
+      android:title="@string/preference_metronome_pitch_main"
+      tools:ignore="UnusedAttribute" />
+    <SeekBarPreference
+      android:min="0"
+      android:max="6"
+      android:defaultValue="3"
+      android:icon="@drawable/icon_pitch"
+      android:key="setting_metronome_pitch_subdivision"
+      android:title="@string/preference_metronome_pitch_subdivision"
+      tools:ignore="UnusedAttribute" />
+
+    <SwitchPreference
+      android:defaultValue="true"
+      android:icon="@drawable/icon_bidirectional"
+      android:switchTextOff="@string/common_no"
+      android:switchTextOn="@string/common_yes"
+      android:key="setting_metronome_bidirectionalneedle"
+      android:title="@string/preference_metronome_bidirectionalneedle" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="setting_advanced"
+    android:title="@string/preference_advanced">
+
+    <SeekBarPreference
+      android:min="0"
+      android:max="10"
+      android:defaultValue="5"
+      android:icon="@drawable/icon_threshold"
+      android:key="setting_soundanalyze_threshold"
+      android:title="@string/preference_threshold"
+      tools:ignore="UnusedAttribute" />
+
+    <ListPreference
+      android:min="0"
+      android:max="10"
+      android:defaultValue="1"
+      android:icon="@drawable/icon_algo"
+      android:dialogIcon="@drawable/icon_algo"
+      android:key="setting_soundanalyze_algorithm"
+      android:title="@string/preference_algorithm"
+      android:entries="@array/array_algorithm"
+      android:entryValues="@array/array_algorithm_data"
+      tools:ignore="UnusedAttribute" />
+
+    <com.tuner.diatronome.Ui.NumberPickerPreference
+      android:inputType="numberDecimal"
+      android:maxLength="3"
+      android:title="@string/metronome_bpm"
+      android:defaultValue="60"
+      android:key="setting_metronome_bpm"
+      app:isPreferenceVisible="false"/>
+
+    <EditTextPreference
+      android:defaultValue="4333"
+      android:key="setting_metronome_beatsig"
+      app:isPreferenceVisible="false" />
+
+    <!-- Version of this setting, for a future use -->
+    <EditTextPreference
+      android:defaultValue="@string/versionName"
+      android:key="setting_version"
+      app:isPreferenceVisible="false" />
+
+  </PreferenceCategory>
+</PreferenceScreen>

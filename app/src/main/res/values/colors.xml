@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Grey -->
+  <color name="color_primary_00">#808080</color>
+  <color name="color_secondary_00">#606060</color>
+
+  <!-- Dark green -->
+  <color name="color_primary_01">#288828</color>
+  <color name="color_secondary_01">#087808</color>
+
+  <!-- Green -->
+  <color name="color_primary_02">#24df4a</color>
+  <color name="color_secondary_02">#04af1a</color>
+
+  <!-- Red -->
+  <color name="color_primary_03">#d63c3d</color>
+  <color name="color_secondary_03">#b61a1d</color>
+
+  <!-- Orange -->
+  <color name="color_primary_04">#c06a2d</color>
+  <color name="color_secondary_04">#a04a0d</color>
+
+  <!-- Yellow -->
+  <color name="color_primary_05">#c0a727</color>
+  <color name="color_secondary_05">#a08707</color>
+
+  <!-- Magenta -->
+  <color name="color_primary_06">#d142d0</color>
+  <color name="color_secondary_06">#a112a0</color>
+
+  <!-- Blue -->
+  <color name="color_primary_07">#0070ff</color>
+  <color name="color_secondary_07">#005ccf</color>
+
+  <!-- Cyan -->
+  <color name="color_primary_08">#5793ed</color>
+  <color name="color_secondary_08">#2763bd</color>
+
+</resources>

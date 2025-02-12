@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tuner.diatronome.MainActivity">
+    <group>
+        <item
+          android:id="@+id/action_tuner"
+          android:icon="@drawable/menu_tuner"
+          android:orderInCategory="50"
+          android:title="@string/action_tuner"
+          android:visible="false"
+          app:showAsAction="ifRoom" />
+        <item
+          android:id="@+id/action_metronome"
+          android:icon="@drawable/menu_metronome"
+          android:orderInCategory="52"
+          android:title="@string/action_metronome"
+          android:visible="true"
+          app:showAsAction="ifRoom" />
+        <item
+          android:id="@+id/action_playnote"
+          android:icon="@drawable/menu_playnote"
+          android:orderInCategory="51"
+          android:title="@string/action_play"
+          android:visible="true"
+          app:showAsAction="ifRoom" />
+    </group>
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/menu_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:icon="@drawable/menu_about"
+        android:orderInCategory="200"
+        android:title="@string/action_about"
+        app:showAsAction="never" />
+</menu>

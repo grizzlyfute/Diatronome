@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fragmentTuner"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".Fragment.TunerFragment">
+
+  <!-- NeedleView in values/attr.xml -->
+  <androidx.constraintlayout.helper.widget.Flow
+    android:id="@+id/flowMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:constraint_referenced_ids="viewNeedle,flowPanel"
+    app:flow_horizontalStyle="spread_inside"
+    app:flow_maxElementsWrap="@integer/flow_wrap_vertical"
+    app:flow_verticalStyle="packed"
+    app:flow_wrapMode="chain"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0" />
+
+  <com.tuner.diatronome.Ui.NeedleView
+    android:id="@+id/viewNeedle"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:paddingLeft="@dimen/needle_padding_w"
+    android:paddingTop="@dimen/needle_padding_h"
+    android:paddingRight="@dimen/needle_padding_w"
+    android:paddingBottom="@dimen/needle_padding_h"
+    app:layout_constraintVertical_weight="1"
+    app:layout_constraintHorizontal_weight="1"
+    app:max="50"
+    app:min="-50" />
+
+  <androidx.constraintlayout.helper.widget.Flow
+    android:id="@+id/flowPanel"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:paddingTop="32dp"
+    app:constraint_referenced_ids="btnNote,btnMeasure"
+    app:flow_horizontalBias="1.0"
+    app:flow_horizontalGap="32dp"
+    app:flow_horizontalStyle="spread"
+    app:flow_maxElementsWrap="@integer/flow_wrap_horizontal"
+    app:flow_verticalBias="1.0"
+    app:flow_verticalStyle="spread_inside"
+    app:flow_wrapMode="chain"
+    tools:layout_editor_absoluteX="660dp" /> -->
+
+  <Button
+    android:id="@+id/btnNote"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:minWidth="200dp"
+    android:minHeight="48dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:text="@string/tuner_note_sample"
+    android:textAllCaps="false"
+    android:textSize="96sp"
+    android:textStyle="bold"
+    tools:layout_editor_absoluteX="660dp"
+    tools:layout_editor_absoluteY="32dp" />
+
+  <Button
+    android:id="@+id/btnMeasure"
+    style="?android:attr/borderlessButtonStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="end|top"
+    android:minWidth="130dp"
+    android:minHeight="48dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:text="@string/tuner_measure_sample"
+    android:textAllCaps="false"
+    android:textSize="24sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

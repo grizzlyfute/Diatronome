@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fragmentMetronome"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingLeft="8dp"
+  android:paddingTop="8dp"
+  android:paddingRight="8dp"
+  android:paddingBottom="8dp"
+  tools:context=".Fragment.MetronomeFragment">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:id="@+id/layoutMetronomeDraw"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/layoutMetronomeControl"
+    >
+
+    <!-- MetronomeView in values/attr.xml -->
+    <com.tuner.diatronome.Ui.MetronomeView
+      android:id="@+id/viewMetronome"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/txtMetronomeTempoName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Allegretissimo"
+      app:layout_constraintBottom_toBottomOf="@id/viewMetronome"
+      app:layout_constraintEnd_toEndOf="@id/viewMetronome"
+      app:layout_constraintStart_toStartOf="@id/viewMetronome" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/layoutMetronomeControl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/layoutMetronomeDraw"
+    >
+
+    <Button
+      android:id="@+id/btnMetronomeBeat"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@android:drawable/ic_menu_preferences"
+      android:textAllCaps="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintDimensionRatio="h,1:1"
+      app:layout_constraintHeight_max="64dp"
+      app:layout_constraintHeight_min="32dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/constraintLayoutBpm"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <Button
+        android:id="@+id/btnMetronomeTempo"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="120 bpm"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <Button
+        android:id="@+id/btnMetronomeAdd"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginLeft="8dp"
+        android:text="+"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/btnMetronomeTempo"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintStart_toEndOf="@id/btnMetronomeTempo"
+        app:layout_constraintTop_toTopOf="@id/btnMetronomeTempo" />
+
+      <Button
+        android:id="@+id/btnMetronomeSub"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="-"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/btnMetronomeTempo"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toStartOf="@id/btnMetronomeTempo"
+        app:layout_constraintTop_toTopOf="@id/btnMetronomeTempo" />
+
+      <SeekBar
+        android:id="@+id/skbMetronomeTempo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-16dp"
+        android:layout_marginLeft="-16dp"
+        android:layout_marginEnd="-16dp"
+        android:layout_marginRight="-16dp"
+        android:max="320"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btnMetronomeAdd"
+        app:layout_constraintStart_toStartOf="@id/btnMetronomeSub"
+        app:layout_constraintTop_toBottomOf="@id/btnMetronomeTempo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+      android:id="@+id/btnMetronomePlay"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@android:drawable/ic_media_play"
+      android:textAllCaps="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintDimensionRatio="1:1"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHeight_max="64dp"
+      app:layout_constraintHeight_min="16dp"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

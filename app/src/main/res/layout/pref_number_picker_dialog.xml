@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layoutDirection="ltr"
+  android:orientation="vertical">
+
+  <!-- NumberPicker to be used for the NumberPickerPreference, blocksDescendants so no number input panel be open-->
+  <NumberPicker
+    android:id="@+id/pref_number_picker"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:scrollbars="none"
+    android:dividerPadding="2dp"
+    android:descendantFocusability="blocksDescendants" />
+
+  <!-- this textView is just to create more margin between the picker and dialog-->
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="16dp" />
+
+</LinearLayout>
