@@ -1,63 +1,44 @@
 Categories:
   - Multimedia
   - Science & Education
-
-AuthorName: Remy Malmartel
-# AuthorEmail:
-# AuthorWebSite:
-
 License: GPL-3.0-or-later
-
-AutoName: Diatronome
-Name: Diatronome
-
-# WebSite:
+AuthorName: Remy Malmartel
 SourceCode: https://github.com/grizzlyfute/Diatronome
+Donate: https://www.paypal.com/donate/?hosted_button_id=SJJNG9XBY59W4
+Liberapay: grizzlyfute
 
-# IssueTracker:
-# Translation:
-# Changelog:
+Name: Diatronome
+AutoName: Diatronome
+Summary: A tuner, a visual metronome and a synthetizer
+Description: |-
+  <i>Diatronome</i> is a 3-in-1 android application. It provide a <b>tuner</b>,
+  a <b>visual-metronome</b>, and a <b>synthesizer</b>.
 
-Donate: https://www.paypal.com/paypalme/RemyMalmartel
-Liberapay: https://en.liberapay.com/grizzlyfute
-# OpenCollective:
-# Bitcoin:
-# Litecoin:
+  - Tuner have adjustable reference pitch, support transposition and have
+  multiple temperament and customization.
+  - Metronome use a visual needle indicating the timing precisely. Time and
+  subdivision can be set by click. Tempo can be captuered by taping on center
+  Tonality is also customizable.
+  - Synthetizer provide continous play, different wave form and 8 octaves range.
+  - Application colors can be customized for a better experience.
+  - Advanced adjustements are available to work of maximum device.
 
-Summary:
-  A tuner, a visual metronome and a ref ntoe player in the same app.
+  Audio recording and playback permission are require.
 
-Description:
-  $$$$$ TODO. 4000x80 max+html Basic
+  The application provide a useful practice tools for musicans.
 
-  .
-
-#MaintainerNotes:
 RepoType: git
 Repo: https://github.com/grizzlyfute/Diatronome
 
-#Binaries: https://f-droid.org/repo/org.fdroid.fdroid_%c.apk
-
 Builds:
-  - versionName: '1.0.0'
-    versionCode: 100000
-    commit: v1.0.0
-    #disable: <msg>
-
-    # Where build.gradle is:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: 1.0.0
     subdir: app
-    # submodule: false
-    # sudo:
-    #   - apt-get update
-    #   # see text below
-    #   - apt-get install -y librsvg2-bin
-    #   - update-alternatives --auto java
-    # timeout: <sec>
     gradle:
       - yes
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: '1.0.0'
-CurrentVersionCode: 100000
-
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1

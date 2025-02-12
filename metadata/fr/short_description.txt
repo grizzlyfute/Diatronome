@@ -1,1 +1,1 @@
-Pratique musicale, accordeur et métronome visuel.
+Un accordeur, un métronome visuel et un synthetiseur

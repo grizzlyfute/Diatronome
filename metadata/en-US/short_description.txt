@@ -1,1 +1,1 @@
-Musical practice, free tuner and visual metronom.
+A tuner, a visual metronome and a synthetizer
