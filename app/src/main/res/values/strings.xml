@@ -44,7 +44,7 @@
 
   <!-- about -->
   <string name="about_content"><![CDATA[
-    <b><i>Diatronome</i></b> offer you a <i>tuner</i>, a <i>Visual metronome</i> and a <i>note player</i>.
+    <b><i>Diatronome</i></b> offer you a <i>tuner</i>, a <i>Visual metronome</i> and a <i>Synthesizer</i>.
     This application is open source, privacy friendly and advertisement free.<br/>
     <b>License: </b>%1$s<br/>
     <b>Sources: </b><a href="%2$s">%2$s</a><br/>

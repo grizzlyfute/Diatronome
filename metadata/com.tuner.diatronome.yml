@@ -9,23 +9,6 @@ Liberapay: grizzlyfute
 
 Name: Diatronome
 AutoName: Diatronome
-Summary: A tuner, a visual metronome and a synthetizer
-Description: |-
-  <i>Diatronome</i> is a 3-in-1 android application. It provide a <b>tuner</b>,
-  a <b>visual-metronome</b>, and a <b>synthesizer</b>.
-
-  - Tuner have adjustable reference pitch, support transposition and have
-  multiple temperament and customization.
-  - Metronome use a visual needle indicating the timing precisely. Time and
-  subdivision can be set by click. Tempo can be captuered by taping on center
-  Tonality is also customizable.
-  - Synthetizer provide continous play, different wave form and 8 octaves range.
-  - Application colors can be customized for a better experience.
-  - Advanced adjustements are available to work of maximum device.
-
-  Audio recording and playback permission are require.
-
-  The application provide a useful practice tools for musicans.
 
 RepoType: git
 Repo: https://github.com/grizzlyfute/Diatronome
