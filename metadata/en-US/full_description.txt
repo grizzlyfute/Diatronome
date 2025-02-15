@@ -6,10 +6,10 @@ multiple temperament and customization.
 - Metronome use a visual needle indicating the timing precisely. Time and
 subdivision can be set by click. Tempo can be captured by taping on center.
 Tonality is also customizable.
-- Synthetizer provide continous play, have different wave form and 8 octaves range.
+- Synthesizer provide continuous play, different wave form and 8 octaves range.
 - Application colors can be customized for a better experience.
-- Advanced adjustements are available to work of maximum device.
+- Advanced adjustments are available to work of maximum device.
 
 Audio recording and playback permission are required.
 
-The application provide a useful practice tools for musicans.
+The application provide a useful practice tools for musicians.
