@@ -2,13 +2,13 @@
 un <b>métronome visuel</b>, et un <b>synthétiseur</b>
 
 - L'accordeur à une note de référence ajustable, supporte la transposition,
-dispose de multiple table de tempérament et de nombreuses personalisations.
+et dispose de multiple tables de tempérament.
 - Le métronome utilise une aiguille visuelle pour une meilleur précision.
 Les sous divisions de temps sont changeables par clic. Le tempo se capture
 depuis la zone centrale. Les tonalités sont également modifiables.
-- Le synthétiseur joue la note en continue, avec de multiples forme d'onde. Il s'étend
-sur 8 octaves.
-- Les couleurs de l'application sont également personalisables.
+- Le synthétiseur joue la note en continue. Plusieurs form d'onde sont
+disponibles. Il s'étend sur 8 octaves.
+- Les couleurs de l'application sont également personnalisables.
 
 L'application demande les permissions d'enregistrement audio et
 de lecture multimédia pour son fonctionnement.
