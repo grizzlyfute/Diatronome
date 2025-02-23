@@ -1,0 +1,20 @@
+Tuner:
+Improve frequency precision.
+Fix note name not working in Latin.
+
+Metronome:
+Fix time signature not changed after selecting time/subdivision.
+Fix metronome needle go reverse after changing tempo.
+Remove re-entrant look in profit of semaphore.
+Skip frame on very slow device.
+Remove number picker dialog, and show directly keyboard for select the tempo.
+
+Synthesizer:
+Fix octave not change when selecting another and not playing.
+Improve audio glitch.
+
+Other:
+Repair donation link.
+Remove google.material dependency.
+Set Min sdk to 21 (not working Under android 4.4).
+Rename package from com.tuner.diatronome to org.kalinisa.diatronome

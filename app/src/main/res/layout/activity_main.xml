@@ -12,45 +12,35 @@
     android:layout_height="match_parent">
   </FrameLayout>
 
-  <com.google.android.material.appbar.AppBarLayout
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="fill_horizontal"
-    android:visibility="visible"
-    android:background="@null"
-    app:elevation="0dp"
+    android:layout_height="?attr/actionBarSize"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    android:visibility="visible"
+    android:background="@null"
+    app:elevation="0dp">
 
-    <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
+    <!-- can be set with app:logo attribute in toolbar -->
+    <!--   <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:contentDescription=""
+        android:cropToPadding="false"
+        android:src="@drawable/test" />
 
-      android:visibility="visible">
-
-      <!-- can be set with app:logo attribute in toolbar -->
-      <!--   <ImageView
-          android:id="@+id/logo"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:adjustViewBounds="true"
-          android:contentDescription=""
-          android:cropToPadding="false"
-          android:src="@drawable/test" />
-
-        <TextView
-          android:id="@+id/title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="20dp"
-          android:gravity="center_vertical"
-          android:text="@string/app_name"
-          android:textSize="17sp" /> -->
+      <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:gravity="center_vertical"
+        android:text="@string/app_name"
+        android:textSize="17sp" /> -->
 
     </androidx.appcompat.widget.Toolbar>
-
-  </com.google.android.material.appbar.AppBarLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

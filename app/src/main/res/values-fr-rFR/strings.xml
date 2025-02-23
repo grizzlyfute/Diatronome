@@ -5,7 +5,7 @@
     Cette application est libre de source, respectant la vie privée et sans publicité.<br/>
     <b>Licence: </b>%1$s<br/>
     <b>Sources: </b><a href="%2$s">%2$s</a><br/>
-    <b>Soutenir: </b><a href="$3$s">$3$s</a><br/>
+    <b>Soutenir: </b><a href="%3$s">%3$s</a><br/>
   ]]></string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>

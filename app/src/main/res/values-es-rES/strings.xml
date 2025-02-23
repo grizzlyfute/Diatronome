@@ -5,7 +5,7 @@
     Esta aplicación es de código abierto, respetuosa con la privacidad y sin publicidad.<br/>
     <b>Licencia: </b>%1$s<br/>
     <b>Fuentes: </b><a href="%2$s">%2$s</a><br/>
-    <b>Apoyo: </b><a href="$3$s">$3$s</a><br/>
+    <b>Apoyo: </b><a href="%3$s">%3$s</a><br/>
   ]]></string>
   <string name="common_yes">"Sí "</string>
   <string name="common_no">No</string>

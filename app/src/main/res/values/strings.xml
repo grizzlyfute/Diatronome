@@ -48,7 +48,7 @@
     This application is open source, privacy friendly and advertisement free.<br/>
     <b>License: </b>%1$s<br/>
     <b>Sources: </b><a href="%2$s">%2$s</a><br/>
-    <b>Support: </b><a href="$3$s">$3$s</a><br/>
+    <b>Support: </b><a href="%3$s">%3$s</a><br/>
   ]]></string>
   <string name="about_license" translatable="false">GPLv3</string>
   <string name="about_source" translatable="false"><a href="https://github.com/grizzlyfute/Diatronome">https://github.com/grizzlyfute/Diatronome</a></string>

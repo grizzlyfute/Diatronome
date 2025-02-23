@@ -5,7 +5,7 @@
     Diese Anwendung ist Open Source, datenschutzfreundlich und werbefrei.<br/>
     <b>Lizenz: </b>%1$s<br/>
     <b>Quell: </b><a href="%2$s">%2$s</a><br/>
-    <b>Unterstützung: </b><a href="$3$s">$3$s</a><br/>
+    <b>Unterstützung: </b><a href="%3$s">%3$s</a><br/>
   ]]></string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>

@@ -23,7 +23,7 @@
     >
 
     <!-- MetronomeView in values/attr.xml -->
-    <com.tuner.diatronome.Ui.MetronomeView
+    <org.kalinisa.diatronome.Ui.MetronomeView
       android:id="@+id/viewMetronome"
       android:layout_width="0dp"
       android:layout_height="0dp"
@@ -76,15 +76,19 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-      <Button
+      <EditText
         android:id="@+id/btnMetronomeTempo"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:focusable="true"
+        android:inputType="number"
+        android:singleLine="true"
         android:text="120 bpm"
         android:textAllCaps="false"
         android:textSize="24sp"
+        android:cursorVisible="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

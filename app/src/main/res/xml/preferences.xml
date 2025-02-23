@@ -20,7 +20,7 @@
       android:key="setting_screen_on"
       android:icon="@drawable/icon_screenon"
       android:defaultValue="true"/>
-    <com.tuner.diatronome.Ui.ColorChooserPreference
+    <org.kalinisa.diatronome.Ui.ColorChooserPreference
       android:defaultValue="@color/color_primary_08"
       android:inputType="numberDecimal"
       android:dialogIcon="@drawable/icon_color"
@@ -44,7 +44,7 @@
   <PreferenceCategory
     android:key="setting_app"
     android:title="@string/preference_title_app">
-    <com.tuner.diatronome.Ui.NumberPickerPreference
+    <org.kalinisa.diatronome.Ui.NumberPickerPreference
       android:inputType="numberDecimal"
       android:maxLength="5"
       android:summary="440 Hz"
@@ -159,7 +159,7 @@
       android:entryValues="@array/array_algorithm_data"
       tools:ignore="UnusedAttribute" />
 
-    <com.tuner.diatronome.Ui.NumberPickerPreference
+    <org.kalinisa.diatronome.Ui.NumberPickerPreference
       android:inputType="numberDecimal"
       android:maxLength="3"
       android:title="@string/metronome_bpm"
