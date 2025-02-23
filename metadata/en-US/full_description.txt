@@ -4,7 +4,7 @@ a <b>visual-metronome</b>, and a <b>synthesizer</b>
 -Features:
 - Adjustable references pitch
 - Transposition support
-- Visual indicator for tuner and metronom
+- Visual indicator for tuner and metronome
 - Continous synthesizer mode
 - Capture tempo (central click on metronome)
 - Multiple customizable settings (even the app color)
