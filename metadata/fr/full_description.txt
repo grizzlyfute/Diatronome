@@ -1,16 +1,16 @@
 <i>Diatronome</i> est une application 3 en 1. Elle offre un <b>accordeur</b>,
-un <b>métronome visuel</b>, et un <b>synthétiseur</b>
+un <b>métronome visuel</b>, et un <b>synthétiseur</b>.
 
-- L'accordeur à une note de référence ajustable, supporte la transposition,
-dispose de multiple table de tempérament et de nombreuses personalisations.
-- Le métronome utilise une aiguille visuelle pour une meilleur précision.
-Les sous divisions de temps sont changeables par clic. Le tempo se capture
-depuis la zone centrale. Les tonalités sont également modifiables.
-- Le synthétiseur joue la note en continue, avec de multiples forme d'onde. Il s'étend
-sur 8 octaves.
-- Les couleurs de l'application sont également personalisables.
+<b><u>Fonctionnalités</b></u>:
+- Note de référence ajustable
+- Support des transpositions
+- Indicateurs visuels pour l'accordeur et le métronome
+- Synthétiseur continu, avec une forme d'onde ajustable
+- Capture tu tempo par clique sur la zone central du métronome
+- Personalisations multiples (dont la couleur de l'application)
+- Paramètres avancés pour s'adapter à un maximum de périphériques
 
 L'application demande les permissions d'enregistrement audio et
 de lecture multimédia pour son fonctionnement.
 
-C'est un outil pratique pour les musiciens.
+Il s'agit d'un outil pratique pour les musiciens.
