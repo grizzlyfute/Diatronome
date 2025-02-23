@@ -1,0 +1,14 @@
+<i>Diatronome</i> ist eine 3-in-1-Android-Anwendung. Sie bietet einen
+<b>tuner</b>, ein <b>visuelles Metronom</b>, und einen <b>Synthesizer</b>
+
+<b><u>Funktionen</b></u>:
+- Einstellbare Referenztonhöhe
+- Transpositionsunterstützung
+- Visuelle Anzeige für Stimmgerät und Metronom
+- Kontinuierlicher Synthesizermodus
+- Tempo erfassen (zentraler Klick auf das Metronom)
+- Mehrere anpassbare Einstellungen (sogar die App-Farbe)
+- Erweiterte Parameter verfügbar, um auf möglichst vielen Geräten zu arbeiten.
+
+Eine Erlaubnis zur Audioaufzeichnung und -wiedergabe ist erforderlich.
+Die Anwendung bietet nützliche Übungstools für Musiker.

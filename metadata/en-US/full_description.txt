@@ -5,10 +5,10 @@ a <b>visual-metronome</b>, and a <b>synthesizer</b>
 - Adjustable references pitch
 - Transposition support
 - Visual indicator for tuner and metronome
-- Continous synthesizer mode
+- Continuous synthesizer mode
 - Capture tempo (central click on metronome)
 - Multiple customizable settings (even the app color)
-- Advanced parameters availables to work on a maximum of devices.
+- Advanced parameters available to work on a maximum of devices.
 
 Audio recording and playback permission are require to run.
 

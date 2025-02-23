@@ -1,0 +1,15 @@
+<i>Diatronome</i>es una aplicación para Android 3 en 1. Ofrece un
+<b>afinador</b>, un <b>metrónomo visual</b> y un <b>sintetizador</b>
+
+<b><u>Características:</b></u>:
+- Tono de referencia ajustable
+- Soporte de transposición
+- Indicador visual para afinador y metrónomo
+- Modo de sintetizador continuo
+- Captura de tempo (clic central en el metrónomo)
+- Múltiples configuraciones personalizables (incluso el color de la aplicación)
+- Parámetros avanzados disponibles para trabajar en un máximo de dispositivos.
+
+Se requiere permiso para grabar y reproducir audio.
+
+La aplicación ofrece herramientas de práctica útiles para músicos.

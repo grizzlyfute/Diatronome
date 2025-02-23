@@ -1,1 +1,1 @@
-A tuner, a visual metronome and a synthetizer
+A tuner, a visual metronome and a synthesizer
