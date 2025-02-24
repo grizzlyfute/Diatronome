@@ -36,6 +36,16 @@ android {
     buildFeatures {
         viewBinding true
     }
+    
+    // Disable DependencyInfoBlock, signing block added by AGP and
+    // encrypted with the Google public key so it can't be read
+    // by anyone else except Google.
+    dependenciesInfo {
+        // Disables dependency metadata when building APKs.
+        includeInApk = false
+        // Disables dependency metadata when building Android App Bundles.
+        includeInBundle = false
+    }
 }
 
 dependencies {
