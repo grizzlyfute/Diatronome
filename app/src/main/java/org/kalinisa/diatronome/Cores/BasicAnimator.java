@@ -76,11 +76,22 @@ public class BasicAnimator
 
   public void cancel()
   {
-    if (m_timer != null)
+    try
     {
-      m_timer.cancel();
-      m_timer = null;
+      m_mutex.tryAcquire(m_frameDelayMs, TimeUnit.MILLISECONDS);
+      if (m_timer != null)
+      {
+        m_timer.cancel();
+        m_timer = null;
+      }
     }
+    catch (InterruptedException e)
+    { }
+    finally
+    {
+      m_mutex.release();
+    }
+
   }
 
   private void timerTask()

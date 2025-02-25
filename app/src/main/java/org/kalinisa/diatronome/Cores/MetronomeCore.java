@@ -328,15 +328,26 @@ public class MetronomeCore
     // provoking auto mutual exclusion
     if (m_timer != null)
     {
-      m_timer.cancel();
-      m_timer.purge();
-      m_timer = null;
-      sendMessage(HANDLER_MSG_TICK, -1, -1);
-      sendMessage(HANDLER_MSG_PLAY, 0, 0);
-      if (m_audioTrack != null &&
-          m_audioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING)
+      try
       {
-        m_audioTrack.stop();
+        mutexTryAcquire(m_mutexTick, 10);
+        // Do not matter how the mutex is taken or not. We force the stop;
+        // Cancel will brutally stop the timer
+        m_timer.cancel();
+        m_timer.purge();
+        m_timer = null;
+        sendMessage(HANDLER_MSG_TICK, -1, -1);
+        sendMessage(HANDLER_MSG_PLAY, 0, 0);
+        if (m_audioTrack != null &&
+            m_audioTrack.getPlayState() == AudioTrack.PLAYSTATE_PLAYING)
+        {
+          m_audioTrack.stop();
+        }
+      }
+      // If we cancel the timer during job
+      finally
+      {
+        m_mutexTick.release();
       }
     }
   }
@@ -345,7 +356,7 @@ public class MetronomeCore
   {
     try
     {
-      if (!mutexTryAcquire(m_mutexTick, -1)) return;
+      if (!mutexTryAcquire(m_mutexTick, 100)) return;
       if (m_regenerateTone)
       {
         setupTone();
