@@ -6,9 +6,9 @@
   android:id="@+id/fragmentMetronome"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingLeft="8dp"
-  android:paddingTop="8dp"
-  android:paddingRight="8dp"
+  android:paddingLeft="0dp"
+  android:paddingTop="0dp"
+  android:paddingRight="0dp"
   android:paddingBottom="8dp"
   tools:context=".Fragment.MetronomeFragment">
 
@@ -23,14 +23,17 @@
     >
 
     <!-- MetronomeView in values/attr.xml -->
+
     <org.kalinisa.diatronome.Ui.MetronomeView
       android:id="@+id/viewMetronome"
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.0" />
 
     <TextView
       android:id="@+id/txtMetronomeTempoName"
@@ -57,6 +60,7 @@
       android:id="@+id/btnMetronomeBeat"
       android:layout_width="0dp"
       android:layout_height="0dp"
+      android:layout_marginStart="8dp"
       android:background="@android:drawable/ic_menu_preferences"
       android:textAllCaps="false"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -140,6 +144,7 @@
       android:id="@+id/btnMetronomePlay"
       android:layout_width="0dp"
       android:layout_height="0dp"
+      android:layout_marginEnd="8dp"
       android:background="@android:drawable/ic_media_play"
       android:textAllCaps="false"
       app:layout_constraintBottom_toBottomOf="parent"

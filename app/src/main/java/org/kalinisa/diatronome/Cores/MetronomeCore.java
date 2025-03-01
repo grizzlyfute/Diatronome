@@ -287,10 +287,10 @@ public class MetronomeCore
     // Search the maximum interval with subdivision.
     int cnt = 0;
     int subDiv = 0;
-    boolean hassubdiv = false;
+    boolean hasSubDiv = false;
     for (int i = 0; i < m_beatsConfig.length; i++)
     {
-      hassubdiv |= (m_beatsConfig[i] == BEATCONFIG_SUBDIV);
+      hasSubDiv |= (m_beatsConfig[i] == BEATCONFIG_SUBDIV);
       if (m_beatsConfig[i] == BEATCONFIG_SUBDIV ||
           m_beatsConfig[i] == BEATCONFIG_OFF)
       {
@@ -307,7 +307,7 @@ public class MetronomeCore
 
     if (m_beatsConfig.length <= 1) subDiv = 1;
     else if (subDiv == 1) subDiv = 4;
-    else if (subDiv == 2 && hassubdiv) subDiv = 8;
+    else if (subDiv == 2 && hasSubDiv) subDiv = 8;
     else if (subDiv == 2) subDiv = 2;
     else if (subDiv == 3) subDiv = 8;
     else if (subDiv == 4) subDiv = 16;
@@ -447,6 +447,7 @@ public class MetronomeCore
   {
     try
     {
+      if (m_beatsConfig.length < 0) return;
       if (!mutexTryAcquire(m_mutexTick, getPeriodMs())) return;
 
       // Setup next

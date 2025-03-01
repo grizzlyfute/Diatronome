@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity
     switch (requestCode)
     {
       case REQUEST_RECORD_AUDIO_PERMISSION:
-        m_permissionToRecordAccepted = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+        m_permissionToRecordAccepted = (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED);
         if (!m_permissionToRecordAccepted)
         {
           android.util.Log.w(getString(R.string.app_name), "Permission to record audio not granted");

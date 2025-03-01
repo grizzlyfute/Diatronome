@@ -10,8 +10,8 @@ android {
         applicationId "org.kalinisa.diatronome"
         minSdk 21
         targetSdk 34
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
@@ -36,7 +36,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    
+
     // Disable DependencyInfoBlock, signing block added by AGP and
     // encrypted with the Google public key so it can't be read
     // by anyone else except Google.

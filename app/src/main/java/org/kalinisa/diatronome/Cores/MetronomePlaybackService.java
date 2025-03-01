@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -19,6 +20,8 @@ import org.kalinisa.diatronome.R;
 
 public class MetronomePlaybackService extends Service
 {
+  // Cannot be 0
+  private final int SERVICE_ID = 1686;
   @Override
   public void onCreate()
   {
@@ -27,7 +30,8 @@ public class MetronomePlaybackService extends Service
   }
 
   @Override
-  public IBinder onBind(Intent intent) {
+  public IBinder onBind(Intent intent)
+  {
     // We don't provide binding, so return null
     return null;
   }
@@ -56,7 +60,6 @@ public class MetronomePlaybackService extends Service
     }
     if (permission == PackageManager.PERMISSION_DENIED)
     {
-      stopSelf();
       // Start as non service
       MetronomeCore.getInstance().play();
       return;
@@ -79,11 +82,22 @@ public class MetronomePlaybackService extends Service
         // Create the notification to display while the service is running
         .build();
     }
-    startForeground
-    (
-      1686, // Id, Cannot be 0
-      notification
-    );
+    try
+    {
+     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+     {
+       startForeground(SERVICE_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
+     }
+     else
+     {
+       startForeground(SERVICE_ID, notification);
+     }
+    }
+    catch (Exception e)
+    {
+      android.util.Log.w (getClass().getName(), "Can not start metronome service: " + e.getMessage());
+      MetronomeCore.getInstance().play();
+    }
   }
 
   @RequiresApi(Build.VERSION_CODES.O)
