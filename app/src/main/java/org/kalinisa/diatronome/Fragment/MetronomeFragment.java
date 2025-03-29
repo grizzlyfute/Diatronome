@@ -55,7 +55,7 @@ public class MetronomeFragment extends Fragment
   {
     int result = 0;
     String[] n = s.split("");
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
 
     for (int i = 0; i < n.length; i++)
     {
@@ -294,8 +294,7 @@ public class MetronomeFragment extends Fragment
       else
       {
         btnPlay.setBackgroundResource(android.R.drawable.ic_media_play);
-        m_metronomeView.setIsReverse(false);
-        m_metronomeView.setBeatSelected(-1);
+        setTick(-1);
       }
     }
   }
@@ -382,11 +381,11 @@ public class MetronomeFragment extends Fragment
 
   public void setTick(int tickNb)
   {
-    int tickMax = MetronomeCore.getInstance().getDivision();
-    long periodMs = MetronomeCore.getInstance().getPeriodMs();
-
+    final int tickMax = MetronomeCore.getInstance().getDivision();
+    final long periodMs = MetronomeCore.getInstance().getPeriodMs();
     // Occurs if tickMax change
     if (tickNb > tickMax) tickNb = tickMax - 1;
+
     if (tickNb >= 0)
     {
       if (tickNb <= 0 && (m_metronomeView.getBeatSelected() > 0 || tickMax <= 1))

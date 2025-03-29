@@ -1,0 +1,3 @@
+Upgrade for android 15
+Fix #1, beat unequally distributed
+Fix desynchronous when live bpm change

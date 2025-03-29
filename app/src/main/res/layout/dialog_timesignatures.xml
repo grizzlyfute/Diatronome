@@ -34,7 +34,6 @@
 
   <Spinner
     android:id="@+id/numTimeDivisions"
-    layout="@layout/uc_number_picker"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:dropDownWidth="wrap_content"

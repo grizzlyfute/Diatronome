@@ -12,3 +12,5 @@
 
 Eine Erlaubnis zur Audioaufzeichnung und -wiedergabe ist erforderlich.
 Die Anwendung bietet nützliche Übungstools für Musiker.
+
+Keywords: metronome, tuner

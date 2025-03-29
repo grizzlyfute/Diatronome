@@ -19,7 +19,7 @@ public class SoundAnalyzeCore
   // ---------------------------------------------------------------------------
   // Types
   // ---------------------------------------------------------------------------
-  public class NeedleParameters
+  public static class NeedleParameters
   {
     // range: [-1, 1]. -1 = -50c, +1 = +50c
     public double accuracy;
@@ -104,7 +104,7 @@ public class SoundAnalyzeCore
       final int CHANNEL_IN = AudioFormat.CHANNEL_IN_MONO;
       final int ENCODING = AudioFormat.ENCODING_PCM_16BIT;
 
-      if (m_recorder == null && AudioInterceptor.IsAudioWorking())
+      if (m_recorder == null && AudioUtils.IsAudioWorking())
       {
         m_recorder = new AudioRecord
         (
@@ -114,7 +114,7 @@ public class SoundAnalyzeCore
           ENCODING,
           // audioBufferSize % frameSizeInBytes (=channel*encoding) == 0
           // 4096 =  buffer size for c0 Acquisition -16.31 Hz, power of 2)
-          Math.max(4096, AudioInterceptor.AudioRecord_getMinBufferSize(AUDIO_SAMPLE_RATE, CHANNEL_IN, ENCODING))
+          Math.max(4096, AudioUtils.AudioRecord_getMinBufferSize(AUDIO_SAMPLE_RATE, CHANNEL_IN, ENCODING))
         );
       }
 

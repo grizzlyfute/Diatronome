@@ -1,10 +1,6 @@
 package org.kalinisa.diatronome.Cores;
 
-import android.media.AudioAttributes;
-import android.media.AudioFormat;
-import android.media.AudioManager;
 import android.media.AudioTrack;
-import android.os.Build;
 
 public class PlayNoteCore
   extends BaseCore
@@ -20,17 +16,8 @@ public class PlayNoteCore
   private int m_currentOctave = 0;
   private AudioTrack m_audioTrack = null;
   private int m_audioPosEnd = 0;
-  private int FADE_IN_OUT_MS = 10;
 
-  // final int AUDIO_BIT_RATE = 44100,22050,16000,8000;
-  private static final int AUDIO_BIT_RATE = AudioInterceptor.AudioTrack_getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
-  private static final int AUDIO_FORMAT = AudioFormat.CHANNEL_OUT_STEREO;
-  private static final int AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
-
-  private final static int WAVEFORM_SINE = 1;
-  private final static int WAVEFORM_TRIANGLE = 2;
-  private final static int WAVEFORM_SAWTOOTH = 3;
-  private final static int WAVEFORM_SQUARE = 4;
+  private final int FADE_IN_OUT_MS = 10;
 
   private PlayNoteCore()
   {
@@ -44,215 +31,6 @@ public class PlayNoteCore
       s_instance = new PlayNoteCore();
     }
     return s_instance;
-  }
-
-  static private int getAudioFrameSize()
-  {
-    int frameSize = 1;
-    if (AUDIO_FORMAT == AudioFormat.CHANNEL_OUT_DEFAULT ||
-      AUDIO_FORMAT == AudioFormat.CHANNEL_OUT_MONO)
-    {
-      frameSize = 1;
-    }
-    else if (AUDIO_FORMAT == AudioFormat.CHANNEL_OUT_STEREO)
-    {
-      frameSize = 2;
-    }
-    if (AUDIO_ENCODING == AudioFormat.ENCODING_PCM_8BIT)
-    {
-      frameSize *= 1;
-    }
-    else
-    {
-      frameSize *= 2;
-    }
-    return frameSize;
-  }
-
-  @SuppressWarnings("deprecation")
-  public static AudioTrack newAudioTrack(int audioLen, int AUDIO_MODE)
-  {
-    int frameSize = getAudioFrameSize();
-
-    // Buffer size should be greater than MinSize, and multiple of (ChannelCount * frameSizeInByte)
-    // Where frameSizeInByte = 1 if 8 BITS, 2 is 16 BITS, ChannelCount = 1 if mono, 2 is stereo
-    final int AUDIO_BUFFER_SIZE = Math.max(
-      frameSize * ((audioLen + (frameSize - 1)) / frameSize),
-      AudioInterceptor.AudioTrack_getMinBufferSize(AUDIO_BIT_RATE, AUDIO_FORMAT, AUDIO_ENCODING));
-
-    AudioTrack audioTrack = null;
-    if (!AudioInterceptor.IsAudioWorking())
-    {
-      audioTrack = null;
-    }
-    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-    {
-      audioTrack = new AudioTrack(
-        (new AudioAttributes.Builder())
-          .setUsage(AudioAttributes.USAGE_MEDIA)
-          .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-          .build(),
-        (new AudioFormat.Builder())
-          .setEncoding(AUDIO_ENCODING)
-          .setSampleRate(AUDIO_BIT_RATE)
-          .setChannelMask(AUDIO_FORMAT)
-          .build(),
-        AUDIO_BUFFER_SIZE,
-        AUDIO_MODE,
-        AudioManager.AUDIO_SESSION_ID_GENERATE);
-    }
-    else
-    {
-      audioTrack = new AudioTrack(
-        AudioManager.STREAM_MUSIC,
-        AUDIO_BIT_RATE,
-        AUDIO_FORMAT,
-        AUDIO_ENCODING,
-        AUDIO_BUFFER_SIZE,
-        AUDIO_MODE);
-    }
-    return audioTrack;
-  }
-
-  public static byte[] toAudioBytes(final short[] pcm)
-  {
-    //noinspection ConstantConditions
-    byte audioByte[] = new byte[pcm.length *
-      (AUDIO_ENCODING == AudioFormat.ENCODING_PCM_8BIT ? 1 : 2) *
-      (AUDIO_FORMAT == AudioFormat.CHANNEL_OUT_STEREO ? 2 : 1)];
-    int index_byte = 0;
-
-    // Caution : Do not do  audioByte[index_byte++] = audioByte[index_byte - 2] because the left operand (index_byte++) will be executed before right operand (index_byte - 2)
-    for (int i = 0; i < pcm.length; i++)
-    {
-      // in 16 bit wav PCM, first byte is the low order byte
-      audioByte[index_byte] = (byte)((pcm[i] >> 0) & 0xFF);
-      index_byte++;
-      //noinspection ConstantConditions
-      if (AUDIO_ENCODING == AudioFormat.ENCODING_PCM_16BIT)
-      {
-        audioByte[index_byte] = (byte)((pcm[i] >> 8) & 0xFF);
-        index_byte++;
-      }
-      //noinspection ConstantConditions
-      if (AUDIO_FORMAT == AudioFormat.CHANNEL_OUT_STEREO)
-      {
-        audioByte[index_byte] = audioByte[index_byte - 2];
-        index_byte++;
-        //noinspection ConstantConditions
-        if (AUDIO_ENCODING == AudioFormat.ENCODING_PCM_16BIT)
-        {
-          audioByte[index_byte] = audioByte[index_byte - 2];
-          index_byte++;
-        }
-      }
-    }
-    return audioByte;
-  }
-
-  public static short[] generatePcm(double frequency, double durationMs, int waveForm)
-  {
-    if (frequency <= 0 || durationMs <= 0) return null;
-
-    // Generate sample
-    // The duration become inaccurate. This allow to have an integer number of periods, and avoid audio glitch
-    // nbr periods * period duration * bitrate
-    int numSample = (int)(Math.ceil(Math.ceil(frequency * durationMs / 1000.0) * AUDIO_BIT_RATE / frequency));
-
-    short[] soundPcm = new short[numSample];
-    int i, n;
-    double range = (double)(Short.MAX_VALUE) - (double)(Short.MIN_VALUE);
-    double min = (double)(Short.MIN_VALUE);
-
-    switch (waveForm)
-    {
-      case WAVEFORM_SINE:
-        for (i = 0; i < numSample; i++)
-        {
-          soundPcm[i] = (short)((range / 2) * (Math.sin (2 * Math.PI * i * frequency / AUDIO_BIT_RATE) + 1) + min);
-        }
-        break;
-      case WAVEFORM_TRIANGLE:
-        n = (int)(AUDIO_BIT_RATE / frequency);
-        for (i = 0; i < numSample; i++)
-        {
-          soundPcm[i] = (short)(range * (double)(i % n) / n + min);
-        }
-        break;
-      case WAVEFORM_SAWTOOTH:
-        n = (int)(AUDIO_BIT_RATE / (2*frequency));
-        for (i = 0; i < numSample; i++)
-        {
-          if (i % (2*n) < n)
-          {
-            soundPcm[i] = (short)(range * (double)(i % n) / n + min);
-          }
-          else
-          {
-            soundPcm[i] = (short)(range * (1.0 - (double)(i % n) / n) + min);
-          }
-        }
-        break;
-      case WAVEFORM_SQUARE:
-        n = (int)(AUDIO_BIT_RATE / (2*frequency));
-        for (i = 0; i < numSample; i++)
-        {
-          if (i % (2*n) < n)
-          {
-            soundPcm[i] = (short)(min + range);
-          }
-          else
-          {
-            soundPcm[i] = (short)min;
-          }
-        }
-        break;
-      default:
-        for (i = 0; i < numSample; i++)
-        {
-          soundPcm[i] = (short)(Math.random() * range + min);
-        }
-        break;
-    }
-    return soundPcm;
-  }
-
-  public static void fadeOutFilter(short[] audio, int filterDurationInMs)
-  {
-    final int filterDurationInSamples = Math.min(filterDurationInMs * AUDIO_BIT_RATE / 1000, audio.length);
-    double fadeAmplification = 0;
-    int j;
-
-    for (int i = 0; i < filterDurationInSamples; i++)
-    {
-      j = audio.length - filterDurationInSamples + i;
-      fadeAmplification = (1 - (double)i/filterDurationInSamples);
-      audio[j] = (short)(fadeAmplification * audio[j]);
-    }
-  }
-
-  public static void fadeInFilter(short[] audio, int filterDurationInMs)
-  {
-    final int filterDurationInSamples = Math.min(filterDurationInMs * AUDIO_BIT_RATE / 1000, audio.length);
-    double fadeAmplification = 0;
-
-    final int fadeOutOffset = audio.length - filterDurationInSamples;
-    for (int i = 0 ; i < filterDurationInSamples; i++)
-    {
-      fadeAmplification = (double)i/filterDurationInSamples;
-      audio[i] = (short)(fadeAmplification * audio[i]);
-    }
-  }
-
-  public static void releaseAudioTrack(AudioTrack audioTrack)
-  {
-    if (audioTrack == null) return;
-    if (audioTrack.getState() == AudioTrack.STATE_INITIALIZED)
-    {
-      audioTrack.stop();
-      // audioTrack.flush();
-    }
-    audioTrack.release();
   }
 
   public synchronized void stopPlaying()
@@ -282,19 +60,19 @@ public class PlayNoteCore
       m_audioTrack.stop();
     }
 
-    releaseAudioTrack(m_audioTrack);
+    AudioUtils.releaseAudioTrack(m_audioTrack);
     m_audioTrack = null;
   }
 
   public synchronized void startPlaying(int octave, int note)
   {
     final double frequency = getFrequency(octave, note);
-    final int frameSize = getAudioFrameSize();
-    final short[] pcm = generatePcm(frequency, 1000 / frequency, m_waveForm);
-    final short[] pcmStart = generatePcm(frequency, FADE_IN_OUT_MS, m_waveForm);
-    final short[] pcmEnd = generatePcm(frequency, FADE_IN_OUT_MS, m_waveForm);
-    fadeInFilter(pcmStart, FADE_IN_OUT_MS);
-    fadeOutFilter(pcmEnd, FADE_IN_OUT_MS);
+    final int frameSize = AudioUtils.getAudioFrameSize();
+    final short[] pcm = AudioUtils.generatePcm(frequency, 1000 / frequency, m_waveForm);
+    final short[] pcmStart = AudioUtils.generatePcm(frequency, FADE_IN_OUT_MS, m_waveForm);
+    final short[] pcmEnd = AudioUtils.generatePcm(frequency, FADE_IN_OUT_MS, m_waveForm);
+    AudioUtils.fadeInFilter(pcmStart, FADE_IN_OUT_MS);
+    AudioUtils.fadeOutFilter(pcmEnd, FADE_IN_OUT_MS);
     byte[] audioPcm = new byte[frameSize * (pcmStart.length + pcm.length + pcmEnd.length)];
     byte[] audioPcmInBytes = null;
     int start, stop = 0;
@@ -304,19 +82,19 @@ public class PlayNoteCore
     m_currentOctave = octave;
     m_currentNote = note;
 
-    audioPcmInBytes = toAudioBytes(pcmStart);
+    audioPcmInBytes = AudioUtils.toAudioBytes(pcmStart);
     System.arraycopy(audioPcmInBytes, 0, audioPcm, 0, audioPcmInBytes.length);
     start = pcmStart.length;
 
-    audioPcmInBytes = toAudioBytes(pcm);
+    audioPcmInBytes = AudioUtils.toAudioBytes(pcm);
     System.arraycopy(audioPcmInBytes, 0, audioPcm, frameSize * start, audioPcmInBytes.length);
     stop = start + pcm.length;
 
-    audioPcmInBytes = toAudioBytes(pcmEnd);
+    audioPcmInBytes = AudioUtils.toAudioBytes(pcmEnd);
     System.arraycopy(audioPcmInBytes, 0, audioPcm, frameSize * stop, audioPcmInBytes.length);
     m_audioPosEnd = stop + pcmEnd.length;
 
-    m_audioTrack = newAudioTrack(audioPcm.length, AudioTrack.MODE_STATIC);
+    m_audioTrack = AudioUtils.newAudioTrack(audioPcm.length, AudioTrack.MODE_STATIC);
     if (m_audioTrack != null && audioPcm != null)
     {
       // In static mode, write all in same time
@@ -347,19 +125,19 @@ public class PlayNoteCore
     switch (waveFormStr)
     {
       case "SINE":
-        waveform = WAVEFORM_SINE;
+        waveform = AudioUtils.WAVEFORM_SINE;
         break;
       case "TRIANGLE":
-        waveform = WAVEFORM_TRIANGLE;
+        waveform = AudioUtils.WAVEFORM_TRIANGLE;
         break;
       case "SAWTOOTH":
-        waveform = WAVEFORM_SAWTOOTH;
+        waveform = AudioUtils.WAVEFORM_SAWTOOTH;
         break;
       case "SQUARE":
-        waveform = WAVEFORM_SQUARE;
+        waveform = AudioUtils.WAVEFORM_SQUARE;
         break;
       default:
-        waveform = WAVEFORM_SINE;
+        waveform = AudioUtils.WAVEFORM_SINE;
         break;
     }
     return waveform;

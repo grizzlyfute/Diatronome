@@ -51,14 +51,14 @@
     app:flow_verticalBias="1.0"
     app:flow_verticalStyle="spread_inside"
     app:flow_wrapMode="chain"
-    tools:layout_editor_absoluteX="660dp" /> -->
+    tools:layout_editor_absoluteX="660dp" />
 
   <Button
     android:id="@+id/btnNote"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:minWidth="200dp"
+    android:minWidth="180dp"
     android:minHeight="48dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"

@@ -5,14 +5,14 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -24,12 +24,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.preference.PreferenceManager;
 
+import org.kalinisa.diatronome.Cores.AudioUtils;
 import org.kalinisa.diatronome.Cores.MetronomeCore;
 import org.kalinisa.diatronome.Cores.MetronomePlaybackService;
 import org.kalinisa.diatronome.Cores.PlayNoteCore;
@@ -203,53 +203,60 @@ public class MainActivity extends AppCompatActivity
     //noinspection SimplifiableIfStatement
     boolean isHandled = false;
 
-    switch (id)
+    if (id == R.id.action_tuner)
     {
-      case R.id.action_tuner:
-        navigateTo(R.layout.fragment_tuner);
-        isHandled = true;
-        break;
+      navigateTo(R.layout.fragment_tuner);
+      isHandled = true;
+    }
+    else if (id ==  R.id.action_playnote)
+    {
+      navigateTo(R.layout.fragment_playnote);
+      isHandled = true;
+    }
+    else if (id == R.id.action_metronome)
+    {
+      navigateTo(R.layout.fragment_metronome);
+      isHandled = true;
+    }
+    else if (id == R.id.action_settings)
+    {
+      startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+      isHandled = true;
+    }
+    else if (id == R.id.action_about)
+    {
+      PackageManager manager = getPackageManager();
+      PackageInfo info = null;
+      String version = null;
+      try
+      {
+        info = manager.getPackageInfo(getPackageName(), 0);
+        version = info.versionName;
+      } catch (PackageManager.NameNotFoundException e) { }
 
-      case R.id.action_playnote:
-        navigateTo(R.layout.fragment_playnote);
-        isHandled = true;
-        break;
-
-      case R.id.action_metronome:
-        navigateTo(R.layout.fragment_metronome);
-        isHandled = true;
-        break;
-
-      case R.id.action_settings:
-        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-        isHandled = true;
-        break;
-
-      case R.id.action_about:
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setCancelable(true);
-        alertDialogBuilder.setIcon(R.drawable.app_icon);
-        // Use BuildConfig.VERSION_CODE for code. See build.gradle
-        alertDialogBuilder.setTitle(getResources().getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
-        String msg = getString(R.string.about_content, getString(R.string.about_license), getString(R.string.about_source), getString(R.string.about_support));
-        alertDialogBuilder.setMessage(HtmlCompat.fromHtml(msg , HtmlCompat.FROM_HTML_MODE_LEGACY));
-        alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+      alertDialogBuilder.setCancelable(true);
+      alertDialogBuilder.setIcon(R.drawable.app_icon);
+      alertDialogBuilder.setTitle(getResources().getString(R.string.app_name) + " " + version);
+      String msg = getString(R.string.about_content, getString(R.string.about_license), getString(R.string.about_source), getString(R.string.about_support));
+      alertDialogBuilder.setMessage(HtmlCompat.fromHtml(msg , HtmlCompat.FROM_HTML_MODE_LEGACY));
+      alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
         {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            dialog.cancel();
-          }
-        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-        // Make link clickable (to call after show());
-        ((TextView)alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
-        isHandled = true;
-        break;
-
-      default:
-        break;
+          dialog.cancel();
+        }
+      });
+      AlertDialog alertDialog = alertDialogBuilder.create();
+      alertDialog.show();
+      // Make link clickable (to call after show());
+      ((TextView)alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+      isHandled = true;
+    }
+    else
+    {
+      // Do nothing
     }
 
     if (!isHandled)

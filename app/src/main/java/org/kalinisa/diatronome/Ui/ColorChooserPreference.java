@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
-import androidx.preference.SeekBarPreference;
 
 import org.kalinisa.diatronome.R;
 

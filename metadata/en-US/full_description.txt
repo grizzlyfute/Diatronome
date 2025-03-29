@@ -10,6 +10,7 @@ a <b>visual-metronome</b>, and a <b>synthesizer</b>
 - Multiple customizable settings (even the app color)
 - Advanced parameters available to work on a maximum of devices.
 
-Audio recording and playback permission are require to run.
+Audio recording and playback permission are required to run.
+The application provides an useful practice tools for musicians.
 
-The application provide an useful practice tools for musicians.
+Keywords: metronome, tuner

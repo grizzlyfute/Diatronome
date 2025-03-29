@@ -14,8 +14,8 @@ RepoType: git
 Repo: https://github.com/grizzlyfute/Diatronome
 
 Builds:
-  - versionName: 1.0.2
-    versionCode: 3
+  - versionName: 1.0.3
+    versionCode: 4
     commit: 1.0.2
     subdir: app
     gradle:
@@ -23,5 +23,5 @@ Builds:
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: 1.0.2
-CurrentVersionCode: 3
+CurrentVersion: 1.0.3
+CurrentVersionCode: 4

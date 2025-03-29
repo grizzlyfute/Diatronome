@@ -11,5 +11,6 @@
 - Parámetros avanzados disponibles para trabajar en un máximo de dispositivos.
 
 Se requiere permiso para grabar y reproducir audio.
-
 La aplicación ofrece herramientas de práctica útiles para músicos.
+
+Keywords: metronome, tuner

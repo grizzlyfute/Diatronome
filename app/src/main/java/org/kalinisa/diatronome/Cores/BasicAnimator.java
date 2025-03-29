@@ -59,12 +59,13 @@ public class BasicAnimator
     if (m_frameDelayMs <= 0) m_frameDelayMs = 40;
     m_count = 0;
     m_countMax = m_durationMs / m_frameDelayMs;
+    m_lastTimerTime = System.currentTimeMillis();
     if (m_countMax <= 0) m_countMax = 1;
 
     if (m_timer != null) m_timer.cancel();
 
     m_timer = new Timer();
-    m_timer.scheduleAtFixedRate(new TimerTask()
+    m_timer.schedule(new TimerTask()
     {
       @Override
       public void run()
@@ -108,12 +109,6 @@ public class BasicAnimator
         return;
       }
 
-      final float current = m_begin + (m_end - m_begin) * m_count / m_countMax;
-      for (AnimatorUpdateListener animator : m_listeners)
-      {
-        animator.onAnimationUpdate(current);
-      }
-
       // For slow device, count faster
       long ts = System.currentTimeMillis();
       long diffTs = ts - m_lastTimerTime;
@@ -130,7 +125,14 @@ public class BasicAnimator
 
       if (m_count > m_countMax)
       {
+        m_count = m_countMax;
         cancel();
+      }
+
+      final float current = m_begin + (m_end - m_begin) * m_count / m_countMax;
+      for (AnimatorUpdateListener animator : m_listeners)
+      {
+        animator.onAnimationUpdate(current);
       }
     }
     finally
