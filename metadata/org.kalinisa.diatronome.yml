@@ -11,9 +11,17 @@ Name: Diatronome
 AutoName: Diatronome
 
 RepoType: git
-Repo: https://github.com/grizzlyfute/Diatronome
+Repo: https://github.com/grizzlyfute/Diatronome.git
+Binaries: https://github.com/grizzlyfute/Diatronome/releases/download/%v/app-release.apk
 
 Builds:
+  - versionName: 1.0.2
+    versionCode: 3
+    commit: 1.0.2
+    subdir: app
+    gradle:
+      - yes
+
   - versionName: 1.0.3
     versionCode: 4
     commit: 1.0.3
@@ -21,12 +29,7 @@ Builds:
     gradle:
       - yes
 
-  - versionName: 1.0.2
-    versionCode: 3
-    commit: 1.0.2
-    subdir: app
-    gradle:
-      - yes
+AllowedAPKSigningKeys: 13ddc06feb35a218ff0d2cf8374fe8ab29b97a3cd66305eed420f4c1b532958e
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
