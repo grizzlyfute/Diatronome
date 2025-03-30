@@ -46,6 +46,14 @@ android {
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
+
+    // Do not include any version control source (VCS) information, avoiding error
+    // generate_error_reason: NO_SUPPORTED_VCS_FOUND on fdroid lint
+    buildTypes {
+        release {
+            vcsInfo.include false
+        }
+    }
 }
 
 dependencies {
