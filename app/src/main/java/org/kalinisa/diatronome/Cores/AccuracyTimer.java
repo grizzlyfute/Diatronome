@@ -112,28 +112,37 @@ public class AccuracyTimer extends Thread
   // Contrary to java.utils.Timer, this allow reschedule without exception
   public void scheduleAtFixedRate(AccuracyTimerTask task, long delayMs, long periodMs)
   {
+    AccuracyTimerTask oldTask = null;
     synchronized (this)
     {
-      if (m_task != null)
-      {
-        task.interrupt();
-      }
-      m_reloadTimer = true;
+      oldTask = m_task;
       m_task = task;
       m_waitTime = delayMs * NB_MS_IN_NS;
       m_periodTime = periodMs * NB_MS_IN_NS;
+      m_reloadTimer = true;
     }
-    if (isAlive()) interrupt();
-    else start();
+    try
+    {
+      if (isAlive()) interrupt();
+      // else NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING or TERMINATED
+      else if (Thread.currentThread().getState() == State.NEW ||
+        Thread.currentThread().getState() == State.RUNNABLE) start();
+    }
+    catch (IllegalThreadStateException e)
+    {
+      android.util.Log.w (getClass().getName(), "Illegal thread state " + Thread.currentThread().getState());
+    }
+    if (oldTask != null) oldTask.interrupt();
   }
 
   public synchronized void cancel()
   {
+    m_reloadTimer = false;
+    interrupt();
     if (m_task != null)
     {
       m_task.interrupt();
     }
-    interrupt();
     try
     {
       join(1000);
