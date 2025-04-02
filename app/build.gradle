@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace 'org.kalinisa.diatronome'
-    compileSdk 35
 
+    compileSdkVersion 35
     defaultConfig {
         applicationId "org.kalinisa.diatronome"
         minSdk 21
         targetSdk 35
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.5"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
@@ -46,8 +46,7 @@ android {
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
-    // Workaround https://issuetracker.google.com/issues/351408623
-    buildToolsVersion '34.0.0'
+    buildToolsVersion '35.0.1'
 
     // Do not include any version control source (VCS) information, avoiding error
     // generate_error_reason: NO_SUPPORTED_VCS_FOUND on fdroid lint
@@ -72,15 +71,5 @@ dependencies {
 allprojects {
     tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-    }
-    tasks.withType(Sign) {
-        // Workaround https://issuetracker.google.com/issues/351408623
-        // https://github.com/obfusk/apksigcopier?tab=readme-ov-file#what-about-signatures-made-by-apksigner-from-build-tools--3500-rc1
-        // Using apksigner from build-tools version 34 produces APKs verifiable by apksigcopier, but newer versions will fail.
-        // Unfortunately, supporting this change in apksigcopier without breaking compatibility with the signatures currently supported would require rather significant changes. Luckily, there are 3 workarounds available:
-        // First: use apksigner from build-tools <= 34.0.0 (clearly not ideal).
-        // Second: use apksigner sign from build-tools >= 35.0.0-rc1 with the --alignment-preserved option.
-        // Third: use zipalign.py --page-size 16 --pad-like-apksigner --replace on the unsigned APK to replace the padding the same way apksigner now does before using apksigcopier.
-        options.compilerArgs << "--alignment-preserved"
     }
 }
