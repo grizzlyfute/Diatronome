@@ -4,6 +4,12 @@ The application is provided as is, in hope it will be useful.
 It is delivered without any unnecessary features like advertisement, selling personal data, privacy spy, making money behind you, etc.
 *Diatronome* is a contraction of the word *diapason*, meaning *fork-tuner* in french and *metronome*.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/org.kalinisa.diatronome/)
+
+Or download the latest APK from the [Releases Section](https://github.com/grizzlyfute/Diatronome/releases/latest).
+
 # Features
 ## Tuner
 * Note reference pitch from 430 Hz to 450 Hz. (Tap to bottom-right corner to adjust calibration).
