@@ -63,7 +63,7 @@ public class TunerFragment extends Fragment
         @Override
         public void onClick(View v)
         {
-          m_transpositionDialog.setSingleChoiceItems(R.array.array_transposition, (UiCore.getInstance().getTranspostion() + 12)%12, new DialogInterface.OnClickListener()
+          m_transpositionDialog.setSingleChoiceItems(R.array.array_transposition, (UiCore.getInstance().getTransposition() + 12)%12, new DialogInterface.OnClickListener()
           {
             @Override
             public void onClick(DialogInterface dialog, int which)

@@ -139,7 +139,7 @@ public class UiCore extends BaseCore
     sendMessage(HANDLER_MSG_NOTE_STRING_CHANGE, useSharp ? 1 : 0, 0);
   }
 
-  public int getTranspostion() { return m_transposition; }
+  public int getTransposition() { return m_transposition; }
   public void setTransposition(int transposition)
   {
     m_transposition = transposition;
@@ -148,7 +148,7 @@ public class UiCore extends BaseCore
 
   public Spanned getNoteName(Resources r, int octave, int note)
   {
-    if (note< 0 || note >= 12)
+    if (note < 0 || note >= 12)
       return HtmlCompat.fromHtml("--", HtmlCompat.FROM_HTML_MODE_LEGACY);
     note = (note - m_transposition + 12) % 12;
 
@@ -156,9 +156,10 @@ public class UiCore extends BaseCore
      (note == 1 || note == 3 ||
       note == 6 || note == 8 || note == 10);
 
-    if (m_useSharp && isFlatSharp)
+    if (isFlatSharp)
     {
-      note -= 1;
+      if (m_useSharp) note -= 1;
+      else note += 1;
     }
     int index = note / 2;
     if (note >= 5) index += 1;

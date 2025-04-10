@@ -4,6 +4,15 @@ The application is provided as is, in hope it will be useful.
 It is delivered without any unnecessary features like advertisement, selling personal data, privacy spy, making money behind you, etc.
 *Diatronome* is a contraction of the word *diapason*, meaning *fork-tuner* in french and *metronome*.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+alt="Get it on F-Droid"
+height="80">](https://f-droid.org/packages/org.kalinisa.diatronome/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+alt="Get it on Google Play"
+height="80">](https://play.google.com/store/apps/details?id=org.kalinisa.diatronome)
+
+Or download the latest APK from the [Releases Section](https://github.com/grizzlyfute/Diatronome/releases/latest).
+
 # Features
 ## Tuner
 * Note reference pitch from 430 Hz to 450 Hz. (Tap to bottom-right corner to adjust calibration).
@@ -12,7 +21,9 @@ It is delivered without any unnecessary features like advertisement, selling per
 * Several pitch-detection algorithm available.
 * Adjustable microphone sensitivity.
 
-![Tuner](./metadata/en-US/images/phoneScreenshots/land_sc2.jpg)
+[<img src="/metadata/en-US/images/phoneScreenshots/land_sc2.jpg"
+alt=""
+height="300">]
 
 ## Visual metronome
 * Tempo from 1 to 320 beats per minute.
@@ -23,14 +34,18 @@ It is delivered without any unnecessary features like advertisement, selling per
 * Tap on tempo to open a keyboard for manual input.
 * Change metronome's tonality in settings.
 
-![Metronome](./metadata/en-US/images/phoneScreenshots/land_sc1.jpg)
+[<img src="/metadata/en-US/images/phoneScreenshots/land_sc1.jpg"
+alt=""
+height="300">]
 
 ## Synthesizer
 * 8 octaves range.
 * Continuous playback mode.
 * Different waveforms available.
 
-![Synthetiser](./metadata/en-US/images/phoneScreenshots/land_sc3.jpg)
+[<img src="/metadata/en-US/images/phoneScreenshots/land_sc3.jpg"
+alt=""
+height="300">]
 
 ## Other application feature
 * Customization of themes colors.
@@ -39,7 +54,10 @@ It is delivered without any unnecessary features like advertisement, selling per
 * Changing sharp / flat and note name mode.
 * Dark and light themes available.
 
-![Settings](./metadata/en-US/images/phoneScreenshots/port_sc5.jpg)
+
+[<img src="/metadata/en-US/images/phoneScreenshots/port_sc5.jpg"
+alt=""
+width="300">]
 
 # Required permissions
 * Audio record (for tuner function).

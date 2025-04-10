@@ -1,0 +1,1 @@
+Wrong labels for synthesizer black keys (#3)
