@@ -40,8 +40,9 @@ public class TunerFragment extends Fragment
     m_transpositionDialog.setTitle(R.string.preference_transposition);
 
     m_pitchSettingDialog = new NumberPickerDialog();
-    m_pitchSettingDialog.setMin(430);
-    m_pitchSettingDialog.setMax(450);
+    // Duplicated with settings min/max
+    m_pitchSettingDialog.setMin(250);
+    m_pitchSettingDialog.setMax(630);
     m_pitchSettingDialog.setValue (
       PreferenceManager.getDefaultSharedPreferences(getContext()).getInt (SettingsCore.SETTING_PITCH_REF, 0));
     m_pitchSettingDialog.setIcon(R.drawable.icon_pitch);

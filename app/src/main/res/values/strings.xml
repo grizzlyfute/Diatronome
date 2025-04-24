@@ -39,7 +39,7 @@
   <string name="preference_metronome_bidirectionalneedle">Metronome Bidirectional needle</string>
 
   <string name="preference_advanced">Advanced</string>
-  <string name="preference_threshold">Microphone threshold</string>
+  <string name="preference_sensitivity">Microphone sensitivity</string>
   <string name="preference_algorithm">Algorithm</string>
 
   <!-- about -->

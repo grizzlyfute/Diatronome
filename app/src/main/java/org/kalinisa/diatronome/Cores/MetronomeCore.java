@@ -144,6 +144,8 @@ public class MetronomeCore
   public void setRefPitch(float refPitch)
   {
     m_refPitch = refPitch;
+    // Ensure ref pitch not diverge if playing too strong with ref
+    if (m_refPitch < 415 - 3 || m_refPitch > 466 + 3) m_refPitch = 440;
     m_regenerateTone = true;
   }
 

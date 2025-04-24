@@ -36,12 +36,12 @@
   <string name="preference_metronome_pitch_subdivision">"Metronom-Tonhöhenunterteilung "</string>
   <string name="preference_metronome_bidirectionalneedle">Bidirektionale Nadel</string>
   <string name="preference_advanced">Fortschrittlich</string>
-  <string name="preference_threshold">Mikrofonschwelle</string>
+  <string name="preference_sensitivity">Mikrofon Empfindlichkeit</string>
   <string name="preference_algorithm">Algorithmus</string>
 
   <string-array name="array_notes_name">
-    <item>Musiklehre (Do-Re-Mi)</item>
     <item>International (A B C)</item>
+    <item>Musiklehre (Do-Re-Mi)</item>
   </string-array>
 
   <string-array name="array_notes_name_solfege">

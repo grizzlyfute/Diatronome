@@ -476,8 +476,8 @@ public class PlayNoteCore
     }
 
     if (f < freq) min-=1;
-    else max+=1;
-    if (freq - getFrequency(min / 12, min % 12) > getFrequency(max / 12, max % 12) - freq)
+    else max += 1;
+    if (diffCents(freq, getFrequency(min / 12, min % 12)) > diffCents(getFrequency(max / 12, max % 12), freq))
       mid = max;
     else
       mid = min;

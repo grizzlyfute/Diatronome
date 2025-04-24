@@ -10,8 +10,8 @@ android {
         applicationId "org.kalinisa.diatronome"
         minSdk 21
         targetSdk 35
-        versionCode 6
-        versionName "1.0.6"
+        versionCode 7
+        versionName "1.0.7"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
@@ -52,6 +52,7 @@ android {
     // generate_error_reason: NO_SUPPORTED_VCS_FOUND on fdroid lint
     buildTypes {
         release {
+            signingConfig signingConfigs.debug
             vcsInfo.include false
         }
     }

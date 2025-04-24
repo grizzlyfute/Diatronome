@@ -36,12 +36,12 @@
   <string name="preference_metronome_pitch_subdivision">Subdivisión del tono del metrónomo</string>
   <string name="preference_metronome_bidirectionalneedle">Aguja bidireccional</string>
   <string name="preference_advanced">Avanzado</string>
-  <string name="preference_threshold">Umbral del micrófono</string>
+  <string name="preference_sensitivity">Sensibilidad del micrófono</string>
   <string name="preference_algorithm">Algoritmo</string>
 
   <string-array name="array_notes_name">
-    <item>Solfeo (Do-Re-Mi)</item>
     <item>Internacional (A B C)</item>
+    <item>Solfeo (Do-Re-Mi)</item>
   </string-array>
 
   <string-array name="array_notes_name_solfege">

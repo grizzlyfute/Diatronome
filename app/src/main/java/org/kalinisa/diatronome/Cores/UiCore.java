@@ -168,11 +168,11 @@ public class UiCore extends BaseCore
     switch (m_noteName)
     {
       case 1:
-        sb.append(r.getStringArray(R.array.array_notes_name_solfege)[index]);
+        sb.append(r.getStringArray(R.array.array_notes_name_letters)[index]);
         break;
 
       case 2:
-        sb.append(r.getStringArray(R.array.array_notes_name_letters)[index]);
+        sb.append(r.getStringArray(R.array.array_notes_name_solfege)[index]);
         break;
 
       default:

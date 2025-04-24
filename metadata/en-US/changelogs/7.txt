@@ -1,0 +1,4 @@
+Increase pitch range from 250 to 630 Hz (All octave 4 centered on 440 Hz) (#5)
+Stop overlapping system bar in android 15 (#6)
+Flipped note name in english (#7).
+Set microphone sensitivity instead of threshold (reverse setting)

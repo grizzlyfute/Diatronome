@@ -82,9 +82,9 @@ public class SoundAnalyzeCore
   public void setThreshold(int value)
   {
     // Compute intensity from int range [0-10]
-    // 0: 0, 5: 0.01, 10 = 0.75, model, f(value) = k*(exp(value*u) - 1)
+    // 0: 0.75, 5: 0.01, 10 = 0, model, f(value) = k*(exp((10-value)*u) - 1)
     // k ~= 0.000136986; u ~= 0.860813
-    changeSettingDouble(x -> m_thresholdIntensity = x, 0.000136986 * (Math.exp(value * 0.860813) - 1));
+    changeSettingDouble(x -> m_thresholdIntensity = x, 0.000136986 * (Math.exp((10 - value) * 0.860813) - 1));
   }
 
   public void setAlgo(int algo)
