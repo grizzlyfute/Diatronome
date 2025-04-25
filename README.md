@@ -15,7 +15,7 @@ Or download the latest APK from the [Releases Section](https://github.com/grizzl
 
 # Features
 ## Tuner
-* Note reference pitch from 430 Hz to 450 Hz. (Tap to bottom-right corner to adjust calibration).
+* Note reference pitch with large range. (Tap to bottom-right corner to adjust calibration).
 * Transposition support. (Tap to bottom-left corner to set transposition).
 * Multiple temperament table.
 * Several pitch-detection algorithm available.
