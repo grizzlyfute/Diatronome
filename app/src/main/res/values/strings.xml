@@ -29,7 +29,7 @@
   <string name="preference_title_app">Application settings</string>
   <string name="preference_pitch">Pitch calibration for A4</string>
   <string name="preference_note_name">Notes name</string>
-  <string name="preference_use_sharp_flat">Sharps instead of flats</string>
+  <string name="preference_use_sharp_flat">♯ instead of ♭</string>
   <string name="preference_transposition">Transposition</string>
   <string name="preference_temperament">Temperament</string>
   <string name="preference_waveform">Wave form</string>
@@ -59,7 +59,7 @@
     <item>International (A B C)</item>
     <item>Solfege (Do-Re-Mi)</item>
   </string-array>
-  <string-array name="array_notes_name_data">
+  <string-array name="array_notes_name_data" translatable="false">
     <item>1</item>
     <item>2</item>
   </string-array>
@@ -89,7 +89,7 @@
     <item>Light</item>
     <item>Dark</item>
   </string-array>
-  <string-array name="array_theme_data">
+  <string-array name="array_theme_data" translatable="false">
     <item>MODE_NIGHT_UNSPECIFIED</item>
     <item>MODE_NIGHT_NO</item>
     <item>MODE_NIGHT_YES</item>
@@ -100,7 +100,7 @@
     <item>Metronome</item>
     <item>Player</item>
   </string-array>
-  <string-array name="array_homescreen_data">
+  <string-array name="array_homescreen_data" translatable="false">
     <item>HOME_SCREEN_TUNER</item>
     <item>HOME_SCREEN_METRONOME</item>
     <item>HOME_SCREEN_PLAYNOTE</item>
@@ -120,7 +120,7 @@
     <item>B&#x266D;</item>
     <item>B</item>
   </string-array>
-  <string-array name="array_transposition_data">
+  <string-array name="array_transposition_data" translatable="false">
     <item>0</item>
     <item>1</item>
     <item>2</item>
@@ -141,7 +141,7 @@
     <item>FFT - Spectral</item>
     <!-- <item>Peak detector</item> -->
   </string-array>
-  <string-array name="array_algorithm_data">
+  <string-array name="array_algorithm_data"  translatable="false">
     <item>1</item>
     <item>2</item>
     <item>3</item>
@@ -160,7 +160,7 @@
     <item>15 EDO, 15 TET</item>
     <item>17 EDO, 17 TET</item>
   </string-array>
-  <string-array name="array_temperament_data">
+  <string-array name="array_temperament_data" translatable="false">
     <item>12</item>
     <item>53</item>
     <item>41</item>
@@ -178,7 +178,7 @@
     <item>Square</item>
     <item>Sawtooth</item>
   </string-array>
-  <string-array name="array_waveform_data">
+  <string-array name="array_waveform_data" translatable="false">
     <item>SINE</item>
     <item>TRIANGLE</item>
     <item>SQUARE</item>

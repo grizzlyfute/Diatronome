@@ -1,16 +1,16 @@
 <i>Diatronome</i> is a 3-in-1 android application. It provides a <b>tuner</b>,
-a <b>visual-metronome</b>, and a <b>synthesizer</b>
+a <b>visual-metronome</b>, and a <b>synthesizer</b>.
 
--Features:
+<b><u>Features</u></b>:
 - Adjustable references pitch
 - Transposition support
 - Visual indicator for tuner and metronome
 - Continuous synthesizer mode
 - Capture tempo (central click on metronome)
-- Multiple customizable settings (even the app color)
-- Advanced parameters available to work on a maximum of devices.
+- Multiple customizable settings (including app color)
+- Advanced parameters available to work on a wide range of devices.
 
-Audio recording and playback permission are required to run.
+Audio recording and playback permissions are required to run.
 The application provides an useful practice tools for musicians.
 
 Keywords: metronome, tuner

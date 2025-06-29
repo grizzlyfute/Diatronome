@@ -17,7 +17,7 @@
   <string name="metronome_bpm">BPM</string>
   <string name="metronome_timesignature">Signature de temps</string>
   <string name="metronome_division">Temps</string>
-  <string name="metronome_subdivision">SousDivision</string>
+  <string name="metronome_subdivision">Sous-divisions</string>
   <string name="metronome_notificationtitle">Son du métronome</string>
   <string name="preference_title_system">Système</string>
   <string name="preference_theme">Thème</string>
@@ -27,7 +27,7 @@
   <string name="preference_title_app">Préférences d\'application</string>
   <string name="preference_pitch">Calibration pour le La4</string>
   <string name="preference_note_name">Nom des notes</string>
-  <string name="preference_use_sharp_flat">Dièses au lieu de bémols</string>
+  <string name="preference_use_sharp_flat">♯ au lieu de ♭</string>
   <string name="preference_transposition">Transposition</string>
   <string name="preference_temperament">Tempérament</string>
   <string name="preference_waveform">Forme d\'onde</string>

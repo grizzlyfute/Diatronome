@@ -20,16 +20,6 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity
 {
-  /* to setup language ?
-      private fun setupLanguage() {
-        binding.apply {
-            settingsLanguage.text = Locale.getDefault().displayLanguage
-            settingsLanguageHolder.setOnClickListener {
-                launchChangeAppLanguageIntent()
-            }
-        }
-   */
-
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {

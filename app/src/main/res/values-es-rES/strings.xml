@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about_content"><![CDATA[
-    <b><i>Diatronome</i></b> ofrece un <i>afinador</i>, un <i>metrónomo visual</i> y un <i>reproductor de notas</i>.
+    <b><i>Diatronome</i></b> ofrece un <i>afinador</i>, un <i>metrónomo visual</i> y un <i>sintetizador</i>.
     Esta aplicación es de código abierto, respetuosa con la privacidad y sin publicidad.<br/>
     <b>Licencia: </b>%1$s<br/>
     <b>Fuentes: </b><a href="%2$s">%2$s</a><br/>
     <b>Apoyo: </b><a href="%3$s">%3$s</a><br/>
   ]]></string>
-  <string name="common_yes">"Sí "</string>
+  <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="action_settings">Ajustes</string>
-  <string name="action_tuner">Sintonizador</string>
-  <string name="action_play">Jugar</string>
+  <string name="action_tuner">Afinador</string>
+  <string name="action_play">Sintetizador</string>
   <string name="action_metronome">Metrónomo</string>
   <string name="action_about">Acerca de</string>
-  <string name="metronome_bpm">LPM</string>
+  <string name="metronome_bpm">BPM</string>
   <string name="metronome_timesignature">Compás</string>
   <string name="metronome_division">Tiempo</string>
-  <string name="metronome_subdivision">SubDivisión</string>
+  <string name="metronome_subdivision">Subdivisión</string>
   <string name="metronome_notificationtitle">Sonido del metrónomo</string>
   <string name="preference_title_system">Sistema</string>
   <string name="preference_theme">Tema</string>
-  <string name="preference_screen_on">Ver la pantalla iluminada</string>
+  <string name="preference_screen_on">Mantener la pantalla encendida</string>
   <string name="preference_color">Color de la aplicación</string>
   <string name="preference_homescreen">Pantalla de inicio</string>
   <string name="preference_title_app">Configuración de la aplicación</string>
   <string name="preference_pitch">Calibración para A4</string>
   <string name="preference_note_name">Nombre de las notas</string>
-  <string name="preference_use_sharp_flat">Sostenidos en lugar bémolos</string>
+  <string name="preference_use_sharp_flat">♯ en lugar de ♭</string>
   <string name="preference_transposition">Transposición</string>
   <string name="preference_temperament">Temperamento</string>
   <string name="preference_waveform">Forma de onda</string>
@@ -67,11 +67,11 @@
   <string-array name="array_theme">
     <item>Seguir el sistema</item>
     <item>Claro</item>
-    <item>Obscuro</item>
+    <item>Oscuro</item>
   </string-array>
 
   <string-array name="array_homescreen">
-    <item>Sintonizador</item>
+    <item>Afinador</item>
     <item>Metrónomo</item>
     <item>Piano</item>
   </string-array>
@@ -95,9 +95,9 @@
     <item>Temperamento igual - 12 EDO</item>
     <item>Pitagórica - ~53 EDO</item>
     <item>Zarlino/Helmholtz - ~41 EDO</item>
-    <item>Mesotonique 1/4 comma - 31 EDO</item>
-    <item>Mesotonique 1/5 comma - 43 EDO</item>
-    <item>Mesotonique 1/3 comma - 19 EDO</item>
+    <item>Mesotónico 1/4 comma - 31 EDO</item>
+    <item>Mesotónico 1/5 comma - 43 EDO</item>
+    <item>Mesotónico 1/3 comma - 19 EDO</item>
     <item>Cromática - 108 EDO</item>
     <item>15 EDO, 15 TET</item>
     <item>17 EDO, 17 TET</item>
@@ -107,7 +107,7 @@
     <item>Seno</item>
     <item>Triángulo</item>
     <item>Cuadrado</item>
-    <item>Dientes de ciencia</item>
+    <item>Diente de sierra</item>
   </string-array>
 
 </resources>

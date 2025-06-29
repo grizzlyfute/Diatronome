@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="about_content"><![CDATA[
-    <b><i>Diatronome</i></b> bietet Ihnen ein <i>Stimmgerät</i>, ein <i>visuelles Metronom</i> und einen <i>Notenspieler</i>.
+    <b><i>Diatronome</i></b> bietet Ihnen ein <i>Stimmgerät</i>, ein <i>visuelles Metronom</i> und einen <i>Synthesizer</i>.
     Diese Anwendung ist Open Source, datenschutzfreundlich und werbefrei.<br/>
     <b>Lizenz: </b>%1$s<br/>
-    <b>Quell: </b><a href="%2$s">%2$s</a><br/>
+    <b>Quellcode: </b><a href="%2$s">%2$s</a><br/>
     <b>Unterstützung: </b><a href="%3$s">%3$s</a><br/>
   ]]></string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="action_settings">Einstellungen</string>
-  <string name="action_tuner">Stimmgabel</string>
+  <string name="action_tuner">Stimmgerät</string>
   <string name="action_play">Spielen</string>
   <string name="action_metronome">Metronom</string>
   <string name="action_about">Information</string>
-  <string name="metronome_bpm">SPM</string>
+  <string name="metronome_bpm">BPM</string>
   <string name="metronome_timesignature">Taktangabe</string>
   <string name="metronome_division">Zeit</string>
-  <string name="metronome_subdivision">UnterTeilung</string>
+  <string name="metronome_subdivision">Unterteilung</string>
   <string name="metronome_notificationtitle">Metronom-Wiedergabe</string>
   <string name="preference_title_system">System</string>
   <string name="preference_theme">Thema</string>
@@ -26,16 +26,16 @@
   <string name="preference_homescreen">Startbildschirm</string>
   <string name="preference_title_app">Anwendungseinstellungen</string>
   <string name="preference_pitch">Tonhöhenkalibrierung für A4</string>
-  <string name="preference_note_name">Anzahl der Noten</string>
-  <string name="preference_use_sharp_flat">Kreuze statt B-s</string>
+  <string name="preference_note_name">Notensystem</string>
+  <string name="preference_use_sharp_flat">♯ statt ♭</string>
   <string name="preference_transposition">Umsetzung</string>
   <string name="preference_temperament">Temperament</string>
   <string name="preference_waveform">Wellenform</string>
   <string name="preference_metronome_pitch_main">Metronom Tonhöhe Haupt</string>
   <string name="preference_metronome_pitch_accent">Metronom-Tonhöhenakzent</string>
-  <string name="preference_metronome_pitch_subdivision">"Metronom-Tonhöhenunterteilung "</string>
+  <string name="preference_metronome_pitch_subdivision">Metronom-Tonhöhenunterteilung</string>
   <string name="preference_metronome_bidirectionalneedle">Bidirektionale Nadel</string>
-  <string name="preference_advanced">Fortschrittlich</string>
+  <string name="preference_advanced">Erweiterte Einstellungen</string>
   <string name="preference_sensitivity">Mikrofon Empfindlichkeit</string>
   <string name="preference_algorithm">Algorithmus</string>
 
@@ -65,13 +65,13 @@
   </string-array>
 
   <string-array name="array_theme">
-    <item>Folgesystem</item>
+    <item>Systemdefiniert</item>
     <item>Licht</item>
     <item>Dunkel</item>
   </string-array>
 
   <string-array name="array_homescreen">
-    <item>Stimmgabel</item>
+    <item>Stimmgerät</item>
     <item>Metronom</item>
     <item>Klavier</item>
   </string-array>
@@ -96,7 +96,7 @@
     <item>Pythagoräisch - ~53 EDO</item>
     <item>Zarlino/Helmholtz - ~41 EDO</item>
     <item>Mitteltönig 1/4 comma - 31 EDO</item>
-    <item >Mitteltönig 1/5 comma - 43 EDO</item>
+    <item>Mitteltönig 1/5 comma - 43 EDO</item>
     <item>Mitteltönig 1/3 comma - 19 EDO</item>
     <item>Chromatisch - 108 EDO</item>
     <item>15 EDO, 15 TET</item>

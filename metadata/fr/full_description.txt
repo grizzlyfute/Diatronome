@@ -1,17 +1,17 @@
-<i>Diatronome</i> est une application 3 en 1. Elle offre un <b>accordeur</b>,
-un <b>métronome visuel</b>, et un <b>synthétiseur</b>.
+<i>Diatronome</i> est une application 3-en-1. Elle offre un <b>accordeur</b>,
+un <b>métronome visuel</b> et un <b>synthétiseur</b>.
 
-<b><u>Fonctionnalités</b></u>:
+<b><u>Fonctionnalités</u></b>:
 - Note de référence ajustable
 - Support des transpositions
 - Indicateurs visuels pour l'accordeur et le métronome
 - Synthétiseur continu, avec une forme d'onde configurable
-- Capture du tempo par clique sur la zone centrale du métronome
+- Capture du tempo par clic sur la zone centrale du métronome
 - Personnalisations multiples (dont la couleur de l'application)
 - Paramètres avancés pour s'adapter à un maximum de périphériques
 
 L'application demande les permissions d'enregistrement audio et
-de lecture multimédia pour son fonctionnement.
+de lecture multimédia pour son bon fonctionnement.
 Il s'agit d'un outil pratique pour les musiciens.
 
 Keywords: metronome, tuner
