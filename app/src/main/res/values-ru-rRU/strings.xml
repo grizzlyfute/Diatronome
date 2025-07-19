@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="common_yes">Да</string>
+  <string name="common_no">Нет</string>
+  <string name="action_settings">Настройки</string>
+  <string name="action_tuner">Тюнер</string>
+  <string name="action_play">Играть</string>
+  <string name="action_metronome">Метроном</string>
+  <string name="action_about">О приложении</string>
+
+  <string name="metronome_bpm">BPM</string>
+  <string name="metronome_timesignature">Time signature</string>
+  <string name="metronome_division">Время</string>
+  <string name="metronome_subdivision">Деление</string>
+  <string name="metronome_notificationtitle">Плейбек метронома</string>
+
+  <!-- Preferences -->
+  <string name="preference_title_system">Системные</string>
+  <string name="preference_theme">Тема оформления</string>
+  <string name="preference_screen_on">держать экран включённым</string>
+  <string name="preference_color">Цвет приложения</string>
+  <string name="preference_homescreen">Главная страница</string>
+
+  <string name="preference_title_app">Настройки приложения</string>
+  <string name="preference_pitch">Калибровка тона для A4</string>
+  <string name="preference_note_name">Название нот</string>
+  <string name="preference_use_sharp_flat">♯ вместо ♭</string>
+  <string name="preference_transposition">Транспозиция</string>
+  <string name="preference_temperament">Темперамент</string>
+  <string name="preference_waveform">Форма волны</string>
+  <string name="preference_metronome_pitch_main">Главный тон метронома</string>
+  <string name="preference_metronome_pitch_accent">Акцентный тон метронома</string>
+  <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
+  <string name="preference_metronome_bidirectionalneedle">Metronome Bidirectional needle</string>
+
+  <string name="preference_advanced">Расширенные</string>
+  <string name="preference_sensitivity">Чувствительность микрофона</string>
+  <string name="preference_algorithm">Алгоритм</string>
+
+  <!-- about -->
+  <string name="about_content"><![CDATA[
+    <b><i>Diatronome</i></b> предоставляет вам <i>тюнер</i>, a <i>визуальный метроном</i> и <i>синтезатор</i>.
+    Это свободное приложение с открытым исходным кодом, приватное и без рекламы.<br/>
+    <b>Лицензия: </b>%1$s<br/>
+    <b>Исходники: </b><a href="%2$s">%2$s</a><br/>
+    <b>Поддержка: </b><a href="%3$s">%3$s</a><br/>
+  ]]></string>
+
+  <!-- string array -->
+  <string-array name="array_notes_name">
+    <item>Международные (A B C)</item>
+    <item>Сольфеджио (Do-Re-Mi)</item>
+  </string-array>
+
+  <string-array name="array_notes_name_solfege">
+    <item>Do</item>
+    <item>Re</item>
+    <item>Mi</item>
+    <item>Fa</item>
+    <item>Sol</item>
+    <item>La</item>
+    <item>Si</item>
+  </string-array>
+
+  <string-array name="array_notes_name_letters">
+    <item>C</item>
+    <item>D</item>
+    <item>E</item>
+    <item>F</item>
+    <item>G</item>
+    <item>A</item>
+    <item>B</item>
+  </string-array>
+
+  <string-array name="array_theme">
+    <item>Как в системе</item>
+    <item>Светлая</item>
+    <item>Тёмная</item>
+  </string-array>
+
+  <string-array name="array_homescreen">
+    <item>Тюнер</item>
+    <item>Метроном</item>
+    <item>Плеер</item>
+  </string-array>
+
+  <string-array name="array_transposition">
+    <item>C</item>
+    <item>C&#x266F;</item>
+    <item>D</item>
+    <item>E&#x266D;</item>
+    <item>E</item>
+    <item>F</item>
+    <item>F&#x266F;</item>
+    <item>G</item>
+    <item>A&#x266D;</item>
+    <item>A</item>
+    <item>B&#x266D;</item>
+    <item>B</item>
+  </string-array>
+
+  <string-array name="array_algorithm">
+    <item>Envelop Pitch detection</item>
+    <item>Yin</item>
+    <item>FFT Быст. Фурье - Спектральный</item>
+    <!-- <item>Peak detector</item> -->
+  </string-array>
+
+  <!-- EDO = Equals Division Octave = TET = Tone Equal Temperament -->
+  <string-array name="array_temperament">
+    <item>Равный темперамент - 12 EDO</item>
+    <item>Пифагорский - ~53 EDO</item>
+    <item>Zarlino/Helmholtz - ~41 EDO</item>
+    <item tools:ignore="TypographyFractions">Meantone 1/4 comma - 31 EDO</item>
+    <item tools:ignore="TypographyFractions">Meantone 1/5 comma - 43 EDO</item>
+    <item tools:ignore="TypographyFractions">Meantone 1/3 comma - 19 EDO</item>
+    <item>Хроматический - 108 EDO</item>
+    <item>15 EDO, 15 TET</item>
+    <item>17 EDO, 17 TET</item>
+  </string-array>
+
+  <string-array name="array_waveform">
+    <item>Одиночная</item>
+    <item>Треугольная</item>
+    <item>Квадратная</item>
+    <item>Пилообразная</item>
+  </string-array>
+</resources>
