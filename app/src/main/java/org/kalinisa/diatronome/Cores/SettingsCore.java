@@ -17,6 +17,7 @@ public class SettingsCore extends BaseCore
   public static final String SETTING_USE_SHARP_FLAT = "setting_use_sharp_flat";
   public static final String SETTING_PITCH_REF = "setting_pitch_ref";
   public static final String SETTING_WAVEFORM = "setting_waveform";
+  public static final String SETTING_PIANOTOUCH = "setting_pianotouch";
   public static final String SETTING_TRANSPOSITION = "setting_transposition";
   public static final String SETTING_TEMPERAMENT = "setting_temperament";
 
@@ -100,14 +101,18 @@ public class SettingsCore extends BaseCore
 
         case SettingsCore.SETTING_TEMPERAMENT:
           intValue = Integer.parseInt(sharedPreferences.getString(key, "0"));
-          PlayNoteCore.getInstance().
-            setTemperament(intValue);
+          PlayNoteCore.getInstance().setTemperament(intValue);
           break;
 
         case SettingsCore.SETTING_WAVEFORM:
           strValue = sharedPreferences.getString(key, "");
           PlayNoteCore.getInstance().setWaveForm(strValue);
           MetronomeCore.getInstance().setWaveForm(strValue); // After PlayNoteCore
+          break;
+
+        case SettingsCore.SETTING_PIANOTOUCH:
+          intValue = Integer.parseInt(sharedPreferences.getString(key, "1"));
+          PlayNoteCore.getInstance().setPianoMode(intValue);
           break;
 
         case SettingsCore.SETTING_METRONOME_PITCH_MAIN:

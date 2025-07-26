@@ -33,6 +33,7 @@
   <string name="preference_transposition">Transposition</string>
   <string name="preference_temperament">Temperament</string>
   <string name="preference_waveform">Wave form</string>
+  <string name="preference_pianotouch">Piano touch</string>
   <string name="preference_metronome_pitch_main">Metronome pitch main</string>
   <string name="preference_metronome_pitch_accent">Metronome pitch accent</string>
   <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
@@ -175,13 +176,38 @@
   <string-array name="array_waveform">
     <item>Sine</item>
     <item>Triangle</item>
-    <item>Square</item>
     <item>Sawtooth</item>
+    <item>Square</item>
+    <item>Piano</item>
+    <item>Organ</item>
+    <item>Drum</item>
+    <item>Tom</item>
+    <item>Snaredrum</item>
+    <item>Steeldrum</item>
+    <item>Bell</item>
+    <item>Laser</item>
   </string-array>
   <string-array name="array_waveform_data" translatable="false">
     <item>SINE</item>
     <item>TRIANGLE</item>
-    <item>SQUARE</item>
     <item>SAWTOOTH</item>
+    <item>SQUARE</item>
+    <item>PIANO</item>
+    <item>ORGAN</item>
+    <item>DRUM</item>
+    <item>TOM</item>
+    <item>SNAREDRUM</item>
+    <item>STEELDRUM</item>
+    <item>BELL</item>
+    <item>LASER</item>
+  </string-array>
+
+  <string-array name="array_pianotouch">
+    <item>Persistent</item>
+    <item>Non persistent</item>
+  </string-array>
+  <string-array name="array_pianotouch_data" translatable="false">
+    <item>1</item>
+    <item>2</item>
   </string-array>
 </resources>

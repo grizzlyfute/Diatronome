@@ -1,27 +1,50 @@
 package org.kalinisa.diatronome.Cores;
 
+import android.media.AudioFormat;
 import android.media.AudioTrack;
+
+import org.kalinisa.diatronome.Cores.SoundGenerator.ASoundGenerator;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.concurrent.Semaphore;
 
 public class PlayNoteCore
   extends BaseCore
 {
+  public static final int PLAY_MODE_STICKY = 1;
+  public static final int PLAY_MODE_VOLATILE = 2;
+
   private static PlayNoteCore s_instance;
-  private int m_waveForm = 0;
+  private ASoundGenerator m_soundGenerator = null;
   private boolean m_useFlatSharp = false;
   private int m_temperament = 0;
   private double[] m_freqRatio = new double[]
     { 1.0, 1.0, 9.0/8.0, 9.0/8.0, 5.0/4.0, 4.0/3.0, 4.0/3.0, 3.0/2.0, 3.0/2.0, 5.0/3.0, 5.0/3.0, 15.0/8.0, 15.0/8.0, 2.0};
   private double m_refPitch = 440;
-  private int m_currentNote = 0;
-  private int m_currentOctave = 0;
-  private AudioTrack m_audioTrack = null;
-  private int m_audioPosEnd = 0;
+  private int m_pianoMode = 0;
 
-  private final int FADE_IN_OUT_MS = 10;
+  private final Semaphore m_currentNotesMutex;
+  private Thread m_playNoteThread = null;
+  private List<PlayNoteWave> m_waveCurrents = null;
+  private final PlayNoteWave m_waveSilentPreventGlitch;
+
+  private final int FADE_IN_OUT_MS = 25;
 
   private PlayNoteCore()
   {
     super();
+    m_currentNotesMutex = new Semaphore(1, false);
+
+    m_waveCurrents = new ArrayList<PlayNoteWave>();
+    // Prevent glitch by shutting down audio when changing note.
+    m_waveSilentPreventGlitch = new PlayNoteWave(new PlayNoteWave.PlayNote(-1, -1),
+     new short[Math.max (AudioUtils.getAudioSampleLen(3000), AudioUtils.getAudioBufferSize(3000)/2)],
+      0, 0, FADE_IN_OUT_MS);
+    // Playing silent after note ensure we have enough bytes in buffer to start to play
+    m_waveSilentPreventGlitch.play();
   }
 
   public static PlayNoteCore getInstance()
@@ -33,119 +56,302 @@ public class PlayNoteCore
     return s_instance;
   }
 
-  public synchronized void stopPlaying()
+  public void stopAllPlaying()
   {
-    m_currentOctave = -1;
-    m_currentNote = -1;
-    if (m_audioTrack != null && m_audioTrack.getState() == AudioTrack.STATE_INITIALIZED)
+    stopPlaying(null);
+  }
+
+  public void stopPlaying(PlayNoteWave.PlayNote playNote)
+  {
+    if (m_playNoteThread == null || !m_playNoteThread.isAlive()) return;
+    try
     {
-      // Set the sequence to end
-      m_audioTrack.pause();
-      // Disable looping, do fad out to avoid glitch
-      // m_audioTrack.setPlaybackHeadPosition(m_audioPosEnd);
-      m_audioTrack.setLoopPoints(0, m_audioPosEnd, 0);
-      m_audioTrack.play();
-      // Wait for playing finish
+      Utils.mutexTryAcquire(m_currentNotesMutex, 10000);
+
+      for (PlayNoteWave wave : m_waveCurrents)
+      {
+        if (playNote == null ||
+            wave.getPlayNote().equals(playNote))
+        {
+          wave.stop();
+        }
+      }
+    }
+    finally
+    {
+      m_currentNotesMutex.release();
+    }
+  }
+
+  public void startPlaying(PlayNoteWave.PlayNote playNote)
+  {
+    if (isPlaying(playNote)) return;
+    final double frequency = getFrequency(playNote.getOctave(), playNote.getNote());
+    final short[] pcm = m_soundGenerator.generatePcm(frequency, m_soundGenerator.hintDurationMs(frequency));
+    final short[] pcmStart = m_soundGenerator.isContinous() ?
+      m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS) :
+      new short[0];
+    final short[] pcmEnd = m_soundGenerator.isContinous() ?
+      m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS) :
+      new short[0];
+    int start, stop;
+
+    if (m_soundGenerator.isContinous())
+    {
+      AudioUtils.fadeInFilter(pcmStart, FADE_IN_OUT_MS);
+      AudioUtils.fadeOutFilter(pcmEnd, FADE_IN_OUT_MS);
+    }
+    else
+    {
+      AudioUtils.fadeInFilter(pcm, FADE_IN_OUT_MS);
+      AudioUtils.fadeOutFilter(pcm, FADE_IN_OUT_MS);
+    }
+
+    short[] audioPcm = new short[(pcmStart.length + pcm.length + pcmEnd.length)];
+    System.arraycopy(pcmStart, 0, audioPcm, 0, pcmStart.length);
+    start = pcmStart.length;
+    System.arraycopy(pcm, 0, audioPcm, start, pcm.length);
+    stop = start + pcm.length;
+    System.arraycopy(pcmEnd, 0, audioPcm, stop, pcmEnd.length);
+
+    // Disable auto-loop
+    if (!m_soundGenerator.isContinous())
+    {
+      stop = audioPcm.length + 1;
+    }
+    PlayNoteWave playNoteWave = new PlayNoteWave(playNote, audioPcm, start, stop, FADE_IN_OUT_MS);
+    playNoteWave.play();
+
+    if (!Utils.mutexTryAcquire(m_currentNotesMutex, 1000)) return;
+    try
+    {
+      m_waveSilentPreventGlitch.reset();
+      m_waveCurrents.add (playNoteWave);
+    }
+    finally
+    {
+      m_currentNotesMutex.release();
+    }
+
+    // Start thread if not started
+    if (m_playNoteThread == null || !m_playNoteThread.isAlive())
+    {
+      m_playNoteThread = new Thread(this::playingNoteRun);
+      m_playNoteThread.start();
+    }
+  }
+
+  public boolean isPlayingAny()
+  {
+    return isPlaying(null);
+  }
+
+  public boolean isPlaying(PlayNoteWave.PlayNote playNote)
+  {
+    boolean ret = false;
+    if (!Utils.mutexTryAcquire(m_currentNotesMutex, 1000)) return false;
+    try
+    {
+      for (PlayNoteWave wave : m_waveCurrents)
+      {
+        if (playNote == null ||
+          wave.getPlayNote().equals(playNote))
+        {
+          if (wave.isPlaying())
+          {
+            ret = true;
+            break;
+          }
+        }
+      }
+    }
+    finally
+    {
+      m_currentNotesMutex.release();
+    }
+
+    return ret;
+  }
+
+  public Collection<PlayNoteWave.PlayNote> getPlayingNoteList()
+  {
+    List <PlayNoteWave.PlayNote> list = new ArrayList<PlayNoteWave.PlayNote>();
+    if (!Utils.mutexTryAcquire(m_currentNotesMutex, 1000)) return list;
+    try
+    {
+      for (PlayNoteWave wave : m_waveCurrents)
+      {
+        if (wave.isPlaying())
+        {
+          list.add (wave.getPlayNote());
+        }
+      }
+    }
+    finally
+    {
+      m_currentNotesMutex.release();
+    }
+
+    return list;
+  }
+
+  // When a note is added, to avoid saturation, the signal must be divided by the number of currently playing notes.
+  // When a note is removed, the divider must increase accordingly, based on the number of remaining notes.
+  // This causes glitches, as the signal is suddenly multiplied or divided (e.g., by two).
+  // To handle this, we maintain min and max values to compute a stable divider - this easy solves the case when a note is added.
+  // To smooth out the effect when a note is removed, we track min and max values over a moving window of recent samples,
+  // and we regularly force an update of these values. This keeps the divider accurate and avoids abrupt changes.
+  double m_pcm_Lastmin = 0, m_pcm_Lastmax = 0;
+  int m_pcm_updateMinMax = 0;
+  // Will add signal, and adjust level to avoid click adding / removing a sound
+  private boolean setPcmFromCurrentWave(short[] pcmOut)
+  {
+    boolean result = true;
+    int count = 0;
+    int tmp = 0;
+    double div;
+
+    double min = m_pcm_Lastmin, max = m_pcm_Lastmax;
+
+    for (int i = 0; i < pcmOut.length; i++)
+    {
+      tmp = 0;
+      count = 0;
+
       try
       {
-        do
+        if (Utils.mutexTryAcquire(m_currentNotesMutex, 300))
         {
-          Thread.sleep (FADE_IN_OUT_MS);
-        } while (m_audioTrack.getPlaybackHeadPosition() < m_audioPosEnd);
+          ListIterator<PlayNoteWave> it = m_waveCurrents.listIterator();
+          while (it.hasNext())
+          {
+            PlayNoteWave wave = it.next();
+            PlayNoteWave.PlayNote playNote = wave.getPlayNote();
+            // Add signals
+            if (wave.hasNext())
+            {
+              tmp += wave.next();
+              count++;
+            }
+            else
+            {
+              it.remove();
+            }
+          }
+        }
       }
-      catch (InterruptedException e)
+      finally
       {
-        // Do nothing
+        m_currentNotesMutex.release();
       }
-      m_audioTrack.stop();
+
+      if (count > 0)
+      {
+        if (tmp > max) max = tmp;
+        if (tmp < min) min = tmp;
+        if (max > m_pcm_Lastmax) m_pcm_Lastmax = max;
+        if (min < m_pcm_Lastmin) m_pcm_Lastmin = min;
+
+        // Divided by count of signal generated glitch because amplitude was suddenly divided.
+        // Use previous min / max to do it
+        div = Math.max (max / Short.MAX_VALUE, min / Short.MIN_VALUE);
+        if (div < 1) div = 1;
+
+        tmp = (int)(tmp / div);
+        if (tmp > Short.MAX_VALUE) tmp = Short.MAX_VALUE;
+        if (tmp < Short.MIN_VALUE) tmp = Short.MIN_VALUE;
+        pcmOut[i] = (short)(tmp);
+
+        if (m_pcm_updateMinMax <= 0)
+        {
+          // 62 ms is the max period for a wave (16.0 hz)
+          m_pcm_updateMinMax = AudioUtils.getAudioByteLen(62);
+          min = m_pcm_Lastmin;
+          max = m_pcm_Lastmax;
+          m_pcm_Lastmin = 0;
+          m_pcm_Lastmax = 0;
+        }
+        else
+        {
+          m_pcm_updateMinMax--;
+        }
+
+        m_waveSilentPreventGlitch.reset();
+      }
+      else if (m_waveSilentPreventGlitch.hasNext())
+      {
+        pcmOut[i] = m_waveSilentPreventGlitch.next();
+      }
+      else
+      {
+        pcmOut[i] = 0;
+        result = false;
+      }
+
+      // Copy to second channel if stereo
+      if (AudioUtils.AUDIO_FORMAT == AudioFormat.CHANNEL_OUT_STEREO && i < pcmOut.length - 1)
+      {
+        pcmOut[i + 1] = pcmOut[i];
+        i++;
+      }
     }
 
-    AudioUtils.releaseAudioTrack(m_audioTrack);
-    m_audioTrack = null;
+    // Return false if nothing more to play
+    return result;
   }
 
-  public synchronized void startPlaying(int octave, int note)
+  private void playingNoteRun()
   {
-    final double frequency = getFrequency(octave, note);
-    final int frameSize = AudioUtils.getAudioFrameSize();
-    final short[] pcm = AudioUtils.generatePcm(frequency, 1000 / frequency, m_waveForm);
-    final short[] pcmStart = AudioUtils.generatePcm(frequency, FADE_IN_OUT_MS, m_waveForm);
-    final short[] pcmEnd = AudioUtils.generatePcm(frequency, FADE_IN_OUT_MS, m_waveForm);
-    AudioUtils.fadeInFilter(pcmStart, FADE_IN_OUT_MS);
-    AudioUtils.fadeOutFilter(pcmEnd, FADE_IN_OUT_MS);
-    byte[] audioPcm = new byte[frameSize * (pcmStart.length + pcm.length + pcmEnd.length)];
-    byte[] audioPcmInBytes = null;
-    int start, stop = 0;
+    Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+    short[] pcm = new short[AudioUtils.AudioTrack_getMinBufferSize(
+        AudioUtils.AUDIO_SAMPLE_RATE_HZ,
+        AudioUtils.AUDIO_ENCODING,
+        AudioUtils.AUDIO_FORMAT)];
 
-    stopPlaying();
-
-    m_currentOctave = octave;
-    m_currentNote = note;
-
-    audioPcmInBytes = AudioUtils.toAudioBytes(pcmStart);
-    System.arraycopy(audioPcmInBytes, 0, audioPcm, 0, audioPcmInBytes.length);
-    start = pcmStart.length;
-
-    audioPcmInBytes = AudioUtils.toAudioBytes(pcm);
-    System.arraycopy(audioPcmInBytes, 0, audioPcm, frameSize * start, audioPcmInBytes.length);
-    stop = start + pcm.length;
-
-    audioPcmInBytes = AudioUtils.toAudioBytes(pcmEnd);
-    System.arraycopy(audioPcmInBytes, 0, audioPcm, frameSize * stop, audioPcmInBytes.length);
-    m_audioPosEnd = stop + pcmEnd.length;
-
-    m_audioTrack = AudioUtils.newAudioTrack(audioPcm.length, AudioTrack.MODE_STATIC);
-    if (m_audioTrack != null && audioPcm != null)
+    // Start Audio track
+    AudioTrack audioTrack = AudioUtils.newAudioTrack(pcm.length, AudioTrack.MODE_STREAM);
+    if (audioTrack == null)
     {
-      // In static mode, write all in same time
-      m_audioTrack.write (audioPcm, 0, audioPcm.length);
-      // 0 <= start < end < audioBuffSize / frameSizeInByte
-      int result = m_audioTrack.setLoopPoints(start, stop, -1);
-      if (result != AudioTrack.SUCCESS)
-      {
-        android.util.Log.e(this.getClass().getName(), "Failed to initialized AudioTrack: " + result);
-      }
-      if (m_audioTrack.getState() == AudioTrack.STATE_INITIALIZED)
-      {
-        m_audioTrack.play();
-      }
+      return;
     }
-
-    // Need to transpose and get wave form option
-  }
-
-  public boolean isPlaying(int octave, int note)
-  {
-    return octave == m_currentOctave && note == m_currentNote;
-  }
-
-  public static int strWaveFormToInt(String waveFormStr)
-  {
-    int waveform;
-    switch (waveFormStr)
+    try
     {
-      case "SINE":
-        waveform = AudioUtils.WAVEFORM_SINE;
-        break;
-      case "TRIANGLE":
-        waveform = AudioUtils.WAVEFORM_TRIANGLE;
-        break;
-      case "SAWTOOTH":
-        waveform = AudioUtils.WAVEFORM_SAWTOOTH;
-        break;
-      case "SQUARE":
-        waveform = AudioUtils.WAVEFORM_SQUARE;
-        break;
-      default:
-        waveform = AudioUtils.WAVEFORM_SINE;
-        break;
+      audioTrack.play();
+
+      while (setPcmFromCurrentWave(pcm) &&
+             !Thread.currentThread().isInterrupted())
+      {
+        audioTrack.write(pcm, 0, pcm.length);
+      }
+
+      // Stop AudioTrack
+      audioTrack.stop();
     }
-    return waveform;
+    finally
+    {
+      AudioUtils.releaseAudioTrack(audioTrack);
+    }
   }
 
-  public void setWaveForm(String waveForm)
+  public void setWaveForm(String waveFormStr)
   {
-    m_waveForm = strWaveFormToInt(waveForm);
+    m_soundGenerator = ASoundGenerator.factory(waveFormStr);
+  }
+
+  public void setPianoMode(int mode)
+  {
+    m_pianoMode = mode;
+  }
+  public int getPianoMode()
+  {
+    // Backward compatibility for version <= 1.0.8
+    if (m_pianoMode <= 0) return 1;
+    return m_pianoMode;
+  }
+
+  public boolean isNoteContinuous()
+  {
+    return m_soundGenerator.isContinous();
   }
 
   public void setUseFlatSharp(Boolean useFlatSharp)

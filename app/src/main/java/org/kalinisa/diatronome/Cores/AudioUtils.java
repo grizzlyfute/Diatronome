@@ -1,31 +1,21 @@
 package org.kalinisa.diatronome.Cores;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
-import android.media.audiofx.AutomaticGainControl;
 import android.os.Build;
-
-import androidx.annotation.NonNull;
 
 public class AudioUtils
 {
   public static boolean m_isNdkWorking = false;
   public static boolean m_isInitialized = false;
 
-  // final int AUDIO_BIT_RATE = 44100,22050,16000,8000;
-  public static final int AUDIO_BIT_RATE = AudioTrack_getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
+  // final int AUDIO_SAMPLE_RATE_HZ = 44100,22050,16000,8000;
+  public static final int AUDIO_SAMPLE_RATE_HZ = AudioTrack_getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
   public static final int AUDIO_FORMAT = AudioFormat.CHANNEL_OUT_STEREO;
   public static final int AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
-
-  public final static int WAVEFORM_SINE = 1;
-  public final static int WAVEFORM_TRIANGLE = 2;
-  public final static int WAVEFORM_SAWTOOTH = 3;
-  public final static int WAVEFORM_SQUARE = 4;
 
   public static synchronized boolean IsAudioWorking()
   {
@@ -94,6 +84,7 @@ public class AudioUtils
     }
   }
 
+  @SuppressWarnings("ConstantConditions")
   static public int getAudioFrameSize()
   {
     int frameSize = 1;
@@ -117,9 +108,16 @@ public class AudioUtils
     return frameSize;
   }
 
-  public static int getAudioByteLen (int durationMs)
+  // Size of the audio buffer
+  public static int getAudioByteLen (double durationMs)
   {
-    return (getAudioFrameSize() * AUDIO_BIT_RATE * durationMs) / 1000;
+    return (int)((getAudioFrameSize() * AUDIO_SAMPLE_RATE_HZ * durationMs) / 1000);
+  }
+
+  // Size of the user buffer
+  public static int getAudioSampleLen (double durationMs)
+  {
+    return (int)(AUDIO_SAMPLE_RATE_HZ * durationMs) / 1000;
   }
 
   public static int getAudioBufferSize(int audioLen)
@@ -130,7 +128,7 @@ public class AudioUtils
     // Where frameSizeInByte = 1 if 8 BITS, 2 is 16 BITS, ChannelCount = 1 if mono, 2 is stereo
     return Math.max(
       frameSize * ((audioLen + (frameSize - 1)) / frameSize),
-      AudioTrack_getMinBufferSize(AUDIO_BIT_RATE, AUDIO_FORMAT, AUDIO_ENCODING));
+      AudioTrack_getMinBufferSize(AUDIO_SAMPLE_RATE_HZ, AUDIO_FORMAT, AUDIO_ENCODING));
   }
 
   @SuppressWarnings("deprecation")
@@ -152,7 +150,7 @@ public class AudioUtils
           .build(),
         (new AudioFormat.Builder())
           .setEncoding(AUDIO_ENCODING)
-          .setSampleRate(AUDIO_BIT_RATE)
+          .setSampleRate(AUDIO_SAMPLE_RATE_HZ)
           .setChannelMask(AUDIO_FORMAT)
           .build(),
         AUDIO_BUFFER_SIZE,
@@ -163,7 +161,7 @@ public class AudioUtils
     {
       audioTrack = new AudioTrack(
         AudioManager.STREAM_MUSIC,
-        AUDIO_BIT_RATE,
+        AUDIO_SAMPLE_RATE_HZ,
         AUDIO_FORMAT,
         AUDIO_ENCODING,
         AUDIO_BUFFER_SIZE,
@@ -208,79 +206,9 @@ public class AudioUtils
     return audioByte;
   }
 
-  @NonNull
-  public static short[] generatePcm(double frequency, double durationMs, int waveForm)
-  {
-    if (durationMs <= 0) return new short[0];
-    if (frequency <= 0) return new short[getAudioByteLen((int)durationMs)];
-
-    // Generate sample
-    // The duration become inaccurate. This allow to have an integer number of periods, and avoid audio glitch
-    // nbr periods * period duration * bitrate
-    int numSample = (int)(Math.ceil(Math.ceil(frequency * durationMs / 1000.0) * AudioUtils.AUDIO_BIT_RATE / frequency));
-
-    short[] soundPcm = new short[numSample];
-    int i, n;
-    double range = (double)(Short.MAX_VALUE) - (double)(Short.MIN_VALUE);
-    double min = (double)(Short.MIN_VALUE);
-
-    switch (waveForm)
-    {
-      case WAVEFORM_SINE:
-        for (i = 0; i < numSample; i++)
-        {
-          soundPcm[i] = (short)((range / 2) * (Math.sin (2 * Math.PI * i * frequency / AudioUtils.AUDIO_BIT_RATE) + 1) + min);
-        }
-        break;
-      case WAVEFORM_TRIANGLE:
-        n = (int)(AudioUtils.AUDIO_BIT_RATE / frequency);
-        for (i = 0; i < numSample; i++)
-        {
-          soundPcm[i] = (short)(range * (double)(i % n) / n + min);
-        }
-        break;
-      case WAVEFORM_SAWTOOTH:
-        n = (int)(AudioUtils.AUDIO_BIT_RATE / (2*frequency));
-        for (i = 0; i < numSample; i++)
-        {
-          if (i % (2*n) < n)
-          {
-            soundPcm[i] = (short)(range * (double)(i % n) / n + min);
-          }
-          else
-          {
-            soundPcm[i] = (short)(range * (1.0 - (double)(i % n) / n) + min);
-          }
-        }
-        break;
-      case WAVEFORM_SQUARE:
-        n = (int)(AudioUtils.AUDIO_BIT_RATE / (2*frequency));
-        for (i = 0; i < numSample; i++)
-        {
-          if (i % (2*n) < n)
-          {
-            soundPcm[i] = (short)(min + range);
-          }
-          else
-          {
-            soundPcm[i] = (short)min;
-          }
-        }
-        break;
-      default:
-        for (i = 0; i < numSample; i++)
-        {
-          soundPcm[i] = (short)(Math.random() * range + min);
-        }
-        break;
-    }
-
-    return soundPcm;
-  }
-
   public static void fadeOutFilter(short[] audio, double filterDurationInMs)
   {
-    final int filterDurationInSamples = (int)Math.min(filterDurationInMs * AUDIO_BIT_RATE / 1000, audio.length);
+    final int filterDurationInSamples = (int)Math.min(filterDurationInMs * AUDIO_SAMPLE_RATE_HZ / 1000, audio.length);
     double fadeAmplification = 0;
     int j;
 
@@ -294,7 +222,7 @@ public class AudioUtils
 
   public static void fadeInFilter(short[] audio, double filterDurationInMs)
   {
-    final int filterDurationInSamples = (int)Math.min(filterDurationInMs * AUDIO_BIT_RATE / 1000, audio.length);
+    final int filterDurationInSamples = (int)Math.min(filterDurationInMs * AUDIO_SAMPLE_RATE_HZ / 1000, audio.length);
     double fadeAmplification = 0;
 
     for (int i = 0 ; i < filterDurationInSamples; i++)

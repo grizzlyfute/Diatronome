@@ -1,0 +1,4 @@
+Better piano mode, add 2nd keyboard and add mutliple touch mode.
+Remove glitch on piano mode (changing from static audio to streaming).
+Add new wave form for piano and metronom.
+Add russian language (thank to yurtpage).

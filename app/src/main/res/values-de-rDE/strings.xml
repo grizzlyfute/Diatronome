@@ -31,6 +31,7 @@
   <string name="preference_transposition">Umsetzung</string>
   <string name="preference_temperament">Temperament</string>
   <string name="preference_waveform">Wellenform</string>
+  <string name="preference_pianotouch">Klavierberührung</string>
   <string name="preference_metronome_pitch_main">Metronom Tonhöhe Haupt</string>
   <string name="preference_metronome_pitch_accent">Metronom-Tonhöhenakzent</string>
   <string name="preference_metronome_pitch_subdivision">Metronom-Tonhöhenunterteilung</string>
@@ -106,8 +107,21 @@
   <string-array name="array_waveform">
     <item>Sinus</item>
     <item>Dreieck</item>
-    <item>Quadrat</item>
     <item>Sägezahn</item>
+    <item>Quadrat</item>
+    <item>Klavier</item>
+    <item>Orgel</item>
+    <item>Trommel</item>
+    <item>Tom</item>
+    <item>Blechtrommel</item>
+    <item>Steeldrum</item>
+    <item>Glocke</item>
+    <item>Laser</item>
+  </string-array>
+
+  <string-array name="array_pianotouch">
+    <item>Persistente</item>
+    <item>Nicht-persistente</item>
   </string-array>
 
 </resources>

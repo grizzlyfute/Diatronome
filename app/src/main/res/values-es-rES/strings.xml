@@ -31,6 +31,7 @@
   <string name="preference_transposition">Transposición</string>
   <string name="preference_temperament">Temperamento</string>
   <string name="preference_waveform">Forma de onda</string>
+  <string name="preference_pianotouch">Toque de piano</string>
   <string name="preference_metronome_pitch_main">Tono principal del metrónomo</string>
   <string name="preference_metronome_pitch_accent">Acento del tono del metrónomo</string>
   <string name="preference_metronome_pitch_subdivision">Subdivisión del tono del metrónomo</string>
@@ -106,8 +107,21 @@
   <string-array name="array_waveform">
     <item>Seno</item>
     <item>Triángulo</item>
-    <item>Cuadrado</item>
     <item>Diente de sierra</item>
+    <item>Cuadrado</item>
+    <item>Piano</item>
+    <item>Órgano</item>
+    <item>Tambor</item>
+    <item>Tom</item>
+    <item>Caja</item>
+    <item>Steeldrum</item>
+    <item>Campagna</item>
+    <item>Laser</item>
+  </string-array>
+
+  <string-array name="array_pianotouch">
+    <item>Persistentes</item>
+    <item>No-persistentes</item>
   </string-array>
 
 </resources>

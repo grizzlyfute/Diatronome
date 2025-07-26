@@ -28,6 +28,7 @@
   <string name="preference_transposition">Транспозиция</string>
   <string name="preference_temperament">Темперамент</string>
   <string name="preference_waveform">Форма волны</string>
+  <string name="preference_pianotouch">Клавиши фортепиано</string>
   <string name="preference_metronome_pitch_main">Главный тон метронома</string>
   <string name="preference_metronome_pitch_accent">Акцентный тон метронома</string>
   <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
@@ -124,5 +125,17 @@
     <item>Треугольная</item>
     <item>Квадратная</item>
     <item>Пилообразная</item>
+	<item>Фортепиано</item>
+	<item>Орган</item>
+	<item>Барабан</item>
+	<item>Том</item>
+	<item>Малый барабан</item>
+	<item>Стальной барабан</item>
+	<item>Колокол</item>
+	<item>Лазер</item>
+  </string-array>
+  <string-array name="array_pianotouch">
+	<item>постоянный</item>
+	<item>непостоянный</item>
   </string-array>
 </resources>

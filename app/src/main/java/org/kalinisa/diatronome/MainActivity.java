@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,7 +28,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.preference.PreferenceManager;
 
-import org.kalinisa.diatronome.Cores.AudioUtils;
 import org.kalinisa.diatronome.Cores.MetronomeCore;
 import org.kalinisa.diatronome.Cores.MetronomePlaybackService;
 import org.kalinisa.diatronome.Cores.PlayNoteCore;
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onPause()
   {
-    PlayNoteCore.getInstance().stopPlaying();
+    PlayNoteCore.getInstance().stopAllPlaying();
     SoundAnalyzeCore.getInstance().stopFromUi();
     // Keep metronome running in background
     // MetronomeCore.getInstance().stop();
@@ -347,7 +345,7 @@ public class MainActivity extends AppCompatActivity
 
     // Restart core if necessary
     // Metronome may run according to the use.
-    PlayNoteCore.getInstance().stopPlaying();
+    PlayNoteCore.getInstance().stopAllPlaying();
     SoundAnalyzeCore.getInstance().stopFromUi();
     if (idLayout == R.layout.fragment_tuner)
     {

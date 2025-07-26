@@ -99,6 +99,14 @@
       android:title="@string/preference_waveform"
       android:entries="@array/array_waveform"
       android:entryValues="@array/array_waveform_data" />
+    <ListPreference
+      android:defaultValue="1"
+      android:icon="@drawable/icon_piano"
+      android:dialogIcon="@drawable/icon_piano"
+      android:key="setting_pianotouch"
+      android:title="@string/preference_pianotouch"
+      android:entries="@array/array_pianotouch"
+      android:entryValues="@array/array_pianotouch_data"/>
 
     <SeekBarPreference
       android:min="0"

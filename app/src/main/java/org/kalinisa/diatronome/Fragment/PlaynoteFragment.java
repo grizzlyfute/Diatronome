@@ -9,20 +9,27 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import org.kalinisa.diatronome.Cores.PlayNoteCore;
+import org.kalinisa.diatronome.Cores.PlayNoteWave;
 import org.kalinisa.diatronome.Cores.SettingsCore;
 import org.kalinisa.diatronome.Cores.UiCore;
 import org.kalinisa.diatronome.R;
 import org.kalinisa.diatronome.databinding.FragmentPlaynoteBinding;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /*
  */
@@ -30,94 +37,296 @@ public class PlaynoteFragment extends Fragment
 {
   private FragmentPlaynoteBinding m_binding;
   private int m_colorMiddle;
-  private int m_octave;
-  private int m_note = 0;
+  private int[] m_octave;
+  final private int[] m_pianoId;
 
   public PlaynoteFragment()
   {
     super();
-    m_octave = 4;
-    m_note = 9; // A
+    m_pianoId = new int[2];
+    m_pianoId[0] = R.id.pianoA;
+    m_pianoId[1] = R.id.pianoB;
+    m_octave = new int[m_pianoId.length];
+    for (int i = 0; i < m_octave.length; i++)
+    {
+      m_octave[i] = i + 3;
+    }
     m_colorMiddle = Color.GRAY;
   }
 
   @SuppressLint({"SetTextI18n", "DefaultLocale"})
-  private boolean togglePlaying()
+  private void updatePlayingNoteText ()
   {
-    TextView freqTxt = m_binding.getRoot().findViewById(R.id.playTxtCurrentFreq);
-    boolean isPlaying = PlayNoteCore.getInstance().isPlaying(m_octave, m_note);
-    if (!isPlaying)
+    Collection<PlayNoteWave.PlayNote> playNoteList = PlayNoteCore.getInstance().getPlayingNoteList();
+    Collection<View> pianoKeys;
+    TextView freqTxt;
+    StringBuilder text;
+    View pianoView;
+    int countForThisPianoView;
+
+    if (getContext() == null) return;
+
+    for (int pianoInd = 0; pianoInd < m_pianoId.length; pianoInd++)
     {
-      freqTxt.setText(
-        UiCore.getInstance().getNoteName(getContext().getResources(), m_octave, m_note) +
-          " // " +
-          String.format("%.1f", PlayNoteCore.getInstance().getFrequency(m_octave, m_note)) + " Hz");
-      PlayNoteCore.getInstance().startPlaying(m_octave, m_note);
+      pianoView = m_binding.getRoot().findViewById(m_pianoId[pianoInd]);
+      text = new StringBuilder();
+
+      countForThisPianoView = 0;
+      for (PlayNoteWave.PlayNote playNote : playNoteList)
+      {
+        if (m_octave[pianoInd] == playNote.getOctave())
+        {
+          countForThisPianoView++;
+        }
+      }
+
+      if (countForThisPianoView <= 0)
+      {
+        text.append("--");
+      }
+
+      for (PlayNoteWave.PlayNote playNote : playNoteList)
+      {
+        if (m_octave[pianoInd] == playNote.getOctave())
+        {
+          if (countForThisPianoView == 1)
+          {
+            text.append (UiCore.getInstance().getNoteName(getContext().getResources(), playNote.getOctave(), playNote.getNote()));
+            text.append (" // ");
+            text.append (String.format("%.1f", PlayNoteCore.getInstance().getFrequency(playNote.getOctave(), playNote.getNote())));
+            text.append (" Hz");
+          }
+          else
+          {
+            if (text.length() > 0) text.append(" - ");
+            text.append(UiCore.getInstance().getNoteName(getContext().getResources(), playNote.getOctave(), playNote.getNote()));
+          }
+        }
+      }
+
+      freqTxt = pianoView.findViewById(R.id.playTxtCurrentFreq);
+      freqTxt.setText(text.toString()) ;
     }
-    else
-    {
-      freqTxt.setText ("--");
-      PlayNoteCore.getInstance().stopPlaying();
-    }
-    return !isPlaying;
   }
 
-  private final View.OnClickListener m_onPianoClick = new View.OnClickListener()
+  private void startPlaying(PlayNoteWave.PlayNote playNote)
+  {
+    Collection<View> listPianoKey = getPianoKeysByNote(playNote);
+    for (View pianoTouch : listPianoKey)
+    {
+      check(pianoTouch, true);
+    }
+    PlayNoteCore.getInstance().startPlaying(playNote);
+    updatePlayingNoteText();
+  }
+
+  private void stopPlaying(PlayNoteWave.PlayNote playNote)
+  {
+    Collection<View> listPianoKey = getPianoKeysByNote(playNote);
+    for (View pianoTouch : listPianoKey)
+    {
+      check(pianoTouch, false);
+    }
+    PlayNoteCore.getInstance().stopPlaying(playNote);
+    updatePlayingNoteText();
+  }
+
+  private void stopAllPlaying()
+  {
+    for (PlayNoteWave.PlayNote playNote : PlayNoteCore.getInstance().getPlayingNoteList())
+    {
+      stopPlaying(playNote);
+    }
+  }
+
+  private Collection<View> getPianoKeysByNote(PlayNoteWave.PlayNote playNote)
+  {
+    View root = m_binding.getRoot();
+    View pianoView = null;
+    ViewGroup group = null;
+    List<View> result = new ArrayList<View>();
+    for (int pianoInd = 0; pianoInd < m_pianoId.length; pianoInd++)
+    {
+      if (m_octave[pianoInd] == playNote.getOctave())
+      {
+        pianoView = root.findViewById(m_pianoId[pianoInd]);
+        group = pianoView.findViewById(R.id.playLayPiano);
+        for (int i = 0; i < group.getChildCount(); i++)
+        {
+          if (!(group.getChildAt(i) instanceof Button)) continue;
+          Button widget = (Button)group.getChildAt(i);
+          Object tag = widget.getTag(R.id.playNoteTag);
+          if (tag instanceof String)
+          {
+            int note = Integer.parseInt(tag.toString());
+            if (note == playNote.getNote())
+            {
+              result.add (widget);
+              break;
+            }
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  private int getPianoIndOfView(View v)
+  {
+    int octaveIndex = -1;
+    View pianoView = null;
+    View candidateView = null;
+    View root = m_binding.getRoot();
+
+    for (int pianoInd = 0;
+         pianoInd < m_pianoId.length && octaveIndex < 0;
+         pianoInd++)
+    {
+      pianoView = root.findViewById(m_pianoId[pianoInd]);
+      candidateView = pianoView.findViewById(v.getId());
+      if (candidateView == v)
+      {
+        octaveIndex = pianoInd;
+        break;
+      }
+    }
+
+    return octaveIndex;
+  }
+
+  private final View.OnTouchListener m_onPianoClick = new View.OnTouchListener()
   {
     @Override
-    public void onClick(View v)
+    public boolean onTouch(View v, MotionEvent event)
     {
+      int pianoMode = PlayNoteCore.getInstance().getPianoMode();
+      int pianoInd = getPianoIndOfView(v);
+      boolean ret = false;
+      boolean isPlaying = false;
       Object tag = v.getTag(R.id.playNoteTag);
-      if (tag instanceof String)
+      if (tag instanceof String && pianoInd >= 0)
       {
-        m_note = Integer.parseInt(tag.toString());
-        boolean isPlaying = togglePlaying();
-        checkInGroup (v, isPlaying);
+        PlayNoteWave.PlayNote newNote = new PlayNoteWave.PlayNote(m_octave[pianoInd], Integer.parseInt(tag.toString()));
+        // if note is note continuous, it will stop naturally playing and the button never go relaxed
+        if (!PlayNoteCore.getInstance().isNoteContinuous())
+        {
+          // To be removed, do auto uncheck or force user to disable key
+          if (pianoMode == PlayNoteCore.PLAY_MODE_STICKY)
+            pianoMode = PlayNoteCore.PLAY_MODE_VOLATILE;
+        }
+
+        switch(event.getAction())
+        {
+          case MotionEvent.ACTION_DOWN:
+            isPlaying = PlayNoteCore.getInstance().isPlaying(newNote);
+            // If note is note continuous, the button still enforced. Stop any way
+            stopPlaying(newNote);
+            if (!isPlaying)
+            {
+              startPlaying(newNote);
+            }
+            ret = true;
+            break;
+
+          case MotionEvent.ACTION_UP:
+            if (pianoMode == PlayNoteCore.PLAY_MODE_STICKY)
+            {
+              // Do nothing
+            }
+            else if (pianoMode == PlayNoteCore.PLAY_MODE_VOLATILE)
+            {
+              stopPlaying(newNote);
+            }
+            ret = true;
+            break;
+
+          default:
+            ret = false;
+            break;
+        }
       }
+      return ret;
     }
   };
 
-  private final View.OnClickListener m_onOctaveClick = new View.OnClickListener()
+  private final View.OnTouchListener m_onOctaveClick = new View.OnTouchListener()
   {
     @Override
-    public void onClick(View v)
+    public boolean onTouch(View v, MotionEvent event)
     {
+      int pianoMode = PlayNoteCore.getInstance().getPianoMode();
+      int pianoInd = getPianoIndOfView(v);
+      boolean ret = false;
+      boolean isPlaying = false;
       Object tag = v.getTag(R.id.playOctaveTag);
-      if (tag instanceof String)
+
+      if (tag instanceof String && pianoInd >= 0)
       {
-        boolean isPlaying = PlayNoteCore.getInstance().isPlaying(m_octave, m_note);
         int octave = Integer.parseInt(tag.toString());
-        checkInGroup (v, true);
-        //noinspection StatementWithEmptyBody
-        if (isPlaying && octave != m_octave)
+        switch(event.getAction())
         {
-          m_octave = octave;
-          // Change the current octave
-          isPlaying = togglePlaying();
-        }
-        else
-        {
-          m_octave = octave;
+          case MotionEvent.ACTION_DOWN:
+            if (octave != m_octave[pianoInd])
+            {
+              m_octave[pianoInd] = octave;
+              Collection<PlayNoteWave.PlayNote> currentNoteList = PlayNoteCore.getInstance().getPlayingNoteList();
+              stopAllPlaying();
+              for (PlayNoteWave.PlayNote playNote : currentNoteList)
+              {
+                for (int i = 0; i < m_octave.length; i++)
+                {
+                  if (m_octave[i] != octave && m_octave[i] == playNote.getOctave() &&
+                    pianoMode == PlayNoteCore.PLAY_MODE_STICKY)
+                  {
+                    startPlaying(new PlayNoteWave.PlayNote(m_octave[i], playNote.getNote()));
+                  }
+                  else if (m_octave[i] == octave)
+                  {
+                    startPlaying(new PlayNoteWave.PlayNote(octave, playNote.getNote()));
+                  }
+                }
+              }
+            }
+            checkInGroup(v, true);
+            ret = true;
+            break;
+
+          case MotionEvent.ACTION_UP:
+            ret = true;
+            break;
+
+          default:
+            ret = false;
+            break;
         }
       }
+      return ret;
     }
   };
 
-  private void pianoAddClick(int viewId)
+  private void pianoAddClick(int pianoId, int viewId)
   {
-    View v = m_binding.getRoot().findViewById(viewId);
-    if (v != null)
+    View pianoView = m_binding.getRoot().findViewById(pianoId);
+    if (pianoView != null)
     {
-      v.setOnClickListener(m_onPianoClick);
+      View v = pianoView.findViewById(viewId);
+      if (v != null)
+      {
+        v.setOnTouchListener(m_onPianoClick);
+      }
     }
   }
 
-  private void octaveAddClick(int viewId)
+  private void octaveAddClick(int pianoId, int viewId)
   {
-    View v = m_binding.getRoot().findViewById(viewId);
-    if (v != null)
+    View pianoView = m_binding.getRoot().findViewById(pianoId);
+    if (pianoView != null)
     {
-      v.setOnClickListener(m_onOctaveClick);
+      View v = pianoView.findViewById(viewId);
+      if (v != null)
+      {
+        v.setOnTouchListener(m_onOctaveClick);
+      }
     }
   }
 
@@ -132,23 +341,22 @@ public class PlaynoteFragment extends Fragment
     {
       if (!(group.getChildAt(i) instanceof Button)) continue;
       Button widget = (Button)group.getChildAt(i);
-      Drawable d = widget.getBackground();
-      if (d != null)
-      {
-        d.clearColorFilter();
-        widget.setBackground(d);
-      }
-      else
-      {
-        widget.setBackgroundColor(0x00000000);
-      }
-      widget.invalidate();
+      check (widget, false);
     }
 
-    // Check the concerned
     if (isChecked)
     {
-      Drawable d = view.getBackground();
+      check (view, true);
+    }
+  }
+
+  private void check(View view, boolean isChecked)
+  {
+    if (m_binding == null) return;
+
+    Drawable d = view.getBackground();
+    if (isChecked)
+    {
       if (d != null)
       {
         ColorFilter cf = new PorterDuffColorFilter(m_colorMiddle, PorterDuff.Mode.SRC);
@@ -159,8 +367,20 @@ public class PlaynoteFragment extends Fragment
       {
         view.setBackgroundColor(m_colorMiddle);
       }
-      view.invalidate();
     }
+    else
+    {
+      if (d != null)
+      {
+        d.clearColorFilter();
+        view.setBackground(d);
+      }
+      else
+      {
+        view.setBackgroundColor(0x00000000);
+      }
+    }
+    view.invalidate();
   }
 
   @Override
@@ -174,31 +394,53 @@ public class PlaynoteFragment extends Fragment
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
     m_colorMiddle = sharedPreferences.getInt(SettingsCore.SETTING_COLOR, Color.GRAY);
 
-    pianoAddClick(R.id.playBtn0);
-    pianoAddClick(R.id.playBtn1);
-    pianoAddClick(R.id.playBtn2);
-    pianoAddClick(R.id.playBtn3);
-    pianoAddClick(R.id.playBtn4);
-    pianoAddClick(R.id.playBtn5);
-    pianoAddClick(R.id.playBtn6);
-    pianoAddClick(R.id.playBtn7);
-    pianoAddClick(R.id.playBtn8);
-    pianoAddClick(R.id.playBtn9);
-    pianoAddClick(R.id.playBtn10);
-    pianoAddClick(R.id.playBtn11);
+    int pianoId = 0;
+    View pianoView = null;
+    for (int index = 0; index < m_pianoId.length; index++)
+    {
+      pianoId = m_pianoId[index];
 
-    octaveAddClick(R.id.playBtnOctave0);
-    octaveAddClick(R.id.playBtnOctave1);
-    octaveAddClick(R.id.playBtnOctave2);
-    octaveAddClick(R.id.playBtnOctave3);
-    octaveAddClick(R.id.playBtnOctave4);
-    octaveAddClick(R.id.playBtnOctave5);
-    octaveAddClick(R.id.playBtnOctave6);
-    octaveAddClick(R.id.playBtnOctave7);
-    octaveAddClick(R.id.playBtnOctave8);
+      pianoAddClick(pianoId, R.id.playBtn0);
+      pianoAddClick(pianoId, R.id.playBtn1);
+      pianoAddClick(pianoId, R.id.playBtn2);
+      pianoAddClick(pianoId, R.id.playBtn3);
+      pianoAddClick(pianoId, R.id.playBtn4);
+      pianoAddClick(pianoId, R.id.playBtn5);
+      pianoAddClick(pianoId, R.id.playBtn6);
+      pianoAddClick(pianoId, R.id.playBtn7);
+      pianoAddClick(pianoId, R.id.playBtn8);
+      pianoAddClick(pianoId, R.id.playBtn9);
+      pianoAddClick(pianoId, R.id.playBtn10);
+      pianoAddClick(pianoId, R.id.playBtn11);
 
-    m_octave = 4;
-    checkInGroup(m_binding.getRoot().findViewById(R.id.playBtnOctave4), true);
+      octaveAddClick(pianoId, R.id.playBtnOctave0);
+      octaveAddClick(pianoId, R.id.playBtnOctave1);
+      octaveAddClick(pianoId, R.id.playBtnOctave2);
+      octaveAddClick(pianoId, R.id.playBtnOctave3);
+      octaveAddClick(pianoId, R.id.playBtnOctave4);
+      octaveAddClick(pianoId, R.id.playBtnOctave5);
+      octaveAddClick(pianoId, R.id.playBtnOctave6);
+      octaveAddClick(pianoId, R.id.playBtnOctave7);
+      octaveAddClick(pianoId, R.id.playBtnOctave8);
+
+      m_octave[index] = index + 3;
+
+      pianoView = m_binding.getRoot().findViewById(pianoId);
+      if (pianoView != null)
+      {
+        ViewGroup group = pianoView.findViewById(R.id.playOctaves);
+        for (int j = 0; j < group.getChildCount(); j++)
+        {
+          if (!(group.getChildAt(j) instanceof Button)) continue;
+          Button widget = (Button)group.getChildAt(j);
+          Object tag = widget.getTag(R.id.playOctaveTag);
+          if (tag instanceof String &&  ("" + m_octave[index]).equals((String)tag))
+          {
+            checkInGroup(widget, true);
+          }
+        }
+      }
+    }
 
     updateNoteName();
 
@@ -217,9 +459,14 @@ public class PlaynoteFragment extends Fragment
     m_binding = null;
   }
 
-  private void updateSingleNote(int viewId)
+  private void updateSingleNote(int pianoId, int viewId)
   {
-    TextView v = m_binding.getRoot().findViewById(viewId);
+    View pianoView = m_binding.getRoot().findViewById(pianoId);
+    TextView v = null;
+    if (pianoView != null)
+    {
+      v = pianoView.findViewById(viewId);
+    }
     if (v != null)
     {
       Object tag = v.getTag(R.id.playNoteTag);
@@ -234,17 +481,22 @@ public class PlaynoteFragment extends Fragment
 
   public void updateNoteName()
   {
-    updateSingleNote(R.id.playBtn0);
-    updateSingleNote(R.id.playBtn1);
-    updateSingleNote(R.id.playBtn2);
-    updateSingleNote(R.id.playBtn3);
-    updateSingleNote(R.id.playBtn4);
-    updateSingleNote(R.id.playBtn5);
-    updateSingleNote(R.id.playBtn6);
-    updateSingleNote(R.id.playBtn7);
-    updateSingleNote(R.id.playBtn8);
-    updateSingleNote(R.id.playBtn9);
-    updateSingleNote(R.id.playBtn10);
-    updateSingleNote(R.id.playBtn11);
+    int pianoId = 0;
+    for (int i = 0; i < m_pianoId.length; i++)
+    {
+      pianoId = m_pianoId[i];
+      updateSingleNote(pianoId, R.id.playBtn0);
+      updateSingleNote(pianoId, R.id.playBtn1);
+      updateSingleNote(pianoId, R.id.playBtn2);
+      updateSingleNote(pianoId, R.id.playBtn3);
+      updateSingleNote(pianoId, R.id.playBtn4);
+      updateSingleNote(pianoId, R.id.playBtn5);
+      updateSingleNote(pianoId, R.id.playBtn6);
+      updateSingleNote(pianoId, R.id.playBtn7);
+      updateSingleNote(pianoId, R.id.playBtn8);
+      updateSingleNote(pianoId, R.id.playBtn9);
+      updateSingleNote(pianoId, R.id.playBtn10);
+      updateSingleNote(pianoId, R.id.playBtn11);
+    }
   }
 }

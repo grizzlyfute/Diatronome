@@ -4,6 +4,9 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.TypedValue;
 
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 public class Utils
 {
   // Used for functions returning several data
@@ -14,6 +17,29 @@ public class Utils
     {
       this.value = value;
     }
+  }
+
+  // Helper for mutex
+  public static boolean mutexTryAcquire(Semaphore mutex, long timeoutMs)
+  {
+    boolean result = false;
+    try
+    {
+      if (timeoutMs > 0)
+      {
+        result = mutex.tryAcquire(timeoutMs, TimeUnit.MILLISECONDS);
+      }
+      else
+      {
+        mutex.acquire();
+        result = true;
+      }
+    }
+    catch (InterruptedException e)
+    {
+      result = false;
+    }
+    return result;
   }
 
   // Dp stand for density independent pixels

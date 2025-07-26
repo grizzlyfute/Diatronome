@@ -31,6 +31,7 @@
   <string name="preference_transposition">Transposition</string>
   <string name="preference_temperament">Tempérament</string>
   <string name="preference_waveform">Forme d\'onde</string>
+  <string name="preference_pianotouch">Touches du piano</string>
   <string name="preference_metronome_pitch_main">Tonalité principale du métronome</string>
   <string name="preference_metronome_pitch_accent">Tonalité d\'accent du métronome</string>
   <string name="preference_metronome_pitch_subdivision">Tonalité de sous-divisions du métronome</string>
@@ -94,9 +95,22 @@
   </string-array>
 
   <string-array name="array_waveform">
-    <item>Sinus</item>
-    <item>Triangle</item>
-    <item>Carrée</item>
+    <item>Sinusoïdale</item>
+    <item>Triangulaire</item>
     <item>Dents de scie</item>
+    <item>Carrée</item>
+    <item>Piano</item>
+    <item>Orgue</item>
+    <item>Tambour</item>
+    <item>Tom</item>
+    <item>Caisse claire</item>
+    <item>Steeldrum</item>
+    <item>Cloche</item>
+    <item>Laser</item>
+  </string-array>
+
+  <string-array name="array_pianotouch">
+    <item>Persistantes</item>
+    <item>Non persistantes</item>
   </string-array>
 </resources>
