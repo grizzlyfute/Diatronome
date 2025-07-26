@@ -1,6 +1,7 @@
 package org.kalinisa.diatronome.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -52,6 +53,22 @@ public class PlaynoteFragment extends Fragment
       m_octave[i] = i + 3;
     }
     m_colorMiddle = Color.GRAY;
+
+    PlayNoteCore.getInstance().setOnAudioStopListener(new PlayNoteCore.IAudioAutoStopPlayingListener()
+    {
+      @Override
+      public void onStopPlaying(PlayNoteWave.PlayNote note)
+      {
+        getActivity().runOnUiThread(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            stopPlaying(note);
+          }
+        });
+      }
+    });
   }
 
   @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -207,14 +224,6 @@ public class PlaynoteFragment extends Fragment
       if (tag instanceof String && pianoInd >= 0)
       {
         PlayNoteWave.PlayNote newNote = new PlayNoteWave.PlayNote(m_octave[pianoInd], Integer.parseInt(tag.toString()));
-        // if note is note continuous, it will stop naturally playing and the button never go relaxed
-        if (!PlayNoteCore.getInstance().isNoteContinuous())
-        {
-          // To be removed, do auto uncheck or force user to disable key
-          if (pianoMode == PlayNoteCore.PLAY_MODE_STICKY)
-            pianoMode = PlayNoteCore.PLAY_MODE_VOLATILE;
-        }
-
         switch(event.getAction())
         {
           case MotionEvent.ACTION_DOWN:

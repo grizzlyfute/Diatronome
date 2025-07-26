@@ -16,6 +16,7 @@ public class PlayNoteCore
 {
   public static final int PLAY_MODE_STICKY = 1;
   public static final int PLAY_MODE_VOLATILE = 2;
+  private final int FADE_IN_OUT_MS = 25;
 
   private static PlayNoteCore s_instance;
   private ASoundGenerator m_soundGenerator = null;
@@ -31,7 +32,8 @@ public class PlayNoteCore
   private List<PlayNoteWave> m_waveCurrents = null;
   private final PlayNoteWave m_waveSilentPreventGlitch;
 
-  private final int FADE_IN_OUT_MS = 25;
+  public interface IAudioAutoStopPlayingListener { void onStopPlaying(PlayNoteWave.PlayNote note); }
+  private IAudioAutoStopPlayingListener m_audioAutoStopPlayingListener = null;
 
   private PlayNoteCore()
   {
@@ -39,9 +41,11 @@ public class PlayNoteCore
     m_currentNotesMutex = new Semaphore(1, false);
 
     m_waveCurrents = new ArrayList<PlayNoteWave>();
+    m_soundGenerator = ASoundGenerator.factory(ASoundGenerator.WAVEFORM_SINE);
+
     // Prevent glitch by shutting down audio when changing note.
     m_waveSilentPreventGlitch = new PlayNoteWave(new PlayNoteWave.PlayNote(-1, -1),
-     new short[Math.max (AudioUtils.getAudioSampleLen(3000), AudioUtils.getAudioBufferSize(3000)/2)],
+      new short[Math.max (AudioUtils.getAudioSampleLen(3000), AudioUtils.getAudioBufferSize(3000)/2)],
       0, 0, FADE_IN_OUT_MS);
     // Playing silent after note ensure we have enough bytes in buffer to start to play
     m_waveSilentPreventGlitch.play();
@@ -54,6 +58,11 @@ public class PlayNoteCore
       s_instance = new PlayNoteCore();
     }
     return s_instance;
+  }
+
+  public void setOnAudioStopListener (IAudioAutoStopPlayingListener listener)
+  {
+    m_audioAutoStopPlayingListener = listener;
   }
 
   public void stopAllPlaying()
@@ -88,37 +97,34 @@ public class PlayNoteCore
     if (isPlaying(playNote)) return;
     final double frequency = getFrequency(playNote.getOctave(), playNote.getNote());
     final short[] pcm = m_soundGenerator.generatePcm(frequency, m_soundGenerator.hintDurationMs(frequency));
-    final short[] pcmStart = m_soundGenerator.isContinous() ?
-      m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS) :
-      new short[0];
-    final short[] pcmEnd = m_soundGenerator.isContinous() ?
-      m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS) :
-      new short[0];
     int start, stop;
+    short[] audioPcm;
 
     if (m_soundGenerator.isContinous())
     {
+      short[] pcmStart = m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS);
+      short[] pcmEnd = m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS);
       AudioUtils.fadeInFilter(pcmStart, FADE_IN_OUT_MS);
       AudioUtils.fadeOutFilter(pcmEnd, FADE_IN_OUT_MS);
+
+      audioPcm = new short[(pcmStart.length + pcm.length + pcmEnd.length)];
+      System.arraycopy(pcmStart, 0, audioPcm, 0, pcmStart.length);
+      start = pcmStart.length;
+      System.arraycopy(pcm, 0, audioPcm, start, pcm.length);
+      stop = start + pcm.length;
+      System.arraycopy(pcmEnd, 0, audioPcm, stop, pcmEnd.length);
     }
     else
     {
+      // Auto loop and last point (silent)
+      stop = pcm.length;
+      start = stop;
+      audioPcm = pcm;
+
       AudioUtils.fadeInFilter(pcm, FADE_IN_OUT_MS);
       AudioUtils.fadeOutFilter(pcm, FADE_IN_OUT_MS);
     }
 
-    short[] audioPcm = new short[(pcmStart.length + pcm.length + pcmEnd.length)];
-    System.arraycopy(pcmStart, 0, audioPcm, 0, pcmStart.length);
-    start = pcmStart.length;
-    System.arraycopy(pcm, 0, audioPcm, start, pcm.length);
-    stop = start + pcm.length;
-    System.arraycopy(pcmEnd, 0, audioPcm, stop, pcmEnd.length);
-
-    // Disable auto-loop
-    if (!m_soundGenerator.isContinous())
-    {
-      stop = audioPcm.length + 1;
-    }
     PlayNoteWave playNoteWave = new PlayNoteWave(playNote, audioPcm, start, stop, FADE_IN_OUT_MS);
     playNoteWave.play();
 
@@ -139,11 +145,6 @@ public class PlayNoteCore
       m_playNoteThread = new Thread(this::playingNoteRun);
       m_playNoteThread.start();
     }
-  }
-
-  public boolean isPlayingAny()
-  {
-    return isPlaying(null);
   }
 
   public boolean isPlaying(PlayNoteWave.PlayNote playNote)
@@ -235,6 +236,10 @@ public class PlayNoteCore
             }
             else
             {
+              if (m_audioAutoStopPlayingListener != null)
+              {
+                m_audioAutoStopPlayingListener.onStopPlaying(playNote);
+              }
               it.remove();
             }
           }

@@ -14,7 +14,7 @@ public class SoundGeneratorPiano extends ASoundGenerator
 
   public double hintDurationMs(double freq)
   {
-    return 1000 * Math.log (0.01) / (- 2 * Math.PI * attenuator * freq);
+    return 1000 * Math.log (0.02) / (- 2 * Math.PI * attenuator * freq);
   }
 
   public short[] generatePcm(double frequency, double durationMs)
@@ -24,6 +24,7 @@ public class SoundGeneratorPiano extends ASoundGenerator
     final double w = getWaveFactor();
     int i, n;
     double att = attenuator;
+    double phaseModulation;
 
     // Remove resonator if asked time is short
     if (durationMs < hintDurationMs(frequency)/2 && durationMs > 0)
@@ -34,12 +35,12 @@ public class SoundGeneratorPiano extends ASoundGenerator
       soundDouble[i] = 0;
       for (n = 1; n <= 6; n++)
       {
-        soundDouble[i] += (Math.sin (w * n * frequency * i)) * Math.exp (-w * att * frequency * i) / (Math.pow(2, n-1));
+        phaseModulation = 2*Math.PI * (n-1) / 12;
+        soundDouble[i] += (Math.sin (w * n * frequency * i + phaseModulation)) * Math.exp (-w * att * frequency * i) / (Math.pow(2, n-1));
       }
       soundDouble[i] += Math.pow(soundDouble[i], 3);
-      soundDouble[i] *= 1 + 16 * ((double)i / AudioUtils.AUDIO_SAMPLE_RATE_HZ) * Math.exp(-6 * (double)i / AudioUtils.AUDIO_SAMPLE_RATE_HZ);
+      soundDouble[i] *= 1 + 16 * ((double)i / AudioUtils.AUDIO_SAMPLE_RATE_HZ) * Math.exp(-6.0 * i / AudioUtils.AUDIO_SAMPLE_RATE_HZ);
     }
-
     return toShortPcm(soundDouble);
   }
 }

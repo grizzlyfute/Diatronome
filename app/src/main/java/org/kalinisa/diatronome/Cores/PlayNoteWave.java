@@ -39,7 +39,7 @@ public class PlayNoteWave implements Iterator<Short>
   private final PlayNote m_note;
   private boolean m_isPlaying;
   private double m_gain;
-  private final double m_smoothStopMs;
+  private final double m_gainFactor;
 
   public PlayNoteWave(PlayNote note, short[] pcm, int start, int stop, int smoothStopMs)
   {
@@ -51,7 +51,7 @@ public class PlayNoteWave implements Iterator<Short>
     m_isPlaying = false;
 
     m_gain = 1;
-    m_smoothStopMs = smoothStopMs;
+    m_gainFactor = Math.pow (0.01, 1.0/AudioUtils.getAudioSampleLen(smoothStopMs));
   }
 
   public Short next()
@@ -71,15 +71,8 @@ public class PlayNoteWave implements Iterator<Short>
     }
     else
     {
-      // Smooth stop
-      if (m_smoothStopMs > 0)
-        m_gain = m_gain - 1000/(m_smoothStopMs* AudioUtils.AUDIO_SAMPLE_RATE_HZ);
-      else
-        m_gain = 0;
-
-      // Wait for A zero near point and stop without glitch
-      if (m_gain < 0.01 && (Math.abs(res) < Short.MAX_VALUE / 128))
-        pos = m_audioPcm.length;
+      // Smooth to stop
+      m_gain = m_gain * m_gainFactor;
 
       res = (short)(m_gain*res);
     }
