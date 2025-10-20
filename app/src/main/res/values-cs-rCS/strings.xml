@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="common_yes">Ano</string>
+  <string name="common_no">Ne</string>
+  <string name="action_settings">Nastavení</string>
+  <string name="action_tuner">Ladička</string>
+  <string name="action_play">Syntetizér</string>
+  <string name="action_metronome">Metronom</string>
+  <string name="action_about">O aplikaci</string>
+
+  <string name="metronome_bpm">Tempo (BPM)</string>
+  <string name="metronome_timesignature">Takt</string>
+  <string name="metronome_division">Dělení taktu</string>
+  <string name="metronome_subdivision">Dělení doby</string>
+  <string name="metronome_notificationtitle">Přehrávání metronomu</string>
+
+  <!-- Preferences -->
+  <string name="preference_title_system">Systém</string>
+  <string name="preference_theme">Téma</string>
+  <string name="preference_screen_on">Ponechat obrazovku zapnutou</string>
+  <string name="preference_color">Akcent aplikace</string>
+  <string name="preference_homescreen">Domovská obrazovka</string>
+
+  <string name="preference_title_app">Nastavení aplikace</string>
+  <string name="preference_pitch">Kalibrace výšky tónu pro A4</string>
+  <string name="preference_note_name">Názvy not</string>
+  <string name="preference_use_sharp_flat">♯ místo ♭</string>
+  <string name="preference_transposition">Změna tóniny</string>
+  <string name="preference_temperament">Ladění stupnice</string>
+  <string name="preference_waveform">Tvar vlny</string>
+  <string name="preference_pianotouch">Citlivost kláves</string>
+  <string name="preference_metronome_pitch_main">Hlavní tón metronumu</string>
+  <string name="preference_metronome_pitch_accent">Akcentovaný tón metronomu</string>
+  <string name="preference_metronome_pitch_subdivision">Podřízený tón metronomun</string>
+  <string name="preference_metronome_bidirectionalneedle">Obousměrná ručička metronomu</string>
+
+  <string name="preference_advanced">Rozšířené</string>
+  <string name="preference_sensitivity">Citlivost mikrofonu</string>
+  <string name="preference_algorithm">Algoritmus</string>
+
+  <!-- about -->
+  <string name="about_content"><![CDATA[
+    <b><i>Diatronome</i></b> nabízí <i>tuner</i>, <i>metronome</i> a <i>syntetizér</i>.
+    Tato aplikace je open source, respektuje soukromí a je bez reklam.<br/>
+    <b>Licence: </b>%1$s<br/>
+    <b>Zdrojový kód: </b><a href="%2$s">%2$s</a><br/>
+    <b>Podpora: </b><a href="%3$s">%3$s</a><br/>
+  ]]></string>
+
+  <!-- string array -->
+  <string-array name="array_notes_name">
+    <item>Mezinárodní (A B C)</item>
+    <item>Solmizační slabiky (Do-Re-Mi)</item>
+  </string-array>
+
+  <string-array name="array_theme">
+    <item>Systém</item>
+    <item>Světlé</item>
+    <item>Tmavé</item>
+  </string-array>
+
+  <string-array name="array_homescreen">
+    <item>Ladička</item>
+    <item>Metronom</item>
+    <item>Syntetizér</item>
+  </string-array>
+
+  <string-array name="array_waveform">
+    <item>Sinus</item>
+    <item>Trojúhelník</item>
+    <item>Pila</item>
+    <item>Čtverec</item>
+    <item>Piano</item>
+    <item>Varhany</item>
+    <item>Buben</item>
+    <item>Tom-tom</item>
+    <item>Virbl</item>
+    <item>Steelpan</item>
+    <item>Zvonec</item>
+  </string-array>
+
+  <string-array name="array_pianotouch">
+    <item>Trvalá</item>
+    <item>Dočasná</item>
+  </string-array>
+  
+</resources>
