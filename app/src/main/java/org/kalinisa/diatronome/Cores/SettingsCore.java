@@ -16,7 +16,7 @@ public class SettingsCore extends BaseCore
   public static final String SETTING_NOTE_NAME = "setting_note_name";
   public static final String SETTING_USE_SHARP_FLAT = "setting_use_sharp_flat";
   public static final String SETTING_PITCH_REF = "setting_pitch_ref";
-  public static final String SETTING_WAVEFORM = "setting_waveform";
+  public static final String SETTING_PIANO_WAVEFORM = "setting_waveform";
   public static final String SETTING_PIANOTOUCH = "setting_pianotouch";
   public static final String SETTING_TRANSPOSITION = "setting_transposition";
   public static final String SETTING_TEMPERAMENT = "setting_temperament";
@@ -26,6 +26,8 @@ public class SettingsCore extends BaseCore
   public static final String SETTING_METRONOME_PITCH_SUBDIVISION = "setting_metronome_pitch_subdivision";
   public static final String SETTING_METRONOME_BIDIRECTIONNAL = "setting_metronome_bidirectionalneedle";
   public static final String SETTING_METRONOME_BPM = "setting_metronome_bpm";
+  public static final String SETTING_METRONOME_WAVEFORM = "setting_metronome_waveform";
+
 
   public static final String SETTING_SOUNDANALYZE_THRESHOLD = "setting_soundanalyze_threshold";
   public static final String SETTING_SOUNDANALYZE_ALGORITHM = "setting_soundanalyze_algorithm";
@@ -104,10 +106,9 @@ public class SettingsCore extends BaseCore
           PlayNoteCore.getInstance().setTemperament(intValue);
           break;
 
-        case SettingsCore.SETTING_WAVEFORM:
+        case SettingsCore.SETTING_PIANO_WAVEFORM:
           strValue = sharedPreferences.getString(key, "");
           PlayNoteCore.getInstance().setWaveForm(strValue);
-          MetronomeCore.getInstance().setWaveForm(strValue); // After PlayNoteCore
           break;
 
         case SettingsCore.SETTING_PIANOTOUCH:

@@ -27,12 +27,13 @@
   <string name="preference_use_sharp_flat">♯ вместо ♭</string>
   <string name="preference_transposition">Транспозиция</string>
   <string name="preference_temperament">Темперамент</string>
-  <string name="preference_waveform">Форма волны</string>
+  <string name="preference_piano_waveform">Форма волны фортепиано</string>
   <string name="preference_pianotouch">Клавиши фортепиано</string>
   <string name="preference_metronome_pitch_main">Главный тон метронома</string>
   <string name="preference_metronome_pitch_accent">Акцентный тон метронома</string>
   <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
   <string name="preference_metronome_bidirectionalneedle">Metronome Bidirectional needle</string>
+  <string name="preference_metronome_waveform">Форма волны метронома</string>
 
   <string name="preference_advanced">Расширенные</string>
   <string name="preference_sensitivity">Чувствительность микрофона</string>

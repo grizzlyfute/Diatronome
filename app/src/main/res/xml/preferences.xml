@@ -93,10 +93,10 @@
       android:entryValues="@array/array_temperament_data" />
     <ListPreference
       android:defaultValue="SINE"
-      android:icon="@drawable/icon_waveform"
-      android:dialogIcon="@drawable/icon_waveform"
+      android:icon="@drawable/icon_piano_waveform"
+      android:dialogIcon="@drawable/icon_piano_waveform"
       android:key="setting_waveform"
-      android:title="@string/preference_waveform"
+      android:title="@string/preference_piano_waveform"
       android:entries="@array/array_waveform"
       android:entryValues="@array/array_waveform_data" />
     <ListPreference
@@ -108,6 +108,14 @@
       android:entries="@array/array_pianotouch"
       android:entryValues="@array/array_pianotouch_data"/>
 
+    <ListPreference
+      android:defaultValue="SINE"
+      android:icon="@drawable/icon_metronome_waveform"
+      android:dialogIcon="@drawable/icon_metronome_waveform"
+      android:key="setting_metronome_waveform"
+      android:title="@string/preference_metronome_waveform"
+      android:entries="@array/array_waveform"
+      android:entryValues="@array/array_waveform_data" />
     <SeekBarPreference
       android:min="0"
       android:max="6"

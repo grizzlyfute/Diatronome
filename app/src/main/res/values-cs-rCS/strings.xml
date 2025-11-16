@@ -27,12 +27,13 @@
   <string name="preference_use_sharp_flat">♯ místo ♭</string>
   <string name="preference_transposition">Změna tóniny</string>
   <string name="preference_temperament">Ladění stupnice</string>
-  <string name="preference_waveform">Tvar vlny</string>
+  <string name="preference_piano_waveform">Tvar vlny klavíru</string>
   <string name="preference_pianotouch">Citlivost kláves</string>
   <string name="preference_metronome_pitch_main">Hlavní tón metronumu</string>
   <string name="preference_metronome_pitch_accent">Akcentovaný tón metronomu</string>
   <string name="preference_metronome_pitch_subdivision">Podřízený tón metronomun</string>
   <string name="preference_metronome_bidirectionalneedle">Obousměrná ručička metronomu</string>
+  <string name="preference_metronome_waveform">Tvar vlny metronumu</string>
 
   <string name="preference_advanced">Rozšířené</string>
   <string name="preference_sensitivity">Citlivost mikrofonu</string>

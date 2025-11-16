@@ -32,12 +32,13 @@
   <string name="preference_use_sharp_flat">♯ instead of ♭</string>
   <string name="preference_transposition">Transposition</string>
   <string name="preference_temperament">Temperament</string>
-  <string name="preference_waveform">Wave form</string>
+  <string name="preference_piano_waveform">Piano tone</string>
   <string name="preference_pianotouch">Piano touch</string>
   <string name="preference_metronome_pitch_main">Metronome pitch main</string>
   <string name="preference_metronome_pitch_accent">Metronome pitch accent</string>
   <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
   <string name="preference_metronome_bidirectionalneedle">Metronome Bidirectional needle</string>
+  <string name="preference_metronome_waveform">Metronome tone</string>
 
   <string name="preference_advanced">Advanced</string>
   <string name="preference_sensitivity">Microphone sensitivity</string>

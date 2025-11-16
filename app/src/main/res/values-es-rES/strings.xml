@@ -19,6 +19,8 @@
   <string name="metronome_division">Tiempo</string>
   <string name="metronome_subdivision">Subdivisión</string>
   <string name="metronome_notificationtitle">Sonido del metrónomo</string>
+
+  <!-- Preferences -->
   <string name="preference_title_system">Sistema</string>
   <string name="preference_theme">Tema</string>
   <string name="preference_screen_on">Mantener la pantalla encendida</string>
@@ -30,12 +32,14 @@
   <string name="preference_use_sharp_flat">♯ en lugar de ♭</string>
   <string name="preference_transposition">Transposición</string>
   <string name="preference_temperament">Temperamento</string>
-  <string name="preference_waveform">Forma de onda</string>
+  <string name="preference_piano_waveform">Sonido de piano</string>
   <string name="preference_pianotouch">Toque de piano</string>
   <string name="preference_metronome_pitch_main">Tono principal del metrónomo</string>
   <string name="preference_metronome_pitch_accent">Acento del tono del metrónomo</string>
   <string name="preference_metronome_pitch_subdivision">Subdivisión del tono del metrónomo</string>
   <string name="preference_metronome_bidirectionalneedle">Aguja bidireccional</string>
+  <string name="preference_metronome_waveform">Sonido del metrónomo</string>
+
   <string name="preference_advanced">Avanzado</string>
   <string name="preference_sensitivity">Sensibilidad del micrófono</string>
   <string name="preference_algorithm">Algoritmo</string>
