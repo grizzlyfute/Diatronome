@@ -136,6 +136,11 @@ public class SettingsCore extends BaseCore
           MetronomeCore.getInstance().setIsBidirectionalNeedle(boolValue);
           break;
 
+        case SettingsCore.SETTING_METRONOME_WAVEFORM:
+          strValue = sharedPreferences.getString(key, "");
+          MetronomeCore.getInstance().setWaveForm(strValue);
+          break;
+
         case SettingsCore.SETTING_METRONOME_BPM:
           intValue = sharedPreferences.getInt(key, 0);
           // Not monitored
