@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_marginStart="@dimen/dialog_margin_w"
+  android:layout_marginEnd="@dimen/dialog_margin_w"
+  android:layout_marginTop="@dimen/dialog_margin_h"
+  android:layout_marginBottom="@dimen/dialog_margin_h"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/layWaveFormControl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:layout_constraintHeight_percent="0.2"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <Button
+      android:id="@+id/btnWaveformPlay"
+      android:layout_width="0dp"
+      android:layout_height="64dp"
+      android:background="@android:drawable/ic_media_play"
+      android:text=""
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintDimensionRatio="1:1"
+      />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <ListView
+    android:id="@+id/lstInstruments"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:choiceMode="singleChoice"
+    app:layout_constraintTop_toBottomOf="@id/layWaveFormControl"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintHeight_percent="0.8"
+    android:background="#40000000" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

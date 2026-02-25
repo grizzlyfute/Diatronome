@@ -30,7 +30,7 @@ package org.kalinisa.diatronome.Cores;
 
 public class AccuracyTimer extends Thread
 {
-  interface AccuracyTimerTask extends Runnable
+  public interface AccuracyTimerTask extends Runnable
   {
     void interrupt();
   }
@@ -152,7 +152,7 @@ public class AccuracyTimer extends Thread
         interrupt();
       }
     }
-    catch (InterruptedException e)
+    catch (InterruptedException ignored)
     { }
   }
 

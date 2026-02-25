@@ -6,9 +6,9 @@
   <!-- see https://fonts.google.com/icons for drawable -->
   <PreferenceCategory
     app:key="setting_system"
-    app:title="@string/preference_title_system">
+    app:title="@string/preference_system_title">
     <ListPreference
-      android:title="@string/preference_theme"
+      android:title="@string/preference_system_theme"
       android:key="setting_theme"
       android:icon="@drawable/icon_darkmode"
       android:dialogIcon="@drawable/icon_darkmode"
@@ -16,7 +16,7 @@
       android:entryValues="@array/array_theme_data"
       android:defaultValue="MODE_NIGHT_UNSPECIFIED" />
     <SwitchPreference
-      android:title="@string/preference_screen_on"
+      android:title="@string/preference_system_screenon"
       android:key="setting_screen_on"
       android:icon="@drawable/icon_screenon"
       android:defaultValue="true"/>
@@ -25,14 +25,14 @@
       android:inputType="numberDecimal"
       android:dialogIcon="@drawable/icon_color"
       android:dialogMessage=""
-      android:dialogTitle="@string/preference_color"
+      android:dialogTitle="@string/preference_system_color"
       android:icon="@drawable/icon_color"
       android:key="setting_color"
       android:negativeButtonText="@android:string/cancel"
       android:positiveButtonText="@android:string/ok"
-      android:title="@string/preference_color" />
+      android:title="@string/preference_system_color" />
     <ListPreference
-      android:title="@string/preference_homescreen"
+      android:title="@string/preference_system_homescreen"
       android:key="setting_home_screen"
       android:icon="@android:drawable/ic_menu_gallery"
       android:dialogIcon="@android:drawable/ic_menu_gallery"
@@ -42,9 +42,9 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-    android:key="setting_app"
-    android:title="@string/preference_title_app">
-    <!-- range is one octave center on 440 Hz. Duplicate min/max in tuner fragment -->
+    android:key="setting_tuner"
+    android:title="@string/preference_tuner_title">
+    <!-- Range is one octave center on 440 Hz. Duplicate min/max in tuner fragment -->
     <org.kalinisa.diatronome.Ui.NumberPickerPreference
       android:inputType="numberDecimal"
       android:maxLength="5"
@@ -52,10 +52,10 @@
       android:defaultValue="440"
       android:icon="@drawable/icon_pitch"
       android:key="setting_pitch_ref"
-      android:title="@string/preference_pitch"
+      android:title="@string/preference_tuner_pitch"
       android:dialogIcon="@drawable/icon_pitch"
       android:dialogMessage=""
-      android:dialogTitle="@string/preference_pitch"
+      android:dialogTitle="@string/preference_tuner_pitch"
       android:negativeButtonText="@android:string/cancel"
       android:positiveButtonText="@android:string/ok"
       app:min="250"
@@ -67,16 +67,16 @@
       android:dialogIcon="@drawable/icon_notename"
       android:icon="@drawable/icon_notename"
       android:key="setting_note_name"
-      android:title="@string/preference_note_name" />
+      android:title="@string/preference_tuner_notename" />
     <SwitchPreference
       android:defaultValue="false"
       android:icon="@drawable/icon_sharpflat"
       android:switchTextOff="\\u266D"
       android:switchTextOn="\\u266F"
       android:key="setting_use_sharp_flat"
-      android:title="@string/preference_use_sharp_flat" />
+      android:title="@string/preference_tuner_usesharpflat" />
     <ListPreference
-      android:title="@string/preference_transposition"
+      android:title="@string/preference_tuner_transposition"
       android:entries="@array/array_transposition"
       android:entryValues="@array/array_transposition_data"
       android:defaultValue="0"
@@ -88,57 +88,82 @@
       android:icon="@drawable/icon_temperament"
       android:dialogIcon="@drawable/icon_temperament"
       android:key="setting_temperament"
-      android:title="@string/preference_temperament"
+      android:title="@string/preference_tuner_temperament"
       android:entries="@array/array_temperament"
       android:entryValues="@array/array_temperament_data" />
-    <ListPreference
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="setting_synthesizer"
+    android:title="@string/preference_synthesizer_title">
+    <org.kalinisa.diatronome.Ui.WaveformPickerPreference
       android:defaultValue="SINE"
       android:icon="@drawable/icon_piano_waveform"
       android:dialogIcon="@drawable/icon_piano_waveform"
       android:key="setting_waveform"
-      android:title="@string/preference_piano_waveform"
-      android:entries="@array/array_waveform"
-      android:entryValues="@array/array_waveform_data" />
+      android:title="@string/preference_synthesizer_waveform"
+      app:entries="@array/array_waveform"
+      app:entryValues="@array/array_waveform_data" />
     <ListPreference
       android:defaultValue="1"
       android:icon="@drawable/icon_piano"
       android:dialogIcon="@drawable/icon_piano"
       android:key="setting_pianotouch"
-      android:title="@string/preference_pianotouch"
+      android:title="@string/preference_synthesizer_touchmode"
       android:entries="@array/array_pianotouch"
       android:entryValues="@array/array_pianotouch_data"/>
+  </PreferenceCategory>
 
-    <ListPreference
+  <PreferenceCategory
+    android:key="setting_metronome"
+    android:title="@string/preference_metronome_title">
+    <org.kalinisa.diatronome.Ui.WaveformPickerPreference
       android:defaultValue="SINE"
       android:icon="@drawable/icon_metronome_waveform"
       android:dialogIcon="@drawable/icon_metronome_waveform"
-      android:key="setting_metronome_waveform"
-      android:title="@string/preference_metronome_waveform"
-      android:entries="@array/array_waveform"
-      android:entryValues="@array/array_waveform_data" />
+      android:key="setting_metronome_waveform_accent"
+      android:title="@string/preference_metronome_waveformaccent"
+      app:entries="@array/array_waveform"
+      app:entryValues="@array/array_waveform_data" />
     <SeekBarPreference
       android:min="0"
       android:max="6"
       android:defaultValue="5"
       android:icon="@drawable/icon_pitch"
       android:key="setting_metronome_pitch_accent"
-      android:title="@string/preference_metronome_pitch_accent"
+      android:title="@string/preference_metronome_pitchaccent"
       tools:ignore="UnusedAttribute" />
+    <org.kalinisa.diatronome.Ui.WaveformPickerPreference
+      android:defaultValue="SINE"
+      android:icon="@drawable/icon_metronome_waveform"
+      android:dialogIcon="@drawable/icon_metronome_waveform"
+      android:key="setting_metronome_waveform"
+      android:title="@string/preference_metronome_waveformmain"
+      app:entries="@array/array_waveform"
+      app:entryValues="@array/array_waveform_data" />
     <SeekBarPreference
       android:icon="@drawable/icon_pitch"
       android:key="setting_metronome_pitch_main"
       android:min="0"
       android:max="6"
       android:defaultValue="4"
-      android:title="@string/preference_metronome_pitch_main"
+      android:title="@string/preference_metronome_pitchmain"
       tools:ignore="UnusedAttribute" />
+    <org.kalinisa.diatronome.Ui.WaveformPickerPreference
+      android:defaultValue="SINE"
+      android:icon="@drawable/icon_metronome_waveform"
+      android:dialogIcon="@drawable/icon_metronome_waveform"
+      android:key="setting_metronome_waveform_subdivision"
+      android:title="@string/preference_metronome_waveformsubdivision"
+      app:entries="@array/array_waveform"
+      app:entryValues="@array/array_waveform_data" />
     <SeekBarPreference
       android:min="0"
       android:max="6"
       android:defaultValue="3"
       android:icon="@drawable/icon_pitch"
       android:key="setting_metronome_pitch_subdivision"
-      android:title="@string/preference_metronome_pitch_subdivision"
+      android:title="@string/preference_metronome_pitchsubdivision"
       tools:ignore="UnusedAttribute" />
 
     <SwitchPreference
@@ -153,28 +178,40 @@
 
   <PreferenceCategory
     android:key="setting_advanced"
-    android:title="@string/preference_advanced">
-
+    android:title="@string/preference_advanced_title">
     <SeekBarPreference
       android:min="0"
       android:max="10"
       android:defaultValue="5"
       android:icon="@drawable/icon_threshold"
       android:key="setting_soundanalyze_threshold"
-      android:title="@string/preference_sensitivity"
+      android:title="@string/preference_advanced_sensitivity"
       tools:ignore="UnusedAttribute" />
-
     <ListPreference
-      android:min="0"
-      android:max="10"
       android:defaultValue="1"
       android:icon="@drawable/icon_algo"
       android:dialogIcon="@drawable/icon_algo"
       android:key="setting_soundanalyze_algorithm"
-      android:title="@string/preference_algorithm"
+      android:title="@string/preference_advanced_algorithm"
       android:entries="@array/array_algorithm"
       android:entryValues="@array/array_algorithm_data"
       tools:ignore="UnusedAttribute" />
+    <ListPreference
+      android:defaultValue="30"
+      android:icon="@android:drawable/ic_menu_slideshow"
+      android:dialogIcon="@android:drawable/ic_menu_slideshow"
+      android:key="setting_advanced_fps"
+      android:title="@string/preference_advanced_fps"
+      android:entries="@array/array_fps"
+      android:entryValues="@array/array_fps_data"
+      tools:ignore="UnusedAttribute" />
+
+    <Preference
+      android:key="setting_about"
+      android:title="@string/action_about"
+      android:summary="@string/action_about"
+      android:icon="@drawable/menu_about"
+      />
 
     <org.kalinisa.diatronome.Ui.NumberPickerPreference
       android:inputType="numberDecimal"
@@ -183,17 +220,20 @@
       android:defaultValue="60"
       android:key="setting_metronome_bpm"
       app:isPreferenceVisible="false"/>
-
     <EditTextPreference
       android:defaultValue="4333"
       android:key="setting_metronome_beatsig"
       app:isPreferenceVisible="false" />
-
+    <org.kalinisa.diatronome.Ui.NumberPickerPreference
+      android:inputType="numberDecimal"
+      android:defaultValue="43"
+      android:key="setting_piano_octaves"
+      app:isPreferenceVisible="false" />
     <!-- Version of this setting, for a future use -->
     <EditTextPreference
       android:defaultValue="@string/versionName"
       android:key="setting_version"
       app:isPreferenceVisible="false" />
-
   </PreferenceCategory>
+
 </PreferenceScreen>

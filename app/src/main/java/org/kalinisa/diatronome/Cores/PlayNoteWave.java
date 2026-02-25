@@ -10,8 +10,8 @@ public class PlayNoteWave implements Iterator<Short>
 {
   public static class PlayNote
   {
-    private int m_octave;
-    private int m_note;
+    private final int m_octave;
+    private final int m_note;
     public PlayNote(int octave, int note)
     {
       m_octave = octave;

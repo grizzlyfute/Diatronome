@@ -8,7 +8,7 @@ public class SoundGeneratorBell extends ASoundGenerator
 
   private final double attenuator = 0.50;
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return false;
   }

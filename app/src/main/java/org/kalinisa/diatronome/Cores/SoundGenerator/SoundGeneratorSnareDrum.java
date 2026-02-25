@@ -7,7 +7,7 @@ public class SoundGeneratorSnareDrum extends ASoundGenerator
   public SoundGeneratorSnareDrum() { }
   private final double attenuator = 3.2;
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return false;
   }

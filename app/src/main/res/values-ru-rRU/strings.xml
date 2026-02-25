@@ -4,7 +4,7 @@
   <string name="common_no">Нет</string>
   <string name="action_settings">Настройки</string>
   <string name="action_tuner">Тюнер</string>
-  <string name="action_play">Играть</string>
+  <string name="action_playnote">Синтезатор</string>
   <string name="action_metronome">Метроном</string>
   <string name="action_about">О приложении</string>
 
@@ -15,29 +15,36 @@
   <string name="metronome_notificationtitle">Плейбек метронома</string>
 
   <!-- Preferences -->
-  <string name="preference_title_system">Системные</string>
-  <string name="preference_theme">Тема оформления</string>
-  <string name="preference_screen_on">держать экран включённым</string>
-  <string name="preference_color">Цвет приложения</string>
-  <string name="preference_homescreen">Главная страница</string>
+  <string name="preference_system_title">Тюнер</string>
+  <string name="preference_system_theme">Тема оформления</string>
+  <string name="preference_system_screenon">держать экран включённым</string>
+  <string name="preference_system_color">Цвет приложения</string>
+  <string name="preference_system_homescreen">Главная страница</string>
 
-  <string name="preference_title_app">Настройки приложения</string>
-  <string name="preference_pitch">Калибровка тона для A4</string>
-  <string name="preference_note_name">Название нот</string>
-  <string name="preference_use_sharp_flat">♯ вместо ♭</string>
-  <string name="preference_transposition">Транспозиция</string>
-  <string name="preference_temperament">Темперамент</string>
-  <string name="preference_piano_waveform">Форма волны фортепиано</string>
-  <string name="preference_pianotouch">Клавиши фортепиано</string>
-  <string name="preference_metronome_pitch_main">Главный тон метронома</string>
-  <string name="preference_metronome_pitch_accent">Акцентный тон метронома</string>
-  <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
-  <string name="preference_metronome_bidirectionalneedle">Metronome Bidirectional needle</string>
-  <string name="preference_metronome_waveform">Форма волны метронома</string>
+  <string name="preference_tuner_title">Настройки приложения</string>
+  <string name="preference_tuner_pitch">Калибровка тона для A4</string>
+  <string name="preference_tuner_notename">Название нот</string>
+  <string name="preference_tuner_usesharpflat">♯ вместо ♭</string>
+  <string name="preference_tuner_transposition">Транспозиция</string>
+  <string name="preference_tuner_temperament">Темперамент</string>
 
-  <string name="preference_advanced">Расширенные</string>
-  <string name="preference_sensitivity">Чувствительность микрофона</string>
-  <string name="preference_algorithm">Алгоритм</string>
+  <string name="preference_synthesizer_title">Синтезатор</string>
+  <string name="preference_synthesizer_waveform">Форма волны фортепиано</string>
+  <string name="preference_synthesizer_touchmode">Клавиши фортепиано</string>
+
+  <string name="preference_metronome_title">Метроном</string>
+  <string name="preference_metronome_waveformaccent">Форма волны метронома - Акцентный</string>
+  <string name="preference_metronome_pitchaccent">Акцентный тон метронома</string>
+  <string name="preference_metronome_waveformmain">Форма волны метронома - Главный</string>
+  <string name="preference_metronome_pitchmain">Главный тон метронома</string>
+  <string name="preference_metronome_waveformsubdivision">Форма волны метронома - деление</string>
+  <string name="preference_metronome_pitchsubdivision">деление тон метронома</string>
+  <string name="preference_metronome_bidirectionalneedle">Метроном Двунаправленная игла</string>
+
+  <string name="preference_advanced_title">Расширенные</string>
+  <string name="preference_advanced_sensitivity">Чувствительность микрофона</string>
+  <string name="preference_advanced_algorithm">Алгоритм</string>
+  <string name="preference_advanced_fps">Кадров в секунду</string>
 
   <!-- about -->
   <string name="about_content"><![CDATA[
@@ -126,17 +133,29 @@
     <item>Треугольная</item>
     <item>Квадратная</item>
     <item>Пилообразная</item>
-	<item>Фортепиано</item>
-	<item>Орган</item>
-	<item>Барабан</item>
-	<item>Том</item>
-	<item>Малый барабан</item>
-	<item>Стальной барабан</item>
-	<item>Колокол</item>
-	<item>Лазер</item>
+	  <item>Фортепиано</item>
+	  <item>Орган</item>
+	  <item>Барабан</item>
+	  <item>Том</item>
+	  <item>Малый барабан</item>
+    <item>Тарелки</item>
+	  <item>Стальной барабан</item>
+	  <item>Колокол</item>
+    <item>Гитара</item>
+	  <item>Лазер</item>
   </string-array>
+
   <string-array name="array_pianotouch">
 	<item>постоянный</item>
-	<item>непостоянный</item>
+	<item>нормальный</item>
+  </string-array>
+
+  <string-array name="array_fps">
+    <item>0 к/с</item>
+    <item>15 к/с</item>
+    <item>24 к/с</item>
+    <item>30 к/с</item>
+    <item>45 к/с</item>
+    <item>60 к/с</item>
   </string-array>
 </resources>

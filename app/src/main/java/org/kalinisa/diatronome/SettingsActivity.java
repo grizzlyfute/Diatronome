@@ -20,6 +20,8 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity
 {
+  public static String s_autoscrollOption;
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -34,10 +36,12 @@ public class SettingsActivity extends AppCompatActivity
 
     setContentView(R.layout.activity_settings);
 
+    SettingsFragment settingsFragment = new SettingsFragment();
+    settingsFragment.setAutoScrollToKey(s_autoscrollOption);
     getSupportFragmentManager()
       .beginTransaction()
       // or android.R.id.Content to have the view root element ?
-      .replace(R.id.settings_container, new SettingsFragment())
+      .replace(R.id.settings_container, settingsFragment)
       //.replace(android.R.id.content, new SettingsFragment ())
       .commit();
 

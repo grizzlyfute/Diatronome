@@ -26,6 +26,8 @@ public class PlayNoteCore
     { 1.0, 1.0, 9.0/8.0, 9.0/8.0, 5.0/4.0, 4.0/3.0, 4.0/3.0, 3.0/2.0, 3.0/2.0, 5.0/3.0, 5.0/3.0, 15.0/8.0, 15.0/8.0, 2.0};
   private double m_refPitch = 440;
   private int m_pianoMode = 0;
+  private int m_pianoOctaves = 0;
+  private String m_waveFormStr = null;
 
   private final Semaphore m_currentNotesMutex;
   private Thread m_playNoteThread = null;
@@ -33,7 +35,7 @@ public class PlayNoteCore
   private final PlayNoteWave m_waveSilentPreventGlitch;
 
   public interface IAudioAutoStopPlayingListener { void onStopPlaying(PlayNoteWave.PlayNote note); }
-  private IAudioAutoStopPlayingListener m_audioAutoStopPlayingListener = null;
+  private List<IAudioAutoStopPlayingListener> m_audioAutoStopPlayingListenerList = new ArrayList<IAudioAutoStopPlayingListener>();
 
   private PlayNoteCore()
   {
@@ -60,9 +62,19 @@ public class PlayNoteCore
     return s_instance;
   }
 
-  public void setOnAudioStopListener (IAudioAutoStopPlayingListener listener)
+  public void addOnAudioStopListener (IAudioAutoStopPlayingListener listener)
   {
-    m_audioAutoStopPlayingListener = listener;
+    if (listener != null)
+    {
+      m_audioAutoStopPlayingListenerList.add(listener);
+    }
+  }
+  public void removeOnAudioStopListener (IAudioAutoStopPlayingListener listener)
+  {
+    if (listener != null)
+    {
+      m_audioAutoStopPlayingListenerList.remove(listener);
+    }
   }
 
   public void stopAllPlaying()
@@ -100,7 +112,7 @@ public class PlayNoteCore
     int start, stop;
     short[] audioPcm;
 
-    if (m_soundGenerator.isContinous())
+    if (m_soundGenerator.isContinuous())
     {
       short[] pcmStart = m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS);
       short[] pcmEnd = m_soundGenerator.generatePcm(frequency, FADE_IN_OUT_MS);
@@ -236,9 +248,9 @@ public class PlayNoteCore
             }
             else
             {
-              if (m_audioAutoStopPlayingListener != null)
+              for (IAudioAutoStopPlayingListener listener : m_audioAutoStopPlayingListenerList)
               {
-                m_audioAutoStopPlayingListener.onStopPlaying(playNote);
+                listener.onStopPlaying(playNote);
               }
               it.remove();
             }
@@ -307,18 +319,23 @@ public class PlayNoteCore
 
   private void playingNoteRun()
   {
-    Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-    short[] pcm = new short[AudioUtils.AudioTrack_getMinBufferSize(
-        AudioUtils.AUDIO_SAMPLE_RATE_HZ,
-        AudioUtils.AUDIO_ENCODING,
-        AudioUtils.AUDIO_FORMAT)];
-
-    // Start Audio track
-    AudioTrack audioTrack = AudioUtils.newAudioTrack(pcm.length, AudioTrack.MODE_STREAM);
+    Thread.currentThread().setPriority(Thread.NORM_PRIORITY);
+    int minBufSize = AudioUtils.AudioTrack_getMinBufferSize(
+      AudioUtils.AUDIO_SAMPLE_RATE_HZ,
+      AudioUtils.AUDIO_ENCODING,
+      AudioUtils.AUDIO_FORMAT);
+    short[] pcm = null;
+    AudioTrack audioTrack = null;
+    if (minBufSize >= 0)
+    {
+      pcm = new short[minBufSize];
+      audioTrack = AudioUtils.newAudioTrack(pcm.length, AudioTrack.MODE_STREAM);
+    }
     if (audioTrack == null)
     {
       return;
     }
+    // Start Audio track
     try
     {
       audioTrack.play();
@@ -341,6 +358,12 @@ public class PlayNoteCore
   public void setWaveForm(String waveFormStr)
   {
     m_soundGenerator = ASoundGenerator.factory(waveFormStr);
+    m_waveFormStr = waveFormStr;
+  }
+
+  public String getWaveForm()
+  {
+    return m_waveFormStr;
   }
 
   public void setPianoMode(int mode)
@@ -354,9 +377,14 @@ public class PlayNoteCore
     return m_pianoMode;
   }
 
-  public boolean isNoteContinuous()
+  public void setPianoOctaves(int octavesSetting)
   {
-    return m_soundGenerator.isContinous();
+    m_pianoOctaves = octavesSetting;
+  }
+
+  public int getPianoOctaves()
+  {
+    return m_pianoOctaves;
   }
 
   public void setUseFlatSharp(Boolean useFlatSharp)

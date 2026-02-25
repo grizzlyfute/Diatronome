@@ -18,6 +18,11 @@
     <attr name="max" value="1000"/>
   </declare-styleable>
 
+  <declare-styleable name="WaveformPickerPreference">
+    <attr name="entries" format="reference"/>
+    <attr name="entryValues" format="reference"/>
+  </declare-styleable>
+
   <declare-styleable name="MetronomeView">
   </declare-styleable>
 </resources>

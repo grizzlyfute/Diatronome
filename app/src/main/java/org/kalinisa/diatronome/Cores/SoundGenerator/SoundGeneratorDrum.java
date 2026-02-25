@@ -6,7 +6,7 @@ public class SoundGeneratorDrum extends ASoundGenerator
 {
   public SoundGeneratorDrum() { }
   private final double attenuator = 3.0;
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return false;
   }

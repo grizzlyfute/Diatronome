@@ -1,5 +1,6 @@
 package org.kalinisa.diatronome.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class TunerFragment extends Fragment
   private FragmentTunerBinding m_binding;
   private AlertDialog.Builder m_transpositionDialog;
   private NumberPickerDialog m_pitchSettingDialog = null;
+  NeedleView m_needleView;
 
     @Override
   public View onCreateView(
@@ -35,24 +37,26 @@ public class TunerFragment extends Fragment
   {
     m_binding = FragmentTunerBinding.inflate(inflater, container, false);
 
-    m_transpositionDialog = new AlertDialog.Builder(getContext());
+    Context context = getContext();
+    if (context == null) return null;
+    m_transpositionDialog = new AlertDialog.Builder(context);
     m_transpositionDialog.setIcon(R.drawable.icon_transposition);
-    m_transpositionDialog.setTitle(R.string.preference_transposition);
+    m_transpositionDialog.setTitle(R.string.preference_tuner_transposition);
 
     m_pitchSettingDialog = new NumberPickerDialog();
     // Duplicated with settings min/max
     m_pitchSettingDialog.setMin(250);
     m_pitchSettingDialog.setMax(630);
     m_pitchSettingDialog.setValue (
-      PreferenceManager.getDefaultSharedPreferences(getContext()).getInt (SettingsCore.SETTING_PITCH_REF, 0));
+      PreferenceManager.getDefaultSharedPreferences(getContext()).getInt (SettingsCore.SETTING_TUNER_PITCH_REF, 0));
     m_pitchSettingDialog.setIcon(R.drawable.icon_pitch);
-    m_pitchSettingDialog.setTitle(R.string.preference_pitch);
+    m_pitchSettingDialog.setTitle(R.string.preference_tuner_pitch);
     m_pitchSettingDialog.setOnValidateListener(new NumberPickerDialog.NumberPickerDialogListener()
     {
       @Override
       public void onValidateNum(int num)
       {
-        SettingsCore.updateSettingFromUi (getContext(), SettingsCore.SETTING_PITCH_REF, num);
+        SettingsCore.updateSettingFromUi (getContext(), SettingsCore.SETTING_TUNER_PITCH_REF, num);
       }
     });
 
@@ -80,7 +84,7 @@ public class TunerFragment extends Fragment
               else if (which >= 0 && which < transpositionData.length)
               {
                 String newTransposition = transpositionData[which];
-                SettingsCore.updateSettingFromUi (getContext(), SettingsCore.SETTING_TRANSPOSITION, newTransposition);
+                SettingsCore.updateSettingFromUi (getContext(), SettingsCore.SETTING_TUNER_TRANSPOSITION, newTransposition);
                 dialog.cancel();
               }
               else
@@ -125,6 +129,7 @@ public class TunerFragment extends Fragment
       SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
       needleView.setColorMain(sharedPreferences.getInt(SettingsCore.SETTING_COLOR, needleView.getColorMain()));
     }
+    m_needleView = needleView;
 
     return m_binding.getRoot();
   }
@@ -139,5 +144,13 @@ public class TunerFragment extends Fragment
   {
     super.onDestroyView();
     m_binding = null;
+  }
+
+  public void setFps(int fps)
+  {
+    if (m_needleView != null)
+    {
+      m_needleView.setFps (fps);
+    }
   }
 }

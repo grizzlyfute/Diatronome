@@ -140,7 +140,9 @@ public class NumberPickerDialog extends DialogFragment
     View root = inflater.inflate(R.layout.uc_number_picker, null);
     initView(root);
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    Activity activity = getActivity();
+    if (activity == null) return null;
+    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
     if (m_idTitle > 0) builder.setTitle(m_idTitle);
     if (m_idIcon > 0) builder.setIcon(m_idIcon);
     builder.setNegativeButton(android.R.string.cancel, null);
@@ -157,7 +159,10 @@ public class NumberPickerDialog extends DialogFragment
     });
     builder.setView(root);
     Dialog dialog = builder.create();
-    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    if (dialog.getWindow() != null)
+    {
+      dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
     return dialog;
   }
 
@@ -289,7 +294,7 @@ public class NumberPickerDialog extends DialogFragment
   }
 
   @Override
-  public void onDismiss(DialogInterface dialog)
+  public void onDismiss(@NonNull DialogInterface dialog)
   {
     if (m_viewNumber != null)
     {

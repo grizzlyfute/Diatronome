@@ -7,7 +7,7 @@ public abstract class ASoundGenerator
   public abstract short[] generatePcm(double frequency, double durationMs);
 
   // All continuous sound shall start and stop by zero
-  public abstract boolean isContinous();
+  public abstract boolean isContinuous();
   public abstract double hintDurationMs(double freq);
 
   public final static int WAVEFORM_SINE = 1;
@@ -19,9 +19,11 @@ public abstract class ASoundGenerator
   public final static int WAVEFORM_DRUM = 7;
   public final static int WAVEFORM_TOM = 8;
   public final static int WAVEFORM_SNAREDRUM = 9;
-  public final static int WAVEFORM_STEELDRUM = 10;
-  public final static int WAVEFORM_BELL = 11;
-  public final static int WAVEFORM_LASER = 12;
+  public final static int WAVEFORM_CYMBAL = 10;
+  public final static int WAVEFORM_STEELDRUM = 11;
+  public final static int WAVEFORM_BELL = 12;
+  public final static int WAVEFORM_GUITAR = 13;
+  public final static int WAVEFORM_LASER = 14;
 
   public static ASoundGenerator factory (int waveForm)
   {
@@ -64,12 +66,20 @@ public abstract class ASoundGenerator
         result = new SoundGeneratorSnareDrum();
         break;
 
+      case WAVEFORM_CYMBAL:
+        result = new SoundGeneratorCymbal();
+        break;
+
       case WAVEFORM_STEELDRUM:
         result = new SoundGeneratorSteeldrum();
         break;
 
       case WAVEFORM_BELL:
         result = new SoundGeneratorBell();
+        break;
+
+      case WAVEFORM_GUITAR:
+        result = new SoundGeneratorGuitar();
         break;
 
       case WAVEFORM_LASER:
@@ -120,11 +130,17 @@ public abstract class ASoundGenerator
       case "SNAREDRUM":
         waveform = WAVEFORM_SNAREDRUM;
         break;
+      case "CYMBAL":
+        waveform = WAVEFORM_CYMBAL;
+        break;
       case "STEELDRUM":
         waveform = WAVEFORM_STEELDRUM;
         break;
       case "BELL":
         waveform = WAVEFORM_BELL;
+        break;
+      case "GUITAR":
+        waveform = WAVEFORM_GUITAR;
         break;
       case "LASER":
         waveform = WAVEFORM_LASER;
@@ -142,7 +158,9 @@ public abstract class ASoundGenerator
     // Generate sample
     // The duration become inaccurate. This allow to have an integer number of periods, and avoid audio glitch
     // nbr periods * period duration * bitrate
-    return (int)(Math.ceil(Math.ceil(frequency * durationMs / 1000.0) * AudioUtils.AUDIO_SAMPLE_RATE_HZ / frequency));
+    double nbrPeriods = Math.round (frequency * durationMs / 1000.0);
+    if (nbrPeriods < 1) nbrPeriods = 1.0;
+    return (int)(Math.round(nbrPeriods * AudioUtils.AUDIO_SAMPLE_RATE_HZ / frequency));
   }
 
   protected double getWaveFactor()
@@ -155,6 +173,7 @@ public abstract class ASoundGenerator
     short[] pcm = new short[values.length];
     double min = 0, max = 0;
     int i;
+
     for (i = 0; i < values.length; i++)
     {
       if (values[i] < min) min = values[i];

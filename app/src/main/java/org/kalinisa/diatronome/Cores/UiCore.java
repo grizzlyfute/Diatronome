@@ -16,11 +16,13 @@ public class UiCore extends BaseCore
   public static final int HANDLER_MSG_KEEP_SCREEN_ON = 2;
   public static final int HANDLER_MSG_NOTE_STRING_CHANGE = 3;
   public static final int HANDLER_MSG_HOME_SCREEN_CHANGE = 4;
+  public static final int HANDLER_MSG_FPS_CHANGE = 5;
 
   private static UiCore s_instance;
   private int m_transposition = 0;
   private boolean m_useSharp = false;
   private int m_noteName = 0;
+  private int m_fps = 0;
 
   private UiCore()
   {
@@ -144,6 +146,13 @@ public class UiCore extends BaseCore
   {
     m_transposition = transposition;
     sendMessage(HANDLER_MSG_NOTE_STRING_CHANGE, transposition, 0);
+  }
+
+  public int getFps() { return m_fps; }
+  public void setFps(int fps)
+  {
+    m_fps = fps;
+    sendMessage(HANDLER_MSG_FPS_CHANGE, fps, 0);
   }
 
   public Spanned getNoteName(Resources r, int octave, int note)

@@ -5,10 +5,10 @@ import org.kalinisa.diatronome.Cores.AudioUtils;
 public class SoundGeneratorSteeldrum extends ASoundGenerator
 {
   public SoundGeneratorSteeldrum() { }
-  // Sound will be about 100 ms
-  private final double attenuator = 2.5;
+  // Sound will be about 500 ms
+  private final double attenuator = 1.50;
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return false;
   }
@@ -31,7 +31,7 @@ public class SoundGeneratorSteeldrum extends ASoundGenerator
       // Math.sin(n * w * frequency * i) / Math.pow(n, 1.5)
       // or  Math.sin(x) + 0.3 * Math.sin(2 * w * frequency * i + 0.5) + 0.15 * Math.sin(3 * w * frequency * i + 1.0)
       soundDouble[i] = Math.tanh(3*Math.sin(w * frequency * i));
-      soundDouble[i] *= (Math.exp (-attenuator * w * i)+ + Math.exp(-0.25 * attenuator * w * i));
+      soundDouble[i] *= (Math.exp (-attenuator * w * i) + Math.exp(-0.25 * attenuator * w * i));
     }
 
     return toShortPcm(soundDouble);

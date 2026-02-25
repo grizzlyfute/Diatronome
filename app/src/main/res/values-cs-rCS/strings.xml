@@ -4,7 +4,7 @@
   <string name="common_no">Ne</string>
   <string name="action_settings">Nastavení</string>
   <string name="action_tuner">Ladička</string>
-  <string name="action_play">Syntetizér</string>
+  <string name="action_playnote">Syntetizér</string>
   <string name="action_metronome">Metronom</string>
   <string name="action_about">O aplikaci</string>
 
@@ -15,29 +15,36 @@
   <string name="metronome_notificationtitle">Přehrávání metronomu</string>
 
   <!-- Preferences -->
-  <string name="preference_title_system">Systém</string>
-  <string name="preference_theme">Téma</string>
-  <string name="preference_screen_on">Ponechat obrazovku zapnutou</string>
-  <string name="preference_color">Akcent aplikace</string>
-  <string name="preference_homescreen">Domovská obrazovka</string>
+  <string name="preference_system_title">Systém</string>
+  <string name="preference_system_theme">Téma</string>
+  <string name="preference_system_screenon">Ponechat obrazovku zapnutou</string>
+  <string name="preference_system_color">Akcent aplikace</string>
+  <string name="preference_system_homescreen">Domovská obrazovka</string>
 
-  <string name="preference_title_app">Nastavení aplikace</string>
-  <string name="preference_pitch">Kalibrace výšky tónu pro A4</string>
-  <string name="preference_note_name">Názvy not</string>
-  <string name="preference_use_sharp_flat">♯ místo ♭</string>
-  <string name="preference_transposition">Změna tóniny</string>
-  <string name="preference_temperament">Ladění stupnice</string>
-  <string name="preference_piano_waveform">Tvar vlny klavíru</string>
-  <string name="preference_pianotouch">Citlivost kláves</string>
-  <string name="preference_metronome_pitch_main">Hlavní tón metronumu</string>
-  <string name="preference_metronome_pitch_accent">Akcentovaný tón metronomu</string>
-  <string name="preference_metronome_pitch_subdivision">Podřízený tón metronomun</string>
+  <string name="preference_tuner_title">Nastavení aplikace</string>
+  <string name="preference_tuner_pitch">Kalibrace výšky tónu pro A4</string>
+  <string name="preference_tuner_notename">Názvy not</string>
+  <string name="preference_tuner_usesharpflat">♯ místo ♭</string>
+  <string name="preference_tuner_transposition">Změna tóniny</string>
+  <string name="preference_tuner_temperament">Ladění stupnice</string>
+
+  <string name="preference_synthesizer_title">Nastavení aplikace</string>
+  <string name="preference_synthesizer_waveform">Tvar vlny klavíru</string>
+  <string name="preference_synthesizer_touchmode">Citlivost kláves</string>
+
+  <string name="preference_metronome_title">Nastavení aplikace</string>
+  <string name="preference_metronome_waveformaccent">Tvar vlny metronumu - akcentovaný</string>
+  <string name="preference_metronome_pitchaccent">Akcentovaný tón metronomu</string>
+  <string name="preference_metronome_waveformmain">Tvar vlny  metronumu - akcentovaný</string>
+  <string name="preference_metronome_pitchmain">Hlavní tón metronumu</string>
+  <string name="preference_metronome_waveformsubdivision">Tvar vlny  metronumu - hlavní</string>
+  <string name="preference_metronome_pitchsubdivision">Podřízený tón metronomun</string>
   <string name="preference_metronome_bidirectionalneedle">Obousměrná ručička metronomu</string>
-  <string name="preference_metronome_waveform">Tvar vlny metronumu</string>
 
-  <string name="preference_advanced">Rozšířené</string>
-  <string name="preference_sensitivity">Citlivost mikrofonu</string>
-  <string name="preference_algorithm">Algoritmus</string>
+  <string name="preference_advanced_title">Rozšířené</string>
+  <string name="preference_advanced_sensitivity">Citlivost mikrofonu</string>
+  <string name="preference_advanced_algorithm">Algoritmus</string>
+  <string name="preference_advanced_fps">Snímků za sekundu</string>
 
   <!-- about -->
   <string name="about_content"><![CDATA[
@@ -76,13 +83,25 @@
     <item>Buben</item>
     <item>Tom-tom</item>
     <item>Virbl</item>
+    <item>Činel</item>
     <item>Steelpan</item>
     <item>Zvonec</item>
+    <item>Kytara</item>
+    <item>Laser</item>
   </string-array>
 
   <string-array name="array_pianotouch">
     <item>Trvalá</item>
     <item>Dočasná</item>
   </string-array>
-  
+
+  <string-array name="array_fps">
+    <item>0 sn/s</item>
+    <item>15 sn/s</item>
+    <item>24 sn/s</item>
+    <item>30 sn/s</item>
+    <item>45 sn/s</item>
+    <item>60 sn/s</item>
+  </string-array>
+
 </resources>

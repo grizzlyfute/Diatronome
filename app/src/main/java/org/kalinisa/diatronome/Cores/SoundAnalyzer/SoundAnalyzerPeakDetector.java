@@ -78,7 +78,7 @@ public class SoundAnalyzerPeakDetector implements ISoundAnalyzer
     return i - 1;
   }
 
-  // return the index of the maximum around i for a polynom
+  // return the index of the maximum around i for a polynomial
   private double interpolatePolynome(final double[] x, int i)
   {
     if (i <= 0 || i >= x.length - 1) return i;

@@ -8,7 +8,7 @@ public class SoundGeneratorLaser extends ASoundGenerator
 
   private final double attenuator = 2.0;
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return false;
   }

@@ -3,4 +3,6 @@
   <dimen name="needle_padding_h">32dp</dimen>
   <integer name="flow_wrap_vertical">2</integer>
   <integer name="flow_wrap_horizontal">1</integer>
+  <dimen name="dialog_margin_w">48dp</dimen>
+  <dimen name="dialog_margin_h">8dp</dimen>
 </resources>

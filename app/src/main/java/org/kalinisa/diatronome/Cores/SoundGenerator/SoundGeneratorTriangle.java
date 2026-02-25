@@ -6,7 +6,7 @@ public class SoundGeneratorTriangle extends ASoundGenerator
 {
   public SoundGeneratorTriangle() { }
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return true;
   }

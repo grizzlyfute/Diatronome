@@ -202,7 +202,7 @@ public class MetronomeFragment extends Fragment
         {
           if (MetronomeCore.getInstance().getIsPlaying())
           {
-            // MetronomeCore.getInstance().stop();
+            MetronomeCore.getInstance().stop();
             getActivity().stopService(new Intent(getActivity(), MetronomePlaybackService.class));
           }
           else
@@ -443,5 +443,13 @@ public class MetronomeFragment extends Fragment
       sb.append(beatConfig[i]);
     }
     return sb.toString();
+  }
+
+  public void setFps (int fps)
+  {
+    if (m_metronomeView != null)
+    {
+      m_metronomeView.setFps(fps);
+    }
   }
 }

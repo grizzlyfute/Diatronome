@@ -6,7 +6,7 @@ public class SoundGeneratorSawtooth extends ASoundGenerator
 {
   public SoundGeneratorSawtooth() { }
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return true;
   }

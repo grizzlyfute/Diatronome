@@ -1,0 +1,17 @@
+Bug fixes:
+- Fix compressed view if accidental on small device (#17)
+- Fix incorrect pitch rounding in synthesizer
+
+New features:
+- Add Metronome cycle duration (#8)
+- Add Frame rate options (limited to 60Hz) (#19)
+- Metronome now supports multiple tones
+- Add guitar and cymbal sound
+
+Improvement
+- Change "Persistent"/"Non persistent" to "Normal"/"Latch" (#18)
+- Extend piano duration (#18)
+- Stabilize audio for older device
+- Metronome tone no more limited to 100 ms
+- Add note pre-heard on tone settings
+- Porting to android 16

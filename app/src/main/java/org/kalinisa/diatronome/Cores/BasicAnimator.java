@@ -24,26 +24,23 @@ public class BasicAnimator
   private Timer m_timer;
   private Semaphore m_mutex;
 
-  public static final int PERIOD_FPS_60 = 16;
-  public static final int PERIOD_FPS_30 = 33;
-  public static int PERIOD_FPS_25 = 40;
-
   public interface AnimatorUpdateListener
   {
     void onAnimationUpdate (float value);
   }
 
-  public BasicAnimator()
+  public BasicAnimator(int fps)
   {
     m_listeners = new ArrayList<AnimatorUpdateListener>();
     m_begin = 0;
     m_end = 1;
     m_count = 0;
     m_countMax = 1;
-    m_frameDelayMs = PERIOD_FPS_30;
+    m_frameDelayMs = 0;
     m_durationMs = 0;
     m_timer = null;
     m_mutex = new Semaphore(1);
+    setFps(fps);
   }
 
   public void start()
@@ -56,9 +53,17 @@ public class BasicAnimator
       cancel();
     }
 
-    if (m_frameDelayMs <= 0) m_frameDelayMs = 40;
+    if (m_frameDelayMs <= 0)
+    {
+      m_countMax = 1;
+      m_count = m_countMax;
+      timerTask();
+      return;
+    }
+
     m_count = 0;
     m_countMax = m_durationMs / m_frameDelayMs;
+
     m_lastTimerTime = System.currentTimeMillis();
     if (m_countMax <= 0) m_countMax = 1;
 
@@ -79,20 +84,20 @@ public class BasicAnimator
   {
     try
     {
-      m_mutex.tryAcquire(m_frameDelayMs, TimeUnit.MILLISECONDS);
+      m_mutex.tryAcquire(100, TimeUnit.MILLISECONDS);
       if (m_timer != null)
       {
         m_timer.cancel();
+        m_timer.purge();
         m_timer = null;
       }
     }
-    catch (InterruptedException e)
+    catch (InterruptedException ignored)
     { }
     finally
     {
       m_mutex.release();
     }
-
   }
 
   private void timerTask()
@@ -152,9 +157,26 @@ public class BasicAnimator
     m_end = end;
   }
 
-  public void setFrameDelay(long delayMs)
+  public void setFps (int fps)
   {
-    m_frameDelayMs = delayMs;
+    try
+    {
+      m_mutex.tryAcquire(100, TimeUnit.MILLISECONDS);
+      if (fps > 0)
+      {
+        m_frameDelayMs = 1000 / fps;
+      }
+      else
+      {
+        m_frameDelayMs = 0;
+      }
+    }
+    catch (InterruptedException ignored)
+    { }
+    finally
+    {
+      m_mutex.release();
+    }
   }
 
   public void addUpdateListener(AnimatorUpdateListener listener)

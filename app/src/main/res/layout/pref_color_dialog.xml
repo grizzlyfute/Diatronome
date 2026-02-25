@@ -5,12 +5,10 @@
   android:id="@+id/pref_color_button_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layout_margin="4dp"
-  android:layout_marginStart="4dp"
-  android:layout_marginLeft="4dp"
-  android:layout_marginTop="4dp"
-  android:layout_marginEnd="4dp"
-  android:layout_marginRight="4dp">
+  android:layout_marginStart="@dimen/dialog_margin_w"
+  android:layout_marginEnd="@dimen/dialog_margin_w"
+  android:layout_marginTop="@dimen/dialog_margin_h"
+  android:layout_marginBottom="@dimen/dialog_margin_h">
 
   <androidx.constraintlayout.helper.widget.Flow
     android:id="@+id/flowColor"

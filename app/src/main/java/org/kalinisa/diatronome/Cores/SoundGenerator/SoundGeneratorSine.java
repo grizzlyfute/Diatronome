@@ -6,7 +6,7 @@ public class SoundGeneratorSine extends ASoundGenerator
 {
   public SoundGeneratorSine() { }
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return true;
   }

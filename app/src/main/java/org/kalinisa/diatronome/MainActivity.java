@@ -2,16 +2,13 @@ package org.kalinisa.diatronome;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -20,12 +17,10 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.text.HtmlCompat;
 import androidx.preference.PreferenceManager;
 
 import org.kalinisa.diatronome.Cores.MetronomeCore;
@@ -218,38 +213,26 @@ public class MainActivity extends AppCompatActivity
     }
     else if (id == R.id.action_settings)
     {
-      startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-      isHandled = true;
-    }
-    else if (id == R.id.action_about)
-    {
-      PackageManager manager = getPackageManager();
-      PackageInfo info = null;
-      String version = null;
-      try
+      if (m_currentItem == R.layout.fragment_tuner)
       {
-        info = manager.getPackageInfo(getPackageName(), 0);
-        version = info.versionName;
-      } catch (PackageManager.NameNotFoundException e) { }
+        SettingsActivity.s_autoscrollOption = null;
+      }
+      else if (m_currentItem == R.layout.fragment_metronome)
+      {
+        SettingsActivity.s_autoscrollOption = SettingsCore.SETTING_METRONOME_WAVEFORM_ACCENT;
+      }
+      else if (m_currentItem == R.layout.fragment_playnote)
+      {
+        SettingsActivity.s_autoscrollOption = SettingsCore.SETTING_PIANO_WAVEFORM;
+      }
+      else
+      {
+        SettingsActivity.s_autoscrollOption = null;
+      }
 
-      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-      alertDialogBuilder.setCancelable(true);
-      alertDialogBuilder.setIcon(R.drawable.app_icon);
-      alertDialogBuilder.setTitle(getResources().getString(R.string.app_name) + " " + version);
-      String msg = getString(R.string.about_content, getString(R.string.about_license), getString(R.string.about_source), getString(R.string.about_support));
-      alertDialogBuilder.setMessage(HtmlCompat.fromHtml(msg , HtmlCompat.FROM_HTML_MODE_LEGACY));
-      alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          dialog.cancel();
-        }
-      });
-      AlertDialog alertDialog = alertDialogBuilder.create();
-      alertDialog.show();
-      // Make link clickable (to call after show());
-      ((TextView)alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+      MetronomeCore.getInstance().stop();
+      stopService(new Intent(this, MetronomePlaybackService.class));
+      startActivity(new Intent(MainActivity.this, SettingsActivity.class));
       isHandled = true;
     }
     else
@@ -290,6 +273,10 @@ public class MainActivity extends AppCompatActivity
         else if (msg.what == UiCore.HANDLER_MSG_HOME_SCREEN_CHANGE)
         {
           m_homeLayout = msg.arg1;
+        }
+        else if (msg.what == UiCore.HANDLER_MSG_FPS_CHANGE)
+        {
+          notifyFpsChanged(msg.arg1);
         }
       }
     };
@@ -356,7 +343,7 @@ public class MainActivity extends AppCompatActivity
     }
     else if (idLayout == R.layout.fragment_playnote)
     {
-      //MetronomeCore.getInstance().stop();
+      MetronomeCore.getInstance().stop();
       stopService(new Intent(this, MetronomePlaybackService.class));
     }
 
@@ -420,7 +407,7 @@ public class MainActivity extends AppCompatActivity
   @SuppressLint("SetTextI18n")
   private void updateNeedleView(SoundAnalyzeCore.NeedleParameters parameters)
   {
-     NeedleView needleView = findViewById(R.id.viewNeedle);
+    NeedleView needleView = findViewById(R.id.viewNeedle);
     // Can be temporary null on rotate...
     if (needleView != null)
     {
@@ -482,6 +469,21 @@ public class MainActivity extends AppCompatActivity
     if (fragment != null)
     {
       fragment.updateNoteName();
+    }
+  }
+
+  private void notifyFpsChanged(int fps)
+  {
+    TunerFragment tunerFragment = (TunerFragment)getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_TUNER);
+    if (tunerFragment != null)
+    {
+      tunerFragment.setFps(fps);
+    }
+
+    MetronomeFragment metronomeFragment = (MetronomeFragment)getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_METRONOME);
+    if (metronomeFragment != null)
+    {
+      metronomeFragment.setFps(fps);
     }
   }
 

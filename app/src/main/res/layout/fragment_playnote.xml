@@ -7,34 +7,43 @@
   android:layout_height="match_parent"
   tools:context=".Fragment.PlaynoteFragment">
 
-  <androidx.constraintlayout.helper.widget.Flow
-    android:id="@+id/flowMain"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:constraint_referenced_ids="pianoA,pianoB"
-    app:flow_horizontalStyle="spread_inside"
-    app:flow_maxElementsWrap="@integer/flow_wrap_vertical"
-    app:flow_verticalStyle="packed"
-    app:flow_wrapMode="chain"
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/layPianoMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintVertical_bias="0.53">
 
-  <include
-    android:id="@+id/pianoA"
-    layout="@layout/uc_pianofreq"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintHorizontal_weight="1"
-    app:layout_constraintVertical_weight="1" />
+    <androidx.constraintlayout.helper.widget.Flow
+      android:id="@+id/flowMain"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:constraint_referenced_ids="pianoA,pianoB"
+      app:flow_horizontalStyle="spread_inside"
+      app:flow_maxElementsWrap="@integer/flow_wrap_vertical"
+      app:flow_verticalStyle="packed"
+      app:flow_wrapMode="chain"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
-  <include
-    android:id="@+id/pianoB"
-    layout="@layout/uc_pianofreq"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintHorizontal_weight="1"
-    app:layout_constraintVertical_weight="1" />
+    <include
+      android:id="@+id/pianoA"
+      layout="@layout/uc_pianofreq"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintHorizontal_weight="1"
+      app:layout_constraintVertical_weight="1" />
+
+    <include
+      android:id="@+id/pianoB"
+      layout="@layout/uc_pianofreq"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintHorizontal_weight="1"
+      app:layout_constraintVertical_weight="1" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

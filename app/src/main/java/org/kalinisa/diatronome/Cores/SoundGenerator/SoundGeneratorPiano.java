@@ -5,9 +5,9 @@ import org.kalinisa.diatronome.Cores.AudioUtils;
 public class SoundGeneratorPiano extends ASoundGenerator
 {
   public SoundGeneratorPiano() { }
-  private final double attenuator = 0.003;
+  private final double attenuator = 5.0e-4;
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return false;
   }

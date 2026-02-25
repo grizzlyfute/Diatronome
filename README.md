@@ -32,6 +32,7 @@ height="300">]
 * Adjustable table signature, including irregular measure.
 * Tap on center to adjust tempo.
 * Tap on tempo to open a keyboard for manual input.
+* Tap on a division to change its type
 * Change metronome's tonality in settings.
 
 [<img src="/metadata/en-US/images/phoneScreenshots/land_sc1.jpg"
@@ -39,8 +40,9 @@ alt=""
 height="300">]
 
 ## Synthesizer
-* 8 octaves range.
-* Continuous playback mode.
+* 8 Octaves range.
+* Continuous playback mode and single piano like mode
+* Two keyboards
 * Different waveforms available.
 
 [<img src="/metadata/en-US/images/phoneScreenshots/land_sc3.jpg"
@@ -54,7 +56,6 @@ height="300">]
 * Changing sharp / flat and note name mode.
 * Dark and light themes available.
 
-
 [<img src="/metadata/en-US/images/phoneScreenshots/port_sc5.jpg"
 alt=""
 width="300">]
@@ -64,9 +65,10 @@ width="300">]
 * Media playback (for metronome and note playing).
 
 # Known issues
-* The tuner use a custom algorithm based on envelop detector. The accuracy may vary depending on your device brand or your instrument. In some cases, alternative methods like Fourier spectral analysis or Yin detection might be more suitable.
+* The tuner uses a custom algorithm based on envelop detector. The accuracy may vary depending on your device brand or your instrument. In some cases, alternative methods like Fourier spectral analysis or Yin detection might be more suitable.
 * Minor glitches may occurs when using note player, due to abrupt wave stops causing signal distortion.
 * AudioTrack may not works properly on Android virtual device.
+* Older device may lag with audio tracks.
 
 ## Developers
 Your contributions are welcome! Whether for improvements or translations, or simply create a ticket your help would be appreciated.

@@ -5,12 +5,12 @@
   <string name="common_no">No</string>
   <string name="action_settings">Settings</string>
   <string name="action_tuner">Tuner</string>
-  <string name="action_play">Play</string>
+  <string name="action_playnote">Synthesiser</string>
   <string name="action_metronome">Metronome</string>
   <string name="action_about">About</string>
 
   <!-- &#x266D; == b &#x266F; == # -->
-  <string name="tuner_note_sample" translatable="false">Fa&#x266F;<small><small>4</small></small></string>
+  <string name="tuner_note_sample" translatable="false">Sol&#x266F;<small><small>4</small></small></string>
   <string name="tuner_measure_sample" translatable="false"><![CDATA[+15c\n19 999 Hz\n0.5 %]]></string>
 
   <string name="metronome_bpm">BPM</string>
@@ -18,31 +18,39 @@
   <string name="metronome_division">Time</string>
   <string name="metronome_subdivision">Division</string>
   <string name="metronome_notificationtitle">Metronome playback</string>
+  <string name="metronome_timeconfiguration_sample" translatable="false">0+0+0+0+0+0*0</string>
 
   <!-- Preferences -->
-  <string name="preference_title_system">System</string>
-  <string name="preference_theme">Theme</string>
-  <string name="preference_screen_on">Keep screen on</string>
-  <string name="preference_color">Application color</string>
-  <string name="preference_homescreen">Home screen</string>
+  <string name="preference_system_title">System</string>
+  <string name="preference_system_theme">Theme</string>
+  <string name="preference_system_screenon">Keep screen on</string>
+  <string name="preference_system_color">Application color</string>
+  <string name="preference_system_homescreen">Home screen</string>
 
-  <string name="preference_title_app">Application settings</string>
-  <string name="preference_pitch">Pitch calibration for A4</string>
-  <string name="preference_note_name">Notes name</string>
-  <string name="preference_use_sharp_flat">♯ instead of ♭</string>
-  <string name="preference_transposition">Transposition</string>
-  <string name="preference_temperament">Temperament</string>
-  <string name="preference_piano_waveform">Piano tone</string>
-  <string name="preference_pianotouch">Piano touch</string>
-  <string name="preference_metronome_pitch_main">Metronome pitch main</string>
-  <string name="preference_metronome_pitch_accent">Metronome pitch accent</string>
-  <string name="preference_metronome_pitch_subdivision">Metronome pitch subdivision</string>
+  <string name="preference_tuner_title">Tuner</string>
+  <string name="preference_tuner_pitch">Pitch calibration for A4</string>
+  <string name="preference_tuner_notename">Notes name</string>
+  <string name="preference_tuner_usesharpflat">♯ instead of ♭</string>
+  <string name="preference_tuner_transposition">Transposition</string>
+  <string name="preference_tuner_temperament">Temperament</string>
+
+  <string name="preference_synthesizer_title">Synthesizer</string>
+  <string name="preference_synthesizer_waveform">Piano tone</string>
+  <string name="preference_synthesizer_touchmode">Piano touch</string>
+
+  <string name="preference_metronome_title">Metronome</string>
+  <string name="preference_metronome_waveformaccent">Metronome tone - accent</string>
+  <string name="preference_metronome_pitchaccent">Metronome pitch accent</string>
+  <string name="preference_metronome_waveformmain">Metronome tone - main</string>
+  <string name="preference_metronome_pitchmain">Metronome pitch main</string>
+  <string name="preference_metronome_waveformsubdivision">Metronome tone - subdivision</string>
+  <string name="preference_metronome_pitchsubdivision">Metronome pitch subdivision</string>
   <string name="preference_metronome_bidirectionalneedle">Metronome Bidirectional needle</string>
-  <string name="preference_metronome_waveform">Metronome tone</string>
 
-  <string name="preference_advanced">Advanced</string>
-  <string name="preference_sensitivity">Microphone sensitivity</string>
-  <string name="preference_algorithm">Algorithm</string>
+  <string name="preference_advanced_title">Advanced</string>
+  <string name="preference_advanced_sensitivity">Microphone sensitivity</string>
+  <string name="preference_advanced_algorithm">Algorithm</string>
+  <string name="preference_advanced_fps">Frame per second</string>
 
   <!-- about -->
   <string name="about_content"><![CDATA[
@@ -184,8 +192,10 @@
     <item>Drum</item>
     <item>Tom</item>
     <item>Snaredrum</item>
+    <item>Cymbal</item>
     <item>Steeldrum</item>
     <item>Bell</item>
+    <item>Guitar</item>
     <item>Laser</item>
   </string-array>
   <string-array name="array_waveform_data" translatable="false">
@@ -198,17 +208,38 @@
     <item>DRUM</item>
     <item>TOM</item>
     <item>SNAREDRUM</item>
+    <item>CYMBAL</item>
     <item>STEELDRUM</item>
     <item>BELL</item>
+    <item>GUITAR</item>
     <item>LASER</item>
   </string-array>
 
   <string-array name="array_pianotouch">
-    <item>Persistent</item>
-    <item>Non persistent</item>
+    <item>Latch</item>
+    <item>Normal</item>
   </string-array>
   <string-array name="array_pianotouch_data" translatable="false">
     <item>1</item>
     <item>2</item>
+  </string-array>
+
+  <!-- Android 15 sets a default 60Hz refresh rate for games to optimize power consumption.
+       To unlock higher frame rates like 120 FPS, you must now explicitly request them using the Frame Rate API -->
+  <string-array name="array_fps">
+    <item>0 FPS</item>
+    <item>15 FPS</item>
+    <item>24 FPS</item>
+    <item>30 FPS</item>
+    <item>45 FPS</item>
+    <item>60 FPS</item>
+  </string-array>
+  <string-array name="array_fps_data" translatable="false">
+    <item>0</item>
+    <item>15</item>
+    <item>24</item>
+    <item>30</item>
+    <item>45</item>
+    <item>60</item>
   </string-array>
 </resources>

@@ -6,7 +6,7 @@ public class SoundGeneratorOrgan extends ASoundGenerator
 {
   public SoundGeneratorOrgan() { }
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return true;
   }

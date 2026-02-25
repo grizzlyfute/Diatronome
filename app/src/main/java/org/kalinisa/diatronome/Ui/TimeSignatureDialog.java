@@ -1,8 +1,10 @@
 package org.kalinisa.diatronome.Ui;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,12 +21,34 @@ import androidx.fragment.app.DialogFragment;
 import org.kalinisa.diatronome.Cores.MetronomeCore;
 import org.kalinisa.diatronome.R;
 
+import java.util.Objects;
+
 public class TimeSignatureDialog extends DialogFragment
 {
+  public static class SameSelectSpinner extends androidx.appcompat.widget.AppCompatSpinner
+  {
+    public SameSelectSpinner(Context context) { super(context); }
+    public SameSelectSpinner(Context context, AttributeSet attrs) { super(context, attrs); }
+    public SameSelectSpinner(Context context, AttributeSet attrs, int defStyle) { super(context, attrs, defStyle); }
+
+    @Override
+    public void setSelection(int position, boolean animate) {
+      boolean sameSelected = position == getSelectedItemPosition();
+      super.setSelection(position, animate);
+      if (sameSelected) {
+        // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
+        Objects.requireNonNull(getOnItemSelectedListener()).onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+      }
+    }
+
+    @Override
+    public void setSelection(int position) { setSelection(position, false); }
+  }
+
   private Spinner m_spinnerDivision = null;
   private Spinner m_spinnerSubDivision = null;
-  private NumberPickerDialog m_numberDialog = null;
-  private int m_doUpdateListener = 0;
+  private Button m_btnTimeConfiguration = null;
+  private int m_ignoreListenerCallNb = 0;
 
   public TimeSignatureDialog()
   { }
@@ -55,17 +79,14 @@ public class TimeSignatureDialog extends DialogFragment
     else return -1;
   }
 
-  private AdapterView.OnItemSelectedListener m_onSpinnerSelected = new AdapterView.OnItemSelectedListener()
+  private final AdapterView.OnItemSelectedListener m_onSpinnerSelected = new AdapterView.OnItemSelectedListener()
   {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
       // Prevent updating on init
-      if (m_doUpdateListener < 2) ++m_doUpdateListener;
-      else if (m_listener != null)
-      {
-        m_listener.onValidateTimeSig(getTimeConfiguration());
-      }
+      if (m_ignoreListenerCallNb > 0) --m_ignoreListenerCallNb;
+      else updateTimeConfiguration(true);
     }
 
     @Override
@@ -91,10 +112,7 @@ public class TimeSignatureDialog extends DialogFragment
       @Override
       public void onClick(DialogInterface dialog, int which)
       {
-        /* if (m_listener != null)
-        {
-          m_listener.onValidateTimeSig(getTimeConfiguration());
-        } */
+        // Do nothing
       }
     });
     builder.setView(root);
@@ -103,6 +121,9 @@ public class TimeSignatureDialog extends DialogFragment
 
   private void initView(View root)
   {
+    Context context = getContext();
+    if (context == null) return;
+
     TableLayout tableBtnTimeSigLayout = root.findViewById(R.id.tlpTimeSignatures);
     for (int i = 0; i < tableBtnTimeSigLayout.getChildCount(); i++)
     {
@@ -120,7 +141,7 @@ public class TimeSignatureDialog extends DialogFragment
       }
     }
 
-    m_doUpdateListener = 0;
+    m_ignoreListenerCallNb = 2;
 
     m_spinnerDivision = (Spinner)root.findViewById(R.id.numTimeDivisions);
     if (m_spinnerDivision != null)
@@ -131,7 +152,7 @@ public class TimeSignatureDialog extends DialogFragment
         arraySpinner[i] = "" + (i + 1);
       };
 
-      ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, arraySpinner);
+      ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, arraySpinner);
       m_spinnerDivision.setAdapter (adapter);
       int selected = adapter.getPosition("" + MetronomeCore.getInstance().getDivision());
       if (selected < 0) selected = 5;
@@ -151,7 +172,7 @@ public class TimeSignatureDialog extends DialogFragment
       {
         "1", "2", "4", "8", "16",
       };
-      ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, arraySpinner);
+      ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, arraySpinner);
       m_spinnerSubDivision.setAdapter (adapter);
       int selected = adapter.getPosition("" + MetronomeCore.getInstance().getSubDivision());
       if (selected < 0) selected = 2;
@@ -163,6 +184,22 @@ public class TimeSignatureDialog extends DialogFragment
       //m_spinnerSubDivision.setFocusable(true);
       //m_spinnerSubDivision.setFocusableInTouchMode(true);
     }
+
+    m_btnTimeConfiguration = (Button)root.findViewById(R.id.btnTimeConfigurations);
+    if (m_btnTimeConfiguration != null)
+    {
+      m_btnTimeConfiguration.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          // Rotate configuration by sending the same
+          updateTimeConfiguration(true);
+        }
+      });
+    }
+
+    updateTimeConfiguration(false);
   }
 
   private final View.OnClickListener btnClickListener = new View.OnClickListener()
@@ -175,22 +212,22 @@ public class TimeSignatureDialog extends DialogFragment
         String tag = (String)v.getTag();
         String[] split = tag.split(":");
 
-        m_doUpdateListener = 0;
+        m_ignoreListenerCallNb = 0;
+        // Disable listener to not call three time getTimeConfiguration().
+        // Loop event, so disabling member will not work because listener executed after
         if (m_spinnerDivision != null)
         {
+          m_ignoreListenerCallNb++;
           m_spinnerDivision.setSelection(searchItemInSpinner(m_spinnerDivision, split[0].trim()));
         }
 
         if (m_spinnerSubDivision != null)
         {
+          m_ignoreListenerCallNb++;
           m_spinnerSubDivision.setSelection(searchItemInSpinner(m_spinnerSubDivision, split[1].trim()));
         }
-        m_doUpdateListener = 2;
 
-        if (m_listener != null)
-        {
-          m_listener.onValidateTimeSig(getTimeConfiguration());
-        }
+        updateTimeConfiguration(true);
       }
       v.setSelected(true);
     }
@@ -233,32 +270,62 @@ public class TimeSignatureDialog extends DialogFragment
     }
   }
 
+  private int m_lastDivHash = 0;
+  private int m_lastDivCnt = 0;
+  private void updateTimeConfiguration(boolean cyclingIrregular)
+  {
+    // Cycling config if irregular
+    if (cyclingIrregular)
+    {
+      int hash = getDivision() * 128 + getSubDivision();
+      if (m_lastDivHash != hash)
+      {
+        m_lastDivCnt = 0;
+        m_lastDivHash = hash;
+      }
+      else
+      {
+        m_lastDivCnt++;
+      }
+    }
+
+    // Update Ui
+    if (m_listener != null)
+    {
+      int[] timeConfiguration = getTimeConfiguration();
+      m_listener.onValidateTimeSig(timeConfiguration);
+      m_btnTimeConfiguration.setText (timeConfigurationToString(timeConfiguration));
+    }
+  }
   public int[] getTimeConfiguration()
   {
     int div = getDivision();
     int subDiv = getSubDivision();
+    int cnt;
+    int i;
     boolean isHalfTime = false;
+    int[] ret = null;
 
     if (subDiv == 2 && div > 3) isHalfTime = true;
-
     // Irregular
     if (div == 5 && subDiv == 8) subDiv = 3;
     else if (div == 8 && subDiv == 1) subDiv = 3;
+    // Particular
+    else if (div == 1 && subDiv >= 4) subDiv = 2;
     // Normal
     else if (subDiv == 4 || subDiv == 1) subDiv = 1;
     else if (subDiv == 2) subDiv = 2;
-    // Tertiary
+    // Eight tertiary
     else if (subDiv == 8 && (div % 3 == 0)) subDiv = 3;
-    // Eight
+    // Eight binary
     else if (subDiv == 8) subDiv = 2;
+    // Sixteen
     else if (subDiv == 16) subDiv = 4;
     // Default
     else subDiv = 1;
 
-    int[] ret = new int[div];
-    if (subDiv <= 0) subDiv = 1;
-    ret[0] = MetronomeCore.BEATCONFIG_ACCENT;
-    for (int i = 1; i < ret.length; i++)
+    ret = new int[div];
+    for (i = 0; i < ret.length; i++)
     {
       if (i % subDiv == 0
         // Regroup the last isolated with its comrade
@@ -276,7 +343,106 @@ public class TimeSignatureDialog extends DialogFragment
         ret[i] = MetronomeCore.BEATCONFIG_SUBDIV;
       }
     }
+
+    // Cycle irregulars
+    cnt = 0;
+    for (i = 0; i < ret.length; i++)
+    {
+      if (ret[i] == MetronomeCore.BEATCONFIG_NORMAL) cnt++;
+    }
+    if (cnt > 0)
+    {
+      cnt = m_lastDivCnt % cnt;
+    }
+    for (i = 0; i < ret.length && cnt >= 0; i++)
+    {
+      if (ret[i] == MetronomeCore.BEATCONFIG_NORMAL)
+      {
+        cnt--;
+      }
+    }
+    if (cnt <= 0 && i < ret.length && i > 0)
+    {
+      i -= 1;
+      int[] temp = new int[ret.length];
+      System.arraycopy(ret, i, temp, 0, ret.length - i);
+      System.arraycopy(ret, 0, temp, ret.length - i, i);
+      ret = temp;
+    }
+
+    // Set the first beat as accent
+    ret[0] = MetronomeCore.BEATCONFIG_ACCENT;
+
     return ret;
   }
-}
 
+  private void timeConfigurationToStringAppend(StringBuilder builder, int cnt, int mult, boolean forceMultiplier)
+  {
+    if (mult > 4 || (forceMultiplier && mult > 1))
+    {
+      builder.append(cnt);
+      builder.append("×");
+      builder.append(mult);
+      builder.append("+");
+    }
+    else
+    {
+      while (mult > 0)
+      {
+        builder.append(cnt);
+        builder.append("+");
+        --mult;
+      }
+    }
+  }
+
+  private String timeConfigurationToString(int[] beatConfig)
+  {
+    String debug = "";
+    for (int i = 0; i < beatConfig.length; i++)
+    {
+      debug += beatConfig[i];
+    }
+    android.util.Log.d("$$$$$", debug);
+
+    int i = 0, j = 0;
+    int cnt = 0;
+    int multiplier = 1;
+    int last = -1;
+    boolean forceMultiplier = beatConfig.length > 16;
+    StringBuilder builder = new StringBuilder();
+    for (i = 0; i < beatConfig.length; i++)
+    {
+      for (j = i + 1; j < beatConfig.length; j++)
+      {
+        if (beatConfig[j] == MetronomeCore.BEATCONFIG_NORMAL ||
+            beatConfig[j] == MetronomeCore.BEATCONFIG_ACCENT)
+        {
+          break;
+        }
+      }
+      cnt = j - i;
+      i = j - 1;
+
+      if (cnt == last)
+      {
+        multiplier += 1;
+      }
+      else if (last > 0)
+      {
+        timeConfigurationToStringAppend(builder, last, multiplier, forceMultiplier);
+        multiplier = 1;
+      }
+      last = cnt;
+    }
+    timeConfigurationToStringAppend(builder, cnt, multiplier, forceMultiplier);
+    builder.deleteCharAt(builder.length() - 1);
+    if (builder.length() == 1)
+    {
+      builder.append ("+...+");
+      builder.append(builder.charAt(0));
+    }
+
+    return builder.toString();
+  }
+}

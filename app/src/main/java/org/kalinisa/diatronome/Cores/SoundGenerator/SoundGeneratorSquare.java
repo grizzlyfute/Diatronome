@@ -6,7 +6,7 @@ public class SoundGeneratorSquare extends ASoundGenerator
 {
   public SoundGeneratorSquare() { }
 
-  public boolean isContinous()
+  public boolean isContinuous()
   {
     return true;
   }

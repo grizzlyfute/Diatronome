@@ -1,7 +1,7 @@
 package org.kalinisa.diatronome.Fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
@@ -39,7 +38,8 @@ public class PlaynoteFragment extends Fragment
   private FragmentPlaynoteBinding m_binding;
   private int m_colorMiddle;
   private int[] m_octave;
-  final private int[] m_pianoId;
+  private final int[] m_pianoId;
+  private PlayNoteCore.IAudioAutoStopPlayingListener m_audioAutoStopPlayingListener = null;
 
   public PlaynoteFragment()
   {
@@ -47,14 +47,10 @@ public class PlaynoteFragment extends Fragment
     m_pianoId = new int[2];
     m_pianoId[0] = R.id.pianoA;
     m_pianoId[1] = R.id.pianoB;
-    m_octave = new int[m_pianoId.length];
-    for (int i = 0; i < m_octave.length; i++)
-    {
-      m_octave[i] = i + 3;
-    }
+    buildOctavesArray();
     m_colorMiddle = Color.GRAY;
 
-    PlayNoteCore.getInstance().setOnAudioStopListener(new PlayNoteCore.IAudioAutoStopPlayingListener()
+    m_audioAutoStopPlayingListener = new PlayNoteCore.IAudioAutoStopPlayingListener()
     {
       @Override
       public void onStopPlaying(PlayNoteWave.PlayNote note)
@@ -68,7 +64,8 @@ public class PlaynoteFragment extends Fragment
           }
         });
       }
-    });
+    };
+    PlayNoteCore.getInstance().addOnAudioStopListener(m_audioAutoStopPlayingListener);
   }
 
   @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -158,10 +155,14 @@ public class PlaynoteFragment extends Fragment
 
   private Collection<View> getPianoKeysByNote(PlayNoteWave.PlayNote playNote)
   {
-    View root = m_binding.getRoot();
+    List<View> result = new ArrayList<View>();
+    View root = null;;
     View pianoView = null;
     ViewGroup group = null;
-    List<View> result = new ArrayList<View>();
+    if (m_binding == null) return result;
+
+    root = m_binding.getRoot();
+
     for (int pianoInd = 0; pianoInd < m_pianoId.length; pianoInd++)
     {
       if (m_octave[pianoInd] == playNote.getOctave())
@@ -258,6 +259,35 @@ public class PlaynoteFragment extends Fragment
     }
   };
 
+  private void setOctave(int ind, int octave)
+  {
+    m_octave[ind] = octave;
+    int octavesInt = 0;
+    for (int i = m_octave.length - 1; i >= 0; --i)
+    {
+      octavesInt *= 10;
+      octavesInt += m_octave[i];
+    }
+
+    PlayNoteCore.getInstance().setPianoOctaves(octavesInt);
+    Context context = getContext();
+    if (context != null)
+    {
+      SettingsCore.updateSettingFromUi(context, SettingsCore.SETTING_PIANO_OCTAVES, octavesInt);
+    }
+  }
+
+  private void buildOctavesArray()
+  {
+    m_octave = new int[m_pianoId.length];
+    int octavesInt = PlayNoteCore.getInstance().getPianoOctaves();
+    for (int i = 0; i < m_octave.length; i++)
+    {
+      m_octave[i] = octavesInt % 10;
+      octavesInt /= 10;
+    }
+  }
+
   private final View.OnTouchListener m_onOctaveClick = new View.OnTouchListener()
   {
     @Override
@@ -277,7 +307,7 @@ public class PlaynoteFragment extends Fragment
           case MotionEvent.ACTION_DOWN:
             if (octave != m_octave[pianoInd])
             {
-              m_octave[pianoInd] = octave;
+              setOctave(pianoInd, octave);
               Collection<PlayNoteWave.PlayNote> currentNoteList = PlayNoteCore.getInstance().getPlayingNoteList();
               stopAllPlaying();
               for (PlayNoteWave.PlayNote playNote : currentNoteList)
@@ -394,7 +424,7 @@ public class PlaynoteFragment extends Fragment
 
   @Override
   public View onCreateView(
-    LayoutInflater inflater, ViewGroup container,
+    @NonNull LayoutInflater inflater, ViewGroup container,
     Bundle savedInstanceState
   )
   {
@@ -432,8 +462,6 @@ public class PlaynoteFragment extends Fragment
       octaveAddClick(pianoId, R.id.playBtnOctave7);
       octaveAddClick(pianoId, R.id.playBtnOctave8);
 
-      m_octave[index] = index + 3;
-
       pianoView = m_binding.getRoot().findViewById(pianoId);
       if (pianoView != null)
       {
@@ -465,6 +493,8 @@ public class PlaynoteFragment extends Fragment
   public void onDestroyView()
   {
     super.onDestroyView();
+    PlayNoteCore.getInstance().removeOnAudioStopListener(m_audioAutoStopPlayingListener);
+    m_audioAutoStopPlayingListener = null;
     m_binding = null;
   }
 

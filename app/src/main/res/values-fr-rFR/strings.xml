@@ -11,7 +11,7 @@
   <string name="common_no">Non</string>
   <string name="action_settings">Paramètres</string>
   <string name="action_tuner">Tuner</string>
-  <string name="action_play">Jouer</string>
+  <string name="action_playnote">Synthétiseur</string>
   <string name="action_metronome">Métronome</string>
   <string name="action_about">À propos</string>
   <string name="metronome_bpm">BPM</string>
@@ -21,28 +21,36 @@
   <string name="metronome_notificationtitle">Son du métronome</string>
 
   <!-- Preferences -->
-  <string name="preference_title_system">Système</string>
-  <string name="preference_theme">Thème</string>
-  <string name="preference_screen_on">Garder l\'écran allumé</string>
-  <string name="preference_color">Couleur de l\'application</string>
-  <string name="preference_homescreen">Écran d\'accueil</string>
-  <string name="preference_title_app">Préférences d\'application</string>
-  <string name="preference_pitch">Calibration pour le La4</string>
-  <string name="preference_note_name">Nom des notes</string>
-  <string name="preference_use_sharp_flat">♯ au lieu de ♭</string>
-  <string name="preference_transposition">Transposition</string>
-  <string name="preference_temperament">Tempérament</string>
-  <string name="preference_piano_waveform">Timbre du piano</string>
-  <string name="preference_pianotouch">Touches du piano</string>
-  <string name="preference_metronome_pitch_main">Tonalité principale du métronome</string>
-  <string name="preference_metronome_pitch_accent">Tonalité d\'accent du métronome</string>
-  <string name="preference_metronome_pitch_subdivision">Tonalité de sous-divisions du métronome</string>
-  <string name="preference_metronome_bidirectionalneedle">Aiguille bi-directionnelle</string>
-  <string name="preference_metronome_waveform">Timbre du métronome</string>
+  <string name="preference_system_title">Système</string>
+  <string name="preference_system_theme">Thème</string>
+  <string name="preference_system_screenon">Garder l\'écran allumé</string>
+  <string name="preference_system_color">Couleur de l\'application</string>
+  <string name="preference_system_homescreen">Écran d\'accueil</string>
 
-  <string name="preference_advanced">Avancé</string>
-  <string name="preference_sensitivity">Sensibilité du microphone</string>
-  <string name="preference_algorithm">Algorithme</string>
+  <string name="preference_tuner_title">Tuner</string>
+  <string name="preference_tuner_pitch">Calibration pour le La4</string>
+  <string name="preference_tuner_notename">Nom des notes</string>
+  <string name="preference_tuner_usesharpflat">♯ au lieu de ♭</string>
+  <string name="preference_tuner_transposition">Transposition</string>
+  <string name="preference_tuner_temperament">Tempérament</string>
+
+  <string name="preference_synthesizer_title">Synthétiseur</string>
+  <string name="preference_synthesizer_waveform">Timbre du piano</string>
+  <string name="preference_synthesizer_touchmode">Touches du piano</string>
+
+  <string name="preference_metronome_title">Métronome</string>
+  <string name="preference_metronome_waveformaccent">Timbre du métronome - accent</string>
+  <string name="preference_metronome_pitchaccent">Tonalité d\'accent du métronome</string>
+  <string name="preference_metronome_waveformmain">Timbre du métronome - principal</string>
+  <string name="preference_metronome_pitchmain">Tonalité principal du métronome</string>
+  <string name="preference_metronome_waveformsubdivision">Timbre du métronome - sous-divisions</string>
+  <string name="preference_metronome_pitchsubdivision">Tonalité de sous-divisions du métronome</string>
+  <string name="preference_metronome_bidirectionalneedle">Aiguille bi-directionnelle</string>
+
+  <string name="preference_advanced_title">Avancé</string>
+  <string name="preference_advanced_sensitivity">Sensibilité du microphone</string>
+  <string name="preference_advanced_algorithm">Algorithme</string>
+  <string name="preference_advanced_fps">Images par seconde</string>
 
   <string-array name="array_notes_name">
     <item>International (A B C)</item>
@@ -108,13 +116,25 @@
     <item>Tambour</item>
     <item>Tom</item>
     <item>Caisse claire</item>
+    <item>Cymbale</item>
     <item>Steeldrum</item>
     <item>Cloche</item>
+    <item>Guitare</item>
     <item>Laser</item>
   </string-array>
 
   <string-array name="array_pianotouch">
     <item>Persistantes</item>
-    <item>Non persistantes</item>
+    <item>Normales</item>
   </string-array>
+
+  <string-array name="array_fps">
+    <item>0 ips</item>
+    <item>15 ips</item>
+    <item>24 ips</item>
+    <item>30 ips</item>
+    <item>45 ips</item>
+    <item>60 ips</item>
+  </string-array>
+
 </resources>

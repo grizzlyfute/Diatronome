@@ -15,7 +15,10 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import org.kalinisa.diatronome.Cores.BasicAnimator;
+import org.kalinisa.diatronome.Cores.UiCore;
 import org.kalinisa.diatronome.Cores.Utils;
 import org.kalinisa.diatronome.R;
 
@@ -138,7 +141,7 @@ public class NeedleView extends View
     m_pathNeedle = new Path();
 
     // Animator
-    m_animator = new BasicAnimator();
+    m_animator = new BasicAnimator(UiCore.getInstance().getFps());
     m_animator.addUpdateListener(new BasicAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -181,10 +184,10 @@ public class NeedleView extends View
     // Must be this size
     if (heightMode == MeasureSpec.EXACTLY)
       height = heightSize;
-      // Can't be bigger than...
+    // Can't be bigger than...
     else if (heightMode == MeasureSpec.AT_MOST)
       height = Math.min(3 * widthSize / 2, heightSize);
-      //Be whatever you want
+    //Be whatever you want
     else // UNSPECIFIED
       height = desiredHeight;
 
@@ -200,15 +203,27 @@ public class NeedleView extends View
   {
     super.onSizeChanged(w, h, oldW, oldH);
 
+    final Resources r = getResources();
     int paddingLeft = getPaddingLeft();
     int paddingRight = getPaddingRight();
     int paddingTop = getPaddingTop();
     int paddingBottom = getPaddingBottom();
 
+    // Occurs on small screen when needle become horizontal because too big widget at bottom. Force vertical layout
+    if (w > h && (double)w/(double)h < 1.4 && w < Utils.dpToPixels(r, 400))
+    {
+      paddingLeft = (int)Utils.dpToPixels(r, 16);
+      paddingRight = paddingLeft;
+      paddingTop = (int)Utils.dpToPixels(r, 48);
+      paddingBottom = paddingTop;
+      w = w + h;
+      h = w - h;
+      w = w - h;
+    }
+
     float sizeW = w - paddingLeft - paddingRight;
     float sizeH = h - paddingTop - paddingBottom;
 
-    final Resources r = getResources();
     m_gradleHeight = Utils.dpToPixels(r, 16);
 
     Rect textBounds = new Rect();
@@ -282,7 +297,7 @@ public class NeedleView extends View
 
   // No allocation here
   @Override
-  protected void onDraw(Canvas canvas)
+  protected void onDraw(@NonNull Canvas canvas)
   {
     super.onDraw(canvas);
     final int ratioPercent = 15;
@@ -341,7 +356,9 @@ public class NeedleView extends View
 
     boolean isLargeScreen = (canvas.getWidth() >=
       // 10 labels of 3 characters in the circle
-      10 * (3 * m_paintLine1.getTextSize()) / (Math.toRadians(2 * m_needleMaxHalfAngleDeg)));
+      10 * (3 * m_paintLine1.getTextSize()) / (Math.toRadians(2 * m_needleMaxHalfAngleDeg)) &&
+      radius > Utils.dpToPixels(r, 100)
+      );
     final int stepMax = 10 * (isLargeScreen ? 4 : 2);
     for (int i = 0; i <= stepMax; i++)
     {
@@ -466,5 +483,13 @@ public class NeedleView extends View
 
     // One next event loop (do not do this.invalidate();)
     this.postInvalidate();
+  }
+
+  public void setFps(int fps)
+  {
+    if (m_animator != null)
+    {
+      m_animator.setFps (fps);
+    }
   }
 }

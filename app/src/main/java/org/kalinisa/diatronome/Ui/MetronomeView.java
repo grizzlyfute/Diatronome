@@ -16,8 +16,11 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import org.kalinisa.diatronome.Cores.BasicAnimator;
 import org.kalinisa.diatronome.Cores.MetronomeCore;
+import org.kalinisa.diatronome.Cores.UiCore;
 import org.kalinisa.diatronome.Cores.Utils;
 
 public class MetronomeView extends View
@@ -180,7 +183,7 @@ public class MetronomeView extends View
     m_paintText.setTextAlign(Paint.Align.CENTER);
 
     // Animator
-    m_animator = new BasicAnimator();
+    m_animator = new BasicAnimator(UiCore.getInstance().getFps());
     m_animator.addUpdateListener(new BasicAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -278,7 +281,7 @@ public class MetronomeView extends View
   }
 
   @Override
-  protected void onDraw(Canvas canvas)
+  protected void onDraw(@NonNull Canvas canvas)
   {
     super.onDraw(canvas);
     // Erase previous
@@ -556,5 +559,13 @@ public class MetronomeView extends View
       new int[] {m_colorMain, m_colorMain, colorDark, m_colorMain, m_colorMain},
       new float[] { 0f, 0.25f - 0.1f*m_posNeedle.width()/m_posNeedle.height(), 0.25f, 0.25f, 1.0f } );
     m_paintNeedle.setShader(shader);
+  }
+
+  public void setFps(int fps)
+  {
+    if (m_animator != null)
+    {
+      m_animator.setFps (fps);
+    }
   }
 }

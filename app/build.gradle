@@ -4,14 +4,13 @@ plugins {
 
 android {
     namespace 'org.kalinisa.diatronome'
-
-    compileSdkVersion 35
+    compileSdkVersion 36
     defaultConfig {
         applicationId "org.kalinisa.diatronome"
         minSdk 21
-        targetSdk 35
-        versionCode 11
-        versionName "1.0.11"
+        targetSdk 36
+        versionCode 12
+        versionName "1.0.12"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
@@ -19,7 +18,7 @@ android {
     }
 
     // Create a @string/versionName in generated
-    applicationVariants.all { variant ->
+    applicationVariants.configureEach { variant ->
         variant.resValue "string", "versionName", variant.versionName
     }
 
@@ -46,7 +45,7 @@ android {
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
-    buildToolsVersion '35.0.1'
+    buildToolsVersion '36.1.0'
 
     // Do not include any version control source (VCS) information, avoiding error
     // generate_error_reason: NO_SUPPORTED_VCS_FOUND on fdroid lint
@@ -70,7 +69,9 @@ dependencies {
 
 // @SuppressWarnings("deprecation")
 allprojects {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }

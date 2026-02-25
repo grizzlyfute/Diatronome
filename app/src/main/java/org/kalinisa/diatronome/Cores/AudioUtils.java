@@ -14,8 +14,8 @@ public class AudioUtils
 
   // final int AUDIO_SAMPLE_RATE_HZ = 44100,22050,16000,8000;
   public static final int AUDIO_SAMPLE_RATE_HZ = AudioTrack_getNativeOutputSampleRate(AudioManager.STREAM_MUSIC);
-  public static final int AUDIO_FORMAT = AudioFormat.CHANNEL_OUT_STEREO;
   public static final int AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
+  public static final int AUDIO_FORMAT = AudioTrack_getAudioFormat(AUDIO_SAMPLE_RATE_HZ, AUDIO_ENCODING);
 
   public static synchronized boolean IsAudioWorking()
   {
@@ -72,6 +72,19 @@ public class AudioUtils
     }
   }
 
+  private static int AudioTrack_getAudioFormat(int sampleRateInHz, int channelConfig)
+  {
+    if (AudioTrack.getMinBufferSize(sampleRateInHz, channelConfig, AudioFormat.CHANNEL_OUT_STEREO) > 0)
+    {
+      return AudioFormat.CHANNEL_OUT_STEREO;
+    }
+    else
+    {
+      // Old android device
+      return AudioFormat.CHANNEL_OUT_MONO;
+    }
+  }
+
   public static int AudioRecord_getMinBufferSize(int sampleRateInHz, int channelConfig, int audioFormat)
   {
     if (IsAudioWorking())
@@ -112,6 +125,12 @@ public class AudioUtils
   public static int getAudioByteLen (double durationMs)
   {
     return (int)((getAudioFrameSize() * AUDIO_SAMPLE_RATE_HZ * durationMs) / 1000);
+  }
+
+  // Duration of the audio buffer
+  public static int getDurationMs(int length)
+  {
+    return (1000 * length) / (AUDIO_SAMPLE_RATE_HZ * getAudioFrameSize());
   }
 
   // Size of the user buffer

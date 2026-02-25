@@ -11,7 +11,7 @@
   <string name="common_no">Nein</string>
   <string name="action_settings">Einstellungen</string>
   <string name="action_tuner">Stimmgerät</string>
-  <string name="action_play">Spielen</string>
+  <string name="action_playnote">Synthesizer</string>
   <string name="action_metronome">Metronom</string>
   <string name="action_about">Information</string>
   <string name="metronome_bpm">BPM</string>
@@ -21,28 +21,36 @@
   <string name="metronome_notificationtitle">Metronom-Wiedergabe</string>
 
   <!-- Preferences -->
-  <string name="preference_title_system">System</string>
-  <string name="preference_theme">Thema</string>
-  <string name="preference_screen_on">Bildschirm eingeschaltet lassen</string>
-  <string name="preference_color">Anwendungsfarbe</string>
-  <string name="preference_homescreen">Startbildschirm</string>
-  <string name="preference_title_app">Anwendungseinstellungen</string>
-  <string name="preference_pitch">Tonhöhenkalibrierung für A4</string>
-  <string name="preference_note_name">Notensystem</string>
-  <string name="preference_use_sharp_flat">♯ statt ♭</string>
-  <string name="preference_transposition">Umsetzung</string>
-  <string name="preference_temperament">Temperament</string>
-  <string name="preference_piano_waveform">Kalvierklang</string>
-  <string name="preference_pianotouch">Klavierberührung</string>
-  <string name="preference_metronome_pitch_main">Metronom Tonhöhe Haupt</string>
-  <string name="preference_metronome_pitch_accent">Metronom-Tonhöhenakzent</string>
-  <string name="preference_metronome_pitch_subdivision">Metronom-Tonhöhenunterteilung</string>
-  <string name="preference_metronome_bidirectionalneedle">Bidirektionale Nadel</string>
-  <string name="preference_metronome_waveform">Metronom Klang</string>
+  <string name="preference_system_title">System</string>
+  <string name="preference_system_theme">Thema</string>
+  <string name="preference_system_screenon">Bildschirm eingeschaltet lassen</string>
+  <string name="preference_system_color">Anwendungsfarbe</string>
+  <string name="preference_system_homescreen">Startbildschirm</string>
 
-  <string name="preference_advanced">Erweiterte Einstellungen</string>
-  <string name="preference_sensitivity">Mikrofon Empfindlichkeit</string>
-  <string name="preference_algorithm">Algorithmus</string>
+  <string name="preference_tuner_title">Stimmgerät</string>
+  <string name="preference_tuner_pitch">Tonhöhenkalibrierung für A4</string>
+  <string name="preference_tuner_notename">Notensystem</string>
+  <string name="preference_tuner_usesharpflat">♯ statt ♭</string>
+  <string name="preference_tuner_transposition">Umsetzung</string>
+  <string name="preference_tuner_temperament">Temperament</string>
+
+  <string name="preference_synthesizer_title">Synthesizer</string>
+  <string name="preference_synthesizer_waveform">Kalvierklang</string>
+  <string name="preference_synthesizer_touchmode">Klavierberührung</string>
+
+  <string name="preference_metronome_title">Metronom</string>
+  <string name="preference_metronome_waveformaccent">Metronom Klang - akzent</string>
+  <string name="preference_metronome_pitchaccent">Metronom-Tonhöhenakzent</string>
+  <string name="preference_metronome_waveformmain">Metronom Klang - Haupt</string>
+  <string name="preference_metronome_pitchmain">Metronom Tonhöhe Haupt</string>
+  <string name="preference_metronome_waveformsubdivision">Metronom Klang - unterteilung</string>
+  <string name="preference_metronome_pitchsubdivision">Metronom-Tonhöhenunterteilung</string>
+  <string name="preference_metronome_bidirectionalneedle">Bidirektionale Nadel</string>
+
+  <string name="preference_advanced_title">Erweiterte Einstellungen</string>
+  <string name="preference_advanced_sensitivity">Mikrofon Empfindlichkeit</string>
+  <string name="preference_advanced_algorithm">Algorithmus</string>
+  <string name="preference_advanced_fps">Bilder pro Sekunde</string>
 
   <string-array name="array_notes_name">
     <item>International (A B C)</item>
@@ -118,14 +126,25 @@
     <item>Trommel</item>
     <item>Tom</item>
     <item>Blechtrommel</item>
+    <item>Cymbable</item>
     <item>Steeldrum</item>
     <item>Glocke</item>
+    <item>Gitarre</item>
     <item>Laser</item>
   </string-array>
 
   <string-array name="array_pianotouch">
     <item>Persistente</item>
-    <item>Nicht-persistente</item>
+    <item>Normal</item>
+  </string-array>
+
+  <string-array name="array_fps">
+    <item>0 BpS</item>
+    <item>15 BpS</item>
+    <item>24 BpS</item>
+    <item>30 BpS</item>
+    <item>45 BpS</item>
+    <item>60 BpS</item>
   </string-array>
 
 </resources>

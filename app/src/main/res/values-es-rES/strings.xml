@@ -11,7 +11,7 @@
   <string name="common_no">No</string>
   <string name="action_settings">Ajustes</string>
   <string name="action_tuner">Afinador</string>
-  <string name="action_play">Sintetizador</string>
+  <string name="action_playnote">Sintetizador</string>
   <string name="action_metronome">Metrónomo</string>
   <string name="action_about">Acerca de</string>
   <string name="metronome_bpm">BPM</string>
@@ -21,28 +21,36 @@
   <string name="metronome_notificationtitle">Sonido del metrónomo</string>
 
   <!-- Preferences -->
-  <string name="preference_title_system">Sistema</string>
-  <string name="preference_theme">Tema</string>
-  <string name="preference_screen_on">Mantener la pantalla encendida</string>
-  <string name="preference_color">Color de la aplicación</string>
-  <string name="preference_homescreen">Pantalla de inicio</string>
-  <string name="preference_title_app">Configuración de la aplicación</string>
-  <string name="preference_pitch">Calibración para A4</string>
-  <string name="preference_note_name">Nombre de las notas</string>
-  <string name="preference_use_sharp_flat">♯ en lugar de ♭</string>
-  <string name="preference_transposition">Transposición</string>
-  <string name="preference_temperament">Temperamento</string>
-  <string name="preference_piano_waveform">Sonido de piano</string>
-  <string name="preference_pianotouch">Toque de piano</string>
-  <string name="preference_metronome_pitch_main">Tono principal del metrónomo</string>
-  <string name="preference_metronome_pitch_accent">Acento del tono del metrónomo</string>
-  <string name="preference_metronome_pitch_subdivision">Subdivisión del tono del metrónomo</string>
-  <string name="preference_metronome_bidirectionalneedle">Aguja bidireccional</string>
-  <string name="preference_metronome_waveform">Sonido del metrónomo</string>
+  <string name="preference_system_title">Sistema</string>
+  <string name="preference_system_theme">Tema</string>
+  <string name="preference_system_screenon">Mantener la pantalla encendida</string>
+  <string name="preference_system_color">Color de la aplicación</string>
+  <string name="preference_system_homescreen">Pantalla de inicio</string>
 
-  <string name="preference_advanced">Avanzado</string>
-  <string name="preference_sensitivity">Sensibilidad del micrófono</string>
-  <string name="preference_algorithm">Algoritmo</string>
+  <string name="preference_tuner_title">Afinador</string>
+  <string name="preference_tuner_pitch">Calibración para A4</string>
+  <string name="preference_tuner_notename">Nombre de las notas</string>
+  <string name="preference_tuner_usesharpflat">♯ en lugar de ♭</string>
+  <string name="preference_tuner_transposition">Transposición</string>
+  <string name="preference_tuner_temperament">Temperamento</string>
+
+  <string name="preference_synthesizer_title">Sintetizador</string>
+  <string name="preference_synthesizer_waveform">Sonido de piano</string>
+  <string name="preference_synthesizer_touchmode">Toque de piano</string>
+
+  <string name="preference_metronome_title">Metrónomo</string>
+  <string name="preference_metronome_waveformaccent">Sonido del metrónomo - acento</string>
+  <string name="preference_metronome_pitchaccent">Acento del tono del metrónomo</string>
+  <string name="preference_metronome_waveformmain">Sonido del metrónomo - principal</string>
+  <string name="preference_metronome_pitchmain">Tono principal del metrónomo</string>
+  <string name="preference_metronome_waveformsubdivision">Sonido del metrónomo - subdivisión</string>
+  <string name="preference_metronome_pitchsubdivision">Subdivisión del tono del metrónomo</string>
+  <string name="preference_metronome_bidirectionalneedle">Aguja bidireccional</string>
+
+  <string name="preference_advanced_title">Avanzado</string>
+  <string name="preference_advanced_sensitivity">Sensibilidad del micrófono</string>
+  <string name="preference_advanced_algorithm">Algoritmo</string>
+  <string name="preference_advanced_fps">Fotogramas por segundo</string>
 
   <string-array name="array_notes_name">
     <item>Internacional (A B C)</item>
@@ -117,15 +125,26 @@
     <item>Órgano</item>
     <item>Tambor</item>
     <item>Tom</item>
-    <item>Caja</item>
+    <item>Caja clara</item> <!-- Redoblante ? -->
+    <item>Platillos</item>
     <item>Steeldrum</item>
     <item>Campagna</item>
+    <item>Guitarra</item>
     <item>Laser</item>
   </string-array>
 
   <string-array name="array_pianotouch">
     <item>Persistentes</item>
-    <item>No-persistentes</item>
+    <item>Normal</item>
+  </string-array>
+
+  <string-array name="array_fps">
+    <item>0 fps</item>
+    <item>15 fps</item>
+    <item>24 fps</item>
+    <item>30 fps</item>
+    <item>45 fps</item>
+    <item>60 fps</item>
   </string-array>
 
 </resources>
