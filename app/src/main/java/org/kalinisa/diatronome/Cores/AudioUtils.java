@@ -124,13 +124,17 @@ public class AudioUtils
   // Size of the audio buffer
   public static int getAudioByteLen (double durationMs)
   {
-    return (int)((getAudioFrameSize() * AUDIO_SAMPLE_RATE_HZ * durationMs) / 1000);
+    final int frameSize = getAudioFrameSize();
+    int length = (int)((frameSize * AUDIO_SAMPLE_RATE_HZ * durationMs) / 1000);
+    // Ensure what the audio buffer is multiple of frame size
+    length = ((length + frameSize - 1) / frameSize) * frameSize;
+    return length;
   }
 
   // Duration of the audio buffer
-  public static int getDurationMs(int length)
+  public static double getDurationMs(int length)
   {
-    return (1000 * length) / (AUDIO_SAMPLE_RATE_HZ * getAudioFrameSize());
+    return (1000.0 * length) / (AUDIO_SAMPLE_RATE_HZ * getAudioFrameSize());
   }
 
   // Size of the user buffer

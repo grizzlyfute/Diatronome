@@ -72,7 +72,7 @@
     style="?android:attr/borderlessButtonStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingEnd="8dp"
+    android:paddingEnd="16dp"
     android:gravity="end|top"
     android:minWidth="135dp"
     android:maxWidth="220dp"

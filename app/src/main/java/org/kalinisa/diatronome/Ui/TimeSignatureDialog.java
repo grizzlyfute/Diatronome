@@ -398,13 +398,6 @@ public class TimeSignatureDialog extends DialogFragment
 
   private String timeConfigurationToString(int[] beatConfig)
   {
-    String debug = "";
-    for (int i = 0; i < beatConfig.length; i++)
-    {
-      debug += beatConfig[i];
-    }
-    android.util.Log.d("$$$$$", debug);
-
     int i = 0, j = 0;
     int cnt = 0;
     int multiplier = 1;

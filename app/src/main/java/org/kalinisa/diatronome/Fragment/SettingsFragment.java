@@ -309,7 +309,7 @@ public class SettingsFragment
     if (context == null) return;
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
     alertDialogBuilder.setCancelable(true);
-    alertDialogBuilder.setIcon(R.drawable.app_icon);
+    alertDialogBuilder.setIcon(R.drawable.ic_launcher);
     alertDialogBuilder.setTitle(getResources().getString(R.string.app_name) + " " + version);
     String msg = getString(R.string.about_content, getString(R.string.about_license), getString(R.string.about_source), getString(R.string.about_support));
     alertDialogBuilder.setMessage(HtmlCompat.fromHtml(msg , HtmlCompat.FROM_HTML_MODE_LEGACY));

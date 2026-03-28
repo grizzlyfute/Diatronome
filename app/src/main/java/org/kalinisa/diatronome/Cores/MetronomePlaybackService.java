@@ -73,7 +73,7 @@ public class MetronomePlaybackService extends Service
 
       notification = new NotificationCompat.Builder(this, this.getChannelId())
         .setOngoing(true)
-        .setSmallIcon(R.drawable.app_icon)
+        .setSmallIcon(R.drawable.ic_launcher)
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setCategory(Notification.CATEGORY_SERVICE)
         .setContentTitle(getString(R.string.metronome_notificationtitle))

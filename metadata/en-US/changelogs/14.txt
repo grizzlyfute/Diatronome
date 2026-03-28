@@ -1,0 +1,5 @@
+New features:
+- Add monochrome icon and update adaptive icon
+
+Bug fixes:
+- Fix glitch on metronome if using sinus with non 440 Hz ref
