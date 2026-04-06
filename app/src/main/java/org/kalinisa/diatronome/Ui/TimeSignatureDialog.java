@@ -34,10 +34,13 @@ public class TimeSignatureDialog extends DialogFragment
     @Override
     public void setSelection(int position, boolean animate) {
       boolean sameSelected = position == getSelectedItemPosition();
+      if (position < 0 || position >= getCount()) return;
       super.setSelection(position, animate);
-      if (sameSelected) {
+      OnItemSelectedListener onItemSelectedListener = getOnItemSelectedListener();
+      if (sameSelected && onItemSelectedListener != null)
+      {
         // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
-        Objects.requireNonNull(getOnItemSelectedListener()).onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+        onItemSelectedListener.onItemSelected(this, getSelectedView(), position, getSelectedItemId());
       }
     }
 

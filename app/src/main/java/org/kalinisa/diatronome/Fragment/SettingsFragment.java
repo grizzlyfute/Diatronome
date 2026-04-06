@@ -55,14 +55,20 @@ public class SettingsFragment
   {
     super.onResume();
     // Several Listener may be assigned (and should unassigned on pause)
-    Objects.requireNonNull(getPreferenceManager().getSharedPreferences()).registerOnSharedPreferenceChangeListener(this);
+    if (getPreferenceManager() != null && getPreferenceManager().getSharedPreferences() != null)
+    {
+      getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
   }
 
   @Override
   public void onPause()
   {
-    Objects.requireNonNull(getPreferenceManager().getSharedPreferences()).unregisterOnSharedPreferenceChangeListener(this);
     super.onPause();
+    if (getPreferenceManager() != null && getPreferenceManager().getSharedPreferences() != null)
+    {
+      getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+    }
   }
 
   @Override

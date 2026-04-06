@@ -13,8 +13,8 @@
     android:label="@string/app_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
-    android:versionName="1.0.14"
-    android:versionCode="14"
+    android:versionName="1.0.15"
+    android:versionCode="15"
     tools:targetApi="36">
 
     <activity
