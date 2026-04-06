@@ -1,0 +1,1 @@
+Fixing crash when using 1:1 as time signature (#22)
